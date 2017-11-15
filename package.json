@@ -1,15 +1,17 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
+  "name": "infoMapp",
+  "version": "1.0.0",
+  "description": "trends and info  app for locations",
   "author": "",
   "license": "",
+  "main": "app.js",
   "engines": {
     "node": ">=6.4.0"
   },
-  "scripts": {
-  },
+  "scripts": {},
   "dependencies": {
+    "express": "^4.16.2",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",

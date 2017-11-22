@@ -60,7 +60,7 @@ class App extends React.Component {
                 <MappComponent />
               </div>
               <div id="twittertrends">
-                <TwitterTrends />
+                <TwitterTrends/>
               </div>
             </div>
             <div className="col-sm-6">
@@ -71,27 +71,20 @@ class App extends React.Component {
                       <WalkabilityInfo walkscore = {this.state.walkscore}/>
                     </div>
                   </div>
-
                   <div className="col-sm-6">
                     <div id ="tipsblock">
-                      <TipsBlock />
+                      <TipsBlock/>
                     </div>
                   </div>
-
-
-
-
-
                 </div>
                 <div id="toptweetsblock">
-                  <TopTweetsInfo />
+                  <TopTweetsInfo/>
                 </div>
                 <div id="photoblock">
                   <PhotoInfo photoUrl = {this.state.photoUrl}/>
                 </div>
               </div>
             </div>
-            
           </div>
         </div>
     );

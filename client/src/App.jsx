@@ -31,10 +31,25 @@ class App extends React.Component {
                 <TwitterTrends />
               </div>
             </div>
-            <div className="col-sm-3">
+            <div className="col-sm-6">
               <div id="infoblock">
-                <div id="walkabilityblock">
-                  <WalkabilityInfo />
+                <div className="row">
+                  <div className="col-sm-6">
+                    <div id="walkabilityblock">
+                      <WalkabilityInfo />
+                    </div>
+                  </div>
+
+                  <div className="col-sm-6">
+                    <div id ="tipsblock">
+                      <TipsBlock />
+                    </div>
+                  </div>
+
+
+
+
+
                 </div>
                 <div id="toptweetsblock">
                   <TopTweetsInfo />
@@ -44,11 +59,7 @@ class App extends React.Component {
                 </div>
               </div>
             </div>
-            <div className="col-sm-3">
-              <div id ="tipsblock">
-                <TipsBlock />
-              </div>
-            </div>
+            
           </div>
         </div>
     );
@@ -56,5 +67,8 @@ class App extends React.Component {
 }
 
 export default App;
+
+
+
 
 

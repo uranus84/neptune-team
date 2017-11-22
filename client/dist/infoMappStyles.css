@@ -51,7 +51,7 @@
 
 #twittertrends {
   border: 1px solid black;
-  height: 350px;  
+  height: 300px;  
   text-align: center;
 }
 
@@ -62,12 +62,12 @@
 #infoblock {
   border: 1px solid black;
   text-align: center;
-  height: 800px;
+  height: 750px;
 }
 
 #walkabilityblock {
   border: 1px solid black;
-  height: 100px;
+  height: 200px;
 }
 
 .walkabilityblock_content {
@@ -76,7 +76,7 @@
 
 #toptweetsblock {
   border: 1px solid black;
-  height: 350px;
+  height: 250px;
 }
 
 .toptweetsblock_content {
@@ -85,7 +85,7 @@
 
 #photoblock {
   border: 1px solid black;
-  height: 350px;
+  height: 300px;
 }
 
 .photoblock_content {
@@ -96,7 +96,7 @@
   border: 1px solid black;
   text-align: left;
   padding: 5px;
-  height: 800px;
+  height: 200px;
   overflow-y: auto;
 }
 

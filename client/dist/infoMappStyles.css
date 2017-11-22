@@ -1,0 +1,107 @@
+.row {
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#application {
+  
+}
+
+[class^="col-"] {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+#titlebar {
+  background-color: lightgrey;
+  height: 100px;
+  margin: 0px;
+  padding: 5px;
+  padding-left: 20px;
+}
+
+#titlefont {
+  font-family: 'Bungee Shade', cursive;
+  font-size: 50px;
+  color: black;
+  margin: 0px;
+}
+
+#subtitlefont {
+  font-family: 'Tangerine', serif;
+  font-size: 25px;
+  margin: 0px;
+}
+
+#mapblock {
+  border: 1px solid black;
+  text-align: center;
+  height: 450px;
+}
+
+#maxtextsearch {
+  min-width: 100%;
+  max-width: 100%;
+}
+
+.mapblock_content {
+  font-weight: bold;
+}
+
+#twittertrends {
+  border: 1px solid black;
+  height: 300px;  
+  text-align: center;
+}
+
+.twittertrends_content {
+  font-weight: bold;
+}
+
+#infoblock {
+  border: 1px solid black;
+  text-align: center;
+  height: 750px;
+}
+
+#walkabilityblock {
+  border: 1px solid black;
+  height: 200px;
+}
+
+.walkabilityblock_content {
+  font-weight: bold;
+}
+
+#toptweetsblock {
+  border: 1px solid black;
+  height: 250px;
+}
+
+.toptweetsblock_content {
+  font-weight: bold;
+}
+
+#photoblock {
+  border: 1px solid black;
+  height: 300px;
+}
+
+.photoblock_content {
+  font-weight: bold;
+}
+
+#tipsblock {
+  border: 1px solid black;
+  text-align: left;
+  padding: 5px;
+  height: 200px;
+  overflow-y: auto;
+}
+
+.tipsblock_content {
+  font-weight: bold;
+}
+
+

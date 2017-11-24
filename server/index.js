@@ -1,6 +1,6 @@
 var express = require('express');
 var axios = require('axios');
-var key = require('./API.js')
+var key = require('./API.js');
 
 var app = express();
 app.use(express.static(__dirname + '/../client/dist'));

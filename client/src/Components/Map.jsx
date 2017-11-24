@@ -6,10 +6,13 @@ class Map extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      //array required for marker clustering
       markers: []
     }
     this.map;
     this.geocoder = new google.maps.Geocoder();
+    //searchedCitites format: {citystate: [position, state]}
+    //key is citystate because there can be multiple cities with same names in diff. states
     this.searchedCities = {};
   }
 
@@ -17,6 +20,7 @@ class Map extends React.Component {
     this.initializeMap();
   }
 
+  //Setting a marker on the map, and adding Listeners to it.
   setMarker(lat, lng, city, state) {
     var marker = new google.maps.Marker({
       map: this.map,
@@ -30,28 +34,24 @@ class Map extends React.Component {
     });
 
     marker.setValues({city: city, state: state});
-    // console.log('getting tag: ', marker.get('city'));
-
     this.state.markers.push(marker);
-    var infowindow3 = new google.maps.InfoWindow();
-    infowindow3.setContent('<div>'+ city +'</div>');
-    infowindow3.open(this.map, marker);
+
+    var infoWindow = new google.maps.InfoWindow();
+    infoWindow.setContent('<div>'+ city +'</div>');
+    infoWindow.open(this.map, marker);
 
     marker.addListener('click', function(e) {
       console.log('marker was clicked!', e.latLng.lat(), e.latLng.lng());
       this.props.callback(e.latLng.lat(), e.latLng.lng(), marker.get('city'), marker.get('state'));
-      infowindow3.open(this.map, marker);
+      infoWindow.open(this.map, marker);
     }.bind(this));
   }
 
   /* MAP INITIALIZATION*/
   initializeMap() {
-    console.log('init map here ', this.props.lat);
     var myLatlng = {lat: ()=>this.props.lat, lng: ()=>this.props.lng};
-
     this.searchedCities[this.props.city.toLowerCase()+this.props.state.toLowerCase()] = [myLatlng, this.props.state];
 
-    console.log('serached citites: ', this.searchedCities);
     //creating an instance of map
     this.map = new google.maps.Map(this.refs.map, {
       zoom: 6,
@@ -79,13 +79,14 @@ class Map extends React.Component {
     //when a user clicks on the map layer, only have access to the long/lat
     google.maps.event.addListener(layer, 'click', function(event) {
       console.log('here, searched cities: ',this.searchedCities);
+      
       //get the city and state associated with the lat/lon
       this.geocoder.geocode({'location': event.latLng}, function(results, status) {
-        // console.log('click results: ', results);
         var citystate = this.props.getCityState(results);
         //[city, state]
         if (!citystate[0]) {
           //not a valid city? 
+          //sometimes some places when clicked, didn't have a city
           alert('please enter a valid city')
         }
         var city = citystate[0].toLowerCase();
@@ -96,9 +97,6 @@ class Map extends React.Component {
           console.log('city was already clicked and searched');
           this.searched(city, city+state);
         } else {
-          console.log('US layer is getting clicked!', event);
-          console.log(event.latLng.lat(), event.latLng.lng());
-
           //save to searchedCities
           this.searchedCities[city+state] = [event.latLng, state];
           this.map.setCenter(event.latLng);
@@ -110,7 +108,7 @@ class Map extends React.Component {
       );  
     }.bind(this));
 
-    //when the zoom is small, 
+    //when the zoom is changed, cluster the markers 
      google.maps.event.addListener(this.map, 'zoom_changed', function(event){
       var markerCluster = new MarkerClusterer(this.map, this.state.markers,
       {imagePath: './markers/markers'});
@@ -129,9 +127,8 @@ class Map extends React.Component {
   geocodeAddress(resultsMap, address) {
     this.geocoder.geocode({'address': address, componentRestrictions: {country: 'US'}}, function(results, status) {
       if (status === 'OK') {
-        console.log('RESULTS : ', results[0]['address_components']);
-        //only when we know the input is a city, we add to the 
-        //searchedCities list
+        // console.log('RESULTS : ', results[0]['address_components']);
+        //only when we know the input is a city, we add to the searchedCities list
         var r = this.props.getCityState(results);
         if (!r[0]) {
           //not a valid city? 
@@ -149,18 +146,12 @@ class Map extends React.Component {
             console.log(city);
             this.searchedCities[city+state] = [results[0].geometry.location, state];
 
-            // console.log('whyy', this.searchedCities);
-            // console.log(this.searchedCities[city]);
-
             resultsMap.setCenter(results[0].geometry.location);
             resultsMap.setZoom(6);
             this.setMarker(results[0].geometry.location.lat(), results[0].geometry.location.lng(), city, state);
             this.props.callback(results[0].geometry.location.lat(), results[0].geometry.location.lng(), city, state);
-          }
-          
+          } 
         }
-
-
       } else {
         alert('There is no such city in the US, please enter a valid city');
       }
@@ -169,15 +160,12 @@ class Map extends React.Component {
   }
 
   searchClicked(address) {
-    console.log(address);
     var address = address.toLowerCase();
     this.geocodeAddress(this.map, address);
-    
   }
 
   //what to do if a city was already searched/clicked on
   searched(city, key) {
-    console.log(city);
     var position = this.searchedCities[key];
     console.log('searched this city already');
     this.map.setCenter({lat: position[0].lat(), lng:position[0].lng()});
@@ -185,24 +173,13 @@ class Map extends React.Component {
     this.props.callback(position[0].lat(), position[0].lng(), city, position[1]);
   }
 
-  getState(geoCodeRes) {
-    var state ='';
-    geoCodeRes[0]['address_components'].forEach(function(addComp) {
-//       long_name:"Pennsylvania"
-    //   short_name:"PA"
-//       types: ["administrative_area_level_1", "political"]
-      if (addComp.types.includes("administrative_area_level_1")) {
-        state = addComp['long_name'];
-      }
-    });
-    return state; 
-  }
-
   render() {
     return (
-    <div>
-      <div ref="map" style={{backgroundColor: 'blue', width: '80%', height: '400px', borderRadius: '5px'}}></div>
-      <Search search={this.searchClicked.bind(this)}/>
+    <div className="row">
+      <div id="mapblock_content"> 
+        <div ref="map" style={{width: '100%', height: '400px', borderRadius: '5px'}}></div>
+        <Search search={this.searchClicked.bind(this)}/>
+      </div>
     </div>
     )
   }

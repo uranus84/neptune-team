@@ -8,4 +8,4 @@ node_modules/
 compiled/
 
 ## API keys ##
-./server/API.js
+server/API.js

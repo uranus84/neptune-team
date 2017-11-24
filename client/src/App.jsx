@@ -10,7 +10,11 @@ import TwitterTrends from './TwitterTrends.jsx';
 class App extends React.Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      tipsTestCity: 'san francisco',
+      tipsTestState: 'California'
+
+    };
   }
 
   render() {
@@ -28,7 +32,7 @@ class App extends React.Component {
                 <MappComponent />
               </div>
               <div id="twittertrends">
-                <TwitterTrends/>
+                <TwitterTrends />
               </div>
             </div>
             <div className="col-sm-6">
@@ -36,20 +40,20 @@ class App extends React.Component {
                 <div className="row">
                   <div className="col-sm-6">
                     <div id="walkabilityblock">
-                      <WalkabilityInfo/>
+                      <WalkabilityInfo />
                     </div>
                   </div>
                   <div className="col-sm-6">
                     <div id ="tipsblock">
-                      <TipsBlock/>
+                      <TipsBlock info={this.state}/>
                     </div>
                   </div>
                 </div>
                 <div id="toptweetsblock">
-                  <TopTweetsInfo/>
+                  <TopTweetsInfo />
                 </div>
                 <div id="photoblock">
-                  <PhotoInfo/>
+                  <PhotoInfo />
                 </div>
               </div>
             </div>

@@ -1,12 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 import TipsList from './TipsList.jsx';
+import TipsPopUp from './TipsPopUp.jsx';
 
 class TipsBlock extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       userIntentCurrent: 'readTips',
+      areTipsExpanded: false,
       tipsCity: '',
       tipsState: '',
       tipsName: '',
@@ -28,92 +30,92 @@ class TipsBlock extends React.Component {
   
 
   submitTips () {
-    // var contexthere = this;
-    // var stateList =  {     
-    //   arizona: 'az',
-    //   alabama: 'al',
-    //   alaska: 'ak',
-    //   arkansas: 'ar',
-    //   california: 'ca',
-    //   colorado: 'co',
-    //   connecticut: 'ct',
-    //   delaware: 'de',
-    //   florida: 'fl',
-    //   georgia: 'ga',
-    //   hawaii: 'hi',
-    //   idaho: 'id',
-    //   illinois: 'il',
-    //   indiana: 'in',
-    //   iowa: 'ia',
-    //   kansas: 'ks',
-    //   kentucky: 'ky',
-    //   louisiana: 'la',
-    //   maine: 'me',
-    //   maryland: 'md',
-    //   massachusetts: 'ma',
-    //   michigan: 'mi',
-    //   minnesota: 'mn',
-    //   mississippi: 'ms',
-    //   missouri: 'mo',
-    //   montana: 'mt',
-    //   nebraska: 'ne',
-    //   nevada: 'nv',
-    //   'new hampshire': 'nh',
-    //   'new jersey': 'nj',
-    //   'new mexico': 'nm',
-    //   'new york': 'ny',
-    //   'north carolina': 'nc',
-    //   'north dakota': 'nd',
-    //   ohio: 'oh',
-    //   oklahoma: 'ok',
-    //   oregon: 'or',
-    //   pennsylvania: 'pa',
-    //   'rhode island': 'ri',
-    //   'south carolina': 'sc',
-    //   'south dakota': 'sd',
-    //   tennessee: 'tn',
-    //   texas: 'tx',
-    //   utah: 'ut',
-    //   vermont: 'vt',
-    //   virginia: 'va',
-    //   washington: 'wa',
-    //   'west virginia': 'wv',
-    //   wisconsin: 'wi',
-    //   wyoming: 'wy',
-    // };
+    var contexthere = this;
+    var stateList =  {     
+      arizona: 'az',
+      alabama: 'al',
+      alaska: 'ak',
+      arkansas: 'ar',
+      california: 'ca',
+      colorado: 'co',
+      connecticut: 'ct',
+      delaware: 'de',
+      florida: 'fl',
+      georgia: 'ga',
+      hawaii: 'hi',
+      idaho: 'id',
+      illinois: 'il',
+      indiana: 'in',
+      iowa: 'ia',
+      kansas: 'ks',
+      kentucky: 'ky',
+      louisiana: 'la',
+      maine: 'me',
+      maryland: 'md',
+      massachusetts: 'ma',
+      michigan: 'mi',
+      minnesota: 'mn',
+      mississippi: 'ms',
+      missouri: 'mo',
+      montana: 'mt',
+      nebraska: 'ne',
+      nevada: 'nv',
+      'new hampshire': 'nh',
+      'new jersey': 'nj',
+      'new mexico': 'nm',
+      'new york': 'ny',
+      'north carolina': 'nc',
+      'north dakota': 'nd',
+      ohio: 'oh',
+      oklahoma: 'ok',
+      oregon: 'or',
+      pennsylvania: 'pa',
+      'rhode island': 'ri',
+      'south carolina': 'sc',
+      'south dakota': 'sd',
+      tennessee: 'tn',
+      texas: 'tx',
+      utah: 'ut',
+      vermont: 'vt',
+      virginia: 'va',
+      washington: 'wa',
+      'west virginia': 'wv',
+      wisconsin: 'wi',
+      wyoming: 'wy',
+    };
     
-    // var stateValidatorAndFormatter = function (string) {
-    //   var stringLowerCase = string.toLowerCase();
-    //   var isState = false;
-    //   if (stateList.hasOwnProperty(stringLowerCase)) {isState = true}
-    //   if (isState === false) {
-    //     for (var k in stateList) {
-    //       if (stateList[k] === stringLowerCase) {
-    //         isState = true;
-    //         stringLowerCase = k;
-    //       }
-    //     }  
-    //   }
-    //   if (isState === false) { return false; }
-    //   if (isState === true) {this.setState({tipsState: stringLowerCase})}
-    //   return stringLowerCase;   
-    // };
+    var stateValidatorAndFormatter = function (string) {
+      var stringLowerCase = string.toLowerCase();
+      var isState = false;
+      if (stateList.hasOwnProperty(stringLowerCase)) {isState = true}
+      if (isState === false) {
+        for (var k in stateList) {
+          if (stateList[k] === stringLowerCase) {
+            isState = true;
+            stringLowerCase = k;
+          }
+        }  
+      }
+      if (isState === false) { return false; }
+      if (isState === true) {contexthere.setState({tipsState: stringLowerCase})}
+      return stringLowerCase;   
+    };
     
-    // if(!stateValidatorAndFormatter(this.state.tipsState)) {
-    //   alert(this.state.tipsState + ' Is Not A State, Please Try Again');
-    //   // stateStyleColor = {color: 'red', fontWeight: 'bold'};
-    // } else {
+    if(!stateValidatorAndFormatter(this.state.tipsState)) {
+      alert(this.state.tipsState + ' Is Not A State, Please Try Again');
+      // stateStyleColor = {color: 'red', fontWeight: 'bold'};
+    } else {
       // stateStyleColor = {color: 'black', fontWeight: 'normal'};
-      axios.post('/tips', {cityData: this.state.tipsCity, stateData: this.state.tipsState, nameData: this.state.tipsName, tipData: this.state.tipsContent })
+      axios.post('/tips', {cityData: this.state.tipsCity, stateData: stateValidatorAndFormatter(this.state.tipsState), nameData: this.state.tipsName, tipData: this.state.tipsContent })
         .then(function (response) {
           console.log('/tips POST WORKED RESPONSE = ', response);
         })
         .catch(function (error) {
           console.log('/tips POST ERROR',error);
         });
-      this.setState({tipsCity: '', tipsState: '', tipsName: '', tipsContent: ''});
-      this.getTips();
-    // }
+      contexthere.setState({tipsCity: '', tipsState: '', tipsName: '', tipsContent: ''});
+      contexthere.getTips();
+    }
   }
 
   getTips () {
@@ -141,31 +143,53 @@ class TipsBlock extends React.Component {
     return strArray;
   };
 
+  expandTipsDisplayFn () {
+    this.setState({areTipsExpanded: !this.state.areTipsExpanded});
+  }
+
   render () {
     // var stateStyleColor = {color: 'black', fontWeight: 'normal'};
     if(this.state.userIntentCurrent === 'readTips') {
       return (
         <div>
-          {/*<button onClick={this.getTips.bind(this)}>GET DATA TEST BUTTON</button>*/}
-          <button id="addTips" onClick={this.changeIntentFn.bind(this)}>I Want To ADD A Tip</button>
-          <TipsList info={this.state.currentlyDisplayedTips}/>
+          <div>
+            {/*<button onClick={this.getTips.bind(this)}>GET DATA TEST BUTTON</button>*/}
+            <button id="areTipsExpanded" className="btn btn-primary"  style={{"margin-bottom": '5px'}} onClick={this.expandTipsDisplayFn.bind(this)}>Expand Tips For Easier Reading</button>
+            <button id="addTips" className="btn btn-primary" onClick={this.changeIntentFn.bind(this)}>I Want To ADD A Tip</button>
+            <TipsList info={this.state.currentlyDisplayedTips}/>
+          </div>
+          {this.state.areTipsExpanded ? <TipsPopUp info={this.state.currentlyDisplayedTips} clickCloseFn={this.expandTipsDisplayFn.bind(this)}/> : <div></div>}
+}
         </div>
       )
     }
     if (this.state.userIntentCurrent === 'addTips') {
       return (
-      <div>
-        <button id="readTips" onClick={this.changeIntentFn.bind(this)}>I Want To READ Tips</button>
-        <p>Add A Tip For <span style={{fontWeight: 'bold'}}>{this.capitalizeFirstLetterOnly(this.props.info.tipsTestCity)}</span> Below</p>
-        <p>Name</p>
-        <input type="text" id="tipsName" value={this.state.tipsName} onChange={this.changeHandlerFn.bind(this)}></input>
-        <p>City</p>
-        <input type="text" id="tipsCity" value={this.state.tipsCity} onChange={this.changeHandlerFn.bind(this)}></input>
-        <p>State</p>
-        <input type="text" id="tipsState" value={this.state.tipsState} onChange={this.changeHandlerFn.bind(this)}></input>
-        <p>Tip Goes Here</p>
-        <textarea type="text" id="tipsContent" style={{width: '100%'}} value={this.state.tipsContent} onChange={this.changeHandlerFn.bind(this)}></textarea>
-        <button id="submitTips" onClick={this.submitTips.bind(this)}>SUBMIT TIP</button>
+      <div className="popup">
+        <div className="popup_inner">
+          <button id="readTips" className="btn btn-primary" onClick={this.changeIntentFn.bind(this)}>I Want To READ Tips</button>
+          <button id="readTips" className="btn btn-primary toprightclass" onClick={this.changeIntentFn.bind(this)}>X</button>
+          <p>Add A Tip For <span style={{fontWeight: 'bold'}}>{this.capitalizeFirstLetterOnly(this.props.info.tipsTestCity)}</span> Below</p>
+          <div>
+          <div>
+            <div className="popup_label">Name :</div>
+            <input type="text" id="tipsName" value={this.state.tipsName} onChange={this.changeHandlerFn.bind(this)}></input>
+          </div>
+          </div>
+          <div>
+            <div className="popup_label">City:</div>
+            <input type="text" id="tipsCity" value={this.state.tipsCity} onChange={this.changeHandlerFn.bind(this)}></input>
+          </div>
+          <div>
+            <div className="popup_label">State:</div>
+            <input type="text" id="tipsState" value={this.state.tipsState} onChange={this.changeHandlerFn.bind(this)}></input>
+          </div>
+          <div>
+            <div className="popup_label_tips_exception">Tip Goes Here:</div>
+            <textarea type="text" rows="5" id="tipsContent" style={{width: '100%'}} value={this.state.tipsContent} onChange={this.changeHandlerFn.bind(this)}></textarea>
+          </div>
+          <button id="submitTips" className="btn btn-primary, redbtn" onClick={this.submitTips.bind(this)}>SUBMIT TIP</button>
+        </div>
       </div>
       )
     }
@@ -175,3 +199,9 @@ class TipsBlock extends React.Component {
 
 
 export default TipsBlock;
+
+
+
+
+
+

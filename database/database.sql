@@ -20,6 +20,7 @@ INSERT INTO tipstable (city, state, name, tiptext) VALUES ('san francisco', 'cal
 INSERT INTO tipstable (city, state, name, tiptext, datecreated) VALUES ('san francisco', 'california', 'Andy Kufmann', 'The BART is the nicest subway I have ever seen.', '2017-11-18 09:09:09');
 INSERT INTO tipstable (city, state, name, tiptext, datecreated) VALUES ('san francisco', 'california', 'Marlon Brando', 'Be sure to see the Golden Gate park', '2017-11-12 10:10:10');
 INSERT INTO tipstable (city, state, name, tiptext, datecreated) VALUES ('san francisco', 'california', 'Molly Ringwald', 'I love the Exploratorium, go there!', '2016-10-22 11:11:11');
+INSERT INTO tipstable (city, state, name, tiptext, datecreated) VALUES ('san francisco', 'california', 'Connor MacLeod', 'There can be only one.', '2016-10-22 10:18:02');
 INSERT INTO tipstable (city, state, name, tiptext) VALUES ('austin', 'texas', 'Bette Davis', 'It can get a bit hot in the summer.');
 INSERT INTO tipstable (city, state, name, tiptext) VALUES ('austin', 'texas', 'James Stewart', 'Franklin\'s BBQ is the best!');
 INSERT INTO tipstable (city, state, name, tiptext, datecreated) VALUES ('austin', 'texas', 'Clark Gable', 'Town Lake is a great place to start a hike.', '2017-11-21 11:09:10');

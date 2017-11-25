@@ -3,6 +3,8 @@ import axios from 'axios';
 import TipsList from './TipsList.jsx';
 import TipsPopUp from './TipsPopUp.jsx';
 
+
+
 class TipsBlock extends React.Component {
   constructor(props) {
     super(props);
@@ -15,12 +17,12 @@ class TipsBlock extends React.Component {
       tipsContent: '',
       currentlyDisplayedTips: [{city: this.props.info.tipsTestCity, name: 'None', state: this.props.info.tipsTestState, tiptext: 'None'}]
     };
-    //var context = this;
   }
 
 
   componentWillMount () {
     this.getTips();
+    this.setState({tipsCity: this.capitalizeFirstLetterOnly(this.props.info.tipsTestCity), tipsState: this.props.info.tipsTestState});
   }
 
   changeIntentFn (e) {
@@ -147,6 +149,17 @@ class TipsBlock extends React.Component {
     this.setState({areTipsExpanded: !this.state.areTipsExpanded});
   }
 
+  //TEST ADMIN LOGIN
+  adminAccessFn () {
+    axios.get('/admin')
+      .then(function (response) {
+        console.log('/admin GET WORKED RESPONSE = ', response.data);
+      })
+      .catch(function (error) {
+        console.log('/admin GET ERROR', error);
+      });
+  }
+
   render () {
     // var stateStyleColor = {color: 'black', fontWeight: 'normal'};
     if(this.state.userIntentCurrent === 'readTips') {
@@ -154,12 +167,14 @@ class TipsBlock extends React.Component {
         <div>
           <div>
             {/*<button onClick={this.getTips.bind(this)}>GET DATA TEST BUTTON</button>*/}
-            <button id="areTipsExpanded" className="btn btn-primary"  style={{"margin-bottom": '5px'}} onClick={this.expandTipsDisplayFn.bind(this)}>Expand Tips For Easier Reading</button>
+            {/*<button onClick={this.adminAccessFn.bind(this)}>TEST ON ADMIN ACCESS</button>*/}
+            <h3>Tips From {this.capitalizeFirstLetterOnly(this.state.currentlyDisplayedTips[0].city)}</h3>
+            <button id="areTipsExpanded" className="btn btn-primary" style={{"marginBottom": '5px'}} onClick={this.expandTipsDisplayFn.bind(this)}>Expand Tips For Easier Reading</button>
             <button id="addTips" className="btn btn-primary" onClick={this.changeIntentFn.bind(this)}>I Want To ADD A Tip</button>
             <TipsList info={this.state.currentlyDisplayedTips}/>
           </div>
           {this.state.areTipsExpanded ? <TipsPopUp info={this.state.currentlyDisplayedTips} clickCloseFn={this.expandTipsDisplayFn.bind(this)}/> : <div></div>}
-}
+    }
         </div>
       )
     }
@@ -195,6 +210,15 @@ class TipsBlock extends React.Component {
     }
   }
 }
+
+
+
+var TestBit = () => (
+  <div>
+    <p>NEW PAGE</p>
+  </div>
+
+  )
 
 
 

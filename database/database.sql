@@ -1,17 +1,16 @@
-DROP DATABASE  infomapptips;  /*for testing */
+DROP DATABASE  infomapptips;  /* <= for testing COMMENT THIS OUT FOR FIRST DATABASE CREATION */
 CREATE DATABASE infomapptips;
 
 USE infomapptips;  
 
 CREATE TABLE tipstable (
-ID            INT             NOT NULL          AUTO_INCREMENT,
-city          VARCHAR(60),
-state         VARCHAR(20),
-name          VARCHAR(30),
-tiptext       VARCHAR(200),
-datecreated   TIMESTAMP       NOT NULL DEFAULT  CURRENT_TIMESTAMP,
-PRIMARY KEY (ID)
-
+  ID            INT             NOT NULL          AUTO_INCREMENT,
+  city          VARCHAR(60),
+  state         VARCHAR(20),
+  name          VARCHAR(30),
+  tiptext       VARCHAR(200),
+  datecreated   TIMESTAMP       NOT NULL DEFAULT  CURRENT_TIMESTAMP,
+  PRIMARY KEY (ID)
 );
 
 
@@ -25,3 +24,10 @@ INSERT INTO tipstable (city, state, name, tiptext) VALUES ('austin', 'texas', 'B
 INSERT INTO tipstable (city, state, name, tiptext) VALUES ('austin', 'texas', 'James Stewart', 'Franklin\'s BBQ is the best!');
 INSERT INTO tipstable (city, state, name, tiptext, datecreated) VALUES ('austin', 'texas', 'Clark Gable', 'Town Lake is a great place to start a hike.', '2017-11-21 11:09:10');
 INSERT INTO tipstable (city, state, name, tiptext, datecreated) VALUES ('austin', 'texas', 'Cary Grant', 'Taco Deli are the best tacos on the planet.', '2017-11-21 08:08:08');
+
+
+
+
+
+
+

@@ -46,5 +46,17 @@ app.get('/tips', (req, res) => {
 });
 
 
+app.get('/admin', (req, res) => {
+  res.send('HIDDEN CONTENT');
+
+
+})
+
+app.post('/admin', (req, res) => {
+  res.send('HIDDEN CONTENT');
+
+
+})
+
 
 

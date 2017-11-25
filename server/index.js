@@ -90,6 +90,9 @@ app.get('/tips', (req, res) => {
   console.log('CLIENT REQ TO SERVER GET @ /tips = ', req.query);
   db.getLocalTipsFromDataBaseFn(req.query, (err, info) => {
       if (err) {
+        if (err.fatal) {
+          console.trace('fatal error: ' + err.message);
+        }
         console.log('Error in GET to /tips', err);
       } else {
         console.log('INFO ABOUT TO BE SENT ON GET = ', info)
@@ -107,6 +110,7 @@ app.get('/admin', (req, res) => {
 
 app.post('/admin', (req, res) => {
   res.send('HIDDEN CONTENT');
+})
 
 
 

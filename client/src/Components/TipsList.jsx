@@ -23,4 +23,4 @@ var TipsList = (props) => (
 )
 
 
-export default TipsList;
+export default TipsList; 

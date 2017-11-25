@@ -12,6 +12,8 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
+      tipsTestCity: 'san francisco',
+      tipsTestState: 'California'
       photoUrl : '',
       walkscore : "",
       lat: 37.7749,
@@ -116,7 +118,7 @@ class App extends React.Component {
         arr[2] = addComp['short_name'];
       }
     });
-    return arr; 
+    return arr;
   }
 
   componentWillMount() {
@@ -130,7 +132,7 @@ class App extends React.Component {
     });
 
     /*** LONG NASTY CODE TO GET USER'S LOCATION AS INIT VALUES,
-    if you want to enable this, must comment out the top codes 
+    if you want to enable this, must comment out the top codes
       and uncomment everything bellow ***/
 
     //get the user's location, and set lat and lng to be that
@@ -158,7 +160,7 @@ class App extends React.Component {
     //         var result = this.getCityState(results);
     //         var state = result[1];
     //         var city = result[0];
-            
+
     //         //check if it has a city/state? if not valid, default to sf?
     //         this.setState({
     //           lat: position.coords.latitude,
@@ -180,7 +182,7 @@ class App extends React.Component {
     //     this.getWalkability(this.state.lat, this.state.lng);
 
     //   }.bind(this));
-    // } 
+    // }
     // else {
     //   //browser doesn't have HTML5 geolocation
     //   this.setState({
@@ -223,7 +225,7 @@ class App extends React.Component {
 
   render() {
     console.log('app rerendeing');
-    return (    
+    return (
         <div className="container-fluid">
           <div className="row">
             <div className="col-12-sm" id="titlebar">
@@ -233,9 +235,9 @@ class App extends React.Component {
           </div>
           <div className="row">
 
-            <div className="col-sm-6">  
-              <div id="mapblock" className="vertical-center">  
-                {this.mapComponent()}      
+            <div className="col-sm-6">
+              <div id="mapblock" className="vertical-center">
+                {this.mapComponent()}
               </div>
               <div id="twittertrends">
                 <TwitterTrends recentTweetsAbout={this.state.recentTweetsAbout} recentTweetsFrom={this.state.recentTweetsFrom}
@@ -252,7 +254,7 @@ class App extends React.Component {
                   </div>
                   <div className="col-sm-6">
                     <div id ="tipsblock">
-                      <TipsBlock/>
+                      <TipsBlock info={this.state}/>
                     </div>
                   </div>
                 </div>
@@ -271,5 +273,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-

@@ -5,6 +5,7 @@ import TipsBlock from './Components/TipsBlock.jsx';
 import TopTweetsInfo from './Components/TopTweetsInfo.jsx';
 import WalkabilityInfo from './Components/WalkabilityInfo.jsx';
 import TwitterTrends from './Components/TwitterTrends.jsx';
+import PostContentComponent from './Components/PostContentComponent.jsx';
 import axios from 'axios';
 
 
@@ -18,7 +19,8 @@ class App extends React.Component {
       lng: -122.4194,
       city: 'san francisco',
       state:'California',
-      mapLoading: true
+      mapLoading: true,
+      tips: []
     };
   }
 
@@ -62,12 +64,32 @@ class App extends React.Component {
     return arr; 
   }
 
+  //gets the list of content from the database with city
+  getLocalTips() {
+    //get request to the server with current city
+      //this.setState({tips: result})
+  }
+
+  postLocalTipsHandler(email, input, city) {
+    //gets called when a user posts a tip.
+     //change the email later to this.state.email
+    axios.post('/postTips', {email: "deliverable@example.com", content: input, city: city})
+    .then((data)=>{
+      console.log('stored to database')
+    })
+    .catch((error)=> {
+      console.log(error);
+    })
+    //can add to the tips list and setState.
+  }
+
   componentWillMount() {
     this.getPhoto(this.state.lat, this.state.lng);
     this.getWalkability(this.state.lat, this.state.lng);
     this.setState({
       mapLoading: false
     });
+    //getLocalTips
 
     /*** LONG NASTY CODE TO GET USER'S LOCATION AS INIT VALUES,
     if you want to enable this, must comment out the top codes 
@@ -145,7 +167,11 @@ class App extends React.Component {
     });
     this.getPhoto(lat, lng);
     this.getWalkability(lat, lng);
+    //this.getLocalTips(city)
   }
+
+  
+
 
   //need this if we want to initialize the state the the user's location
   mapComponent() {
@@ -153,6 +179,16 @@ class App extends React.Component {
       return <div style={{width: '100%', height: '400px'}}>Loading...</div>;
     } else {
       return <Map callback={this.positionChange.bind(this)} lat={this.state.lat} lng={this.state.lng} city={this.state.city} state={this.state.state} getCityState={this.getCityState}/>;
+    }
+  }
+
+  //if the local tips is empty, please wait 
+  //else the component
+  tipsBlockComponent() {
+    if (this.state.tips.length === 0) {
+      return <div>There are no posted content. </div>
+    } else {
+      return <TipsBlock tips={this.state.tips}/>
     }
   }
 
@@ -166,40 +202,44 @@ class App extends React.Component {
               <h2 id="subtitlefont">Learn More With Just A Click</h2>
             </div>
           </div>
+
           <div className="row">
 
-            <div className="col-sm-6">  
+            <div className="col-sm-9">  
               <div id="mapblock" className="vertical-center">  
                 {this.mapComponent()}      
               </div>
               <div id="twittertrends">
                 <TwitterTrends/>
               </div>
+              <div>
+                <PostContentComponent city={this.state.city} post={this.postLocalTipsHandler.bind(this)}/>
+              </div>
             </div>
 
-            <div className="col-sm-6">
+
+            <div className="col">
               <div id="infoblock">
-                <div className="row">
-                  <div className="col-sm-6">
-                    <div id="walkabilityblock">
-                      <WalkabilityInfo walkscore = {this.state.walkscore}/>
-                    </div>
-                  </div>
-                  <div className="col-sm-6">
-                    <div id ="tipsblock">
-                      <TipsBlock/>
-                    </div>
-                  </div>
+                
+                <div id="walkabilityblock">
+                  <WalkabilityInfo walkscore = {this.state.walkscore}/>
                 </div>
+
                 <div id="toptweetsblock">
                   <TopTweetsInfo/>
                 </div>
-                <div id="photoblock">
 
+                <div id ="tipsblock">
+                  <TipsBlock city={this.state.city}/>
+                </div>
+                
+                <div id="photoblock">
                   <PhotoInfo photoUrl = {this.state.photoUrl} lat={this.state.lat} lng={this.state.lng}/>
                 </div>
+
               </div>
             </div>
+
           </div>
         </div>
     );

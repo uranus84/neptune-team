@@ -14,7 +14,7 @@
 }
 
 #titlebar {
-  background-color: lightgrey;
+/*  background-color: lightgrey;*/
   height: 100px;
   margin: 0px;
   padding: 5px;
@@ -38,6 +38,7 @@
   border: 1px solid black;
   text-align: center;
   height: 450px;
+  padding: 10px;
 }
 
 #maxtextsearch {
@@ -50,8 +51,9 @@
 }
 
 #twittertrends {
+  background-color: red;
   border: 1px solid black;
-  height: 300px;  
+  height: 500px;  
   text-align: center;
 }
 
@@ -74,6 +76,11 @@
   font-weight: bold;
 }
 
+.walkabilityblock_score {
+  font-size: 70px;
+  font-family: 'Roboto', sans-serif;
+}
+
 #toptweetsblock {
   border: 1px solid black;
   height: 250px;
@@ -86,6 +93,8 @@
 #photoblock {
   border: 1px solid black;
   height: 300px;
+  background-color: blue;
+  overflow: scroll;
 }
 
 .photoblock_content {
@@ -104,4 +113,7 @@
   font-weight: bold;
 }
 
-
+.input-group {
+  margin-top: 5px;
+  width: 100%;
+}

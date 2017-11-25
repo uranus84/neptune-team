@@ -1,6 +1,19 @@
 var express = require('express');
 var axios = require('axios');
 var key = require('./API.js');
+var indico = require('indico.io');
+var Twitter = require('twitter');
+var moment = require('moment');
+indico.apiKey = process.env.INDICO_API || key.INDICO_API
+var indicoHelper = require('./indicoHelper');
+
+
+var client = new Twitter({
+  consumer_key: process.env.API_KEY || key.API_KEY,
+  consumer_secret: process.env.API_SECRET || key.API_SECRET,
+  access_token_key: process.env.ACCESS_TOKEN || key.ACCESS_TOKEN,
+  access_token_secret: process.env.ACCESS_TOKEN_SECRET || key.ACCESS_TOKEN_SECRET
+});
 
 var app = express();
 app.use(express.static(__dirname + '/../client/dist'));
@@ -41,7 +54,7 @@ app.get('/walkscore', (req,res) => {
 	var locationData = {lat: req.query.lat, lon :req.query.lon}
 	axios.get('http://api.walkscore.com/score', {params: {lat: locationData.lat, lon: locationData.lon, wsapikey: (process.env.WALKSCORE_API || key.WALKSCORE_API), address: '', format:JSON}})
 	.then ((results)=>{
-		console.log(results);
+		//console.log(results);
 		//Returned value is a weird string, splitting it to get just the walk score out
 		results.data = results.data.split(',')
 		results.data[2] = results.data[2].split(': ')
@@ -53,4 +66,76 @@ app.get('/walkscore', (req,res) => {
 		res.status(200);
 		res.end('error');
 	})
+})
+
+
+
+app.get('/recentTweetsFrom', (req, res) => {
+	var locationData = req.query.lat + ',' + req.query.lon + ',10mi'
+	//couldnt figure out how to search for anything so i searched for tweets that dont contain sddsssjd
+  client.get('search/tweets', {q: ' -sddsssjd', lang: 'en', count: '100', result_type: 'recent', geocode: locationData})
+	  .then(function (tweets) {
+	    var tweetArr = [];
+	    tweets.statuses.map((val) => { tweetArr.push(val.text) });
+
+	    //get indico score
+	    indicoHelper.sendIndicoData(req, res, tweetArr);
+	  })
+	  .catch(function (error) {
+	    throw error;
+	  })
+})
+
+app.get('/oldTweetsFrom', (req, res) => {
+	var locationData = req.query.lat + ',' + req.query.lon + ',10mi'
+	var date = new Date();
+	var oneWeekAgo = moment(date.setDate(date.getDate() - 7)).format().split('T')[0];
+	//couldnt figure out how to search for anything so i searched for tweets that dont contain sddsssjd
+  client.get('search/tweets', {q: `-sddsssjd until:${oneWeekAgo}`, lang: 'en', count: '100', result_type: 'recent', geocode: locationData})
+	  .then(function (tweets) {
+	    var tweetArr = [];
+	    tweets.statuses.map((val) => { tweetArr.push(val.text) });
+
+	    //get indico score
+	    indicoHelper.sendIndicoData(req, res, tweetArr);
+	  })
+	  .catch(function (error) {
+	    throw error;
+	  })
+})
+
+app.get('/recentTweetsAbout', (req, res) => {
+	var city = req.query.city;
+	var cityShortName = req.query.cityShortName;
+
+  client.get('search/tweets', {q: `${city} OR ${cityShortName}`, lang: 'en', count: '100', result_type: 'recent'})
+	  .then(function (tweets) {
+	    var tweetArr = [];
+	    tweets.statuses.map((val) => { tweetArr.push(val.text) });
+
+	    //get indico score
+	    indicoHelper.sendIndicoData(req, res, tweetArr);
+	  })
+	  .catch(function (error) {
+	    throw error;
+	  })
+})
+
+app.get('/oldTweetsAbout', (req, res) => {
+	var city = req.query.city;
+	var cityShortName = req.query.cityShortName;
+	var date = new Date();
+	var oneWeekAgo = moment(date.setDate(date.getDate() - 7)).format().split('T')[0];
+
+  client.get('search/tweets', {q: `${city} OR ${cityShortName} until:${oneWeekAgo}`, lang: 'en', count: '100', result_type: 'recent'})
+	  .then(function (tweets) {
+	    var tweetArr = [];
+	    tweets.statuses.map((val) => { tweetArr.push(val.text) });
+
+	    //get indico score
+	    indicoHelper.sendIndicoData(req, res, tweetArr);
+	  })
+	  .catch(function (error) {
+	    throw error;
+	  })
 })

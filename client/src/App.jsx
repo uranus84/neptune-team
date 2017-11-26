@@ -14,7 +14,7 @@ class App extends React.Component {
     this.state = {
       tipsTestCity: 'san francisco',
       tipsTestState: 'California',
-      photoUrl : '',
+      photoUrl : [],
       walkscore : "",
       lat: 37.7749,
       lng: -122.4194,

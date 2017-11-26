@@ -95,6 +95,8 @@
 
 .photoblock_content {
   font-weight: bold;
+  height: 290px;
+  overflow-y: auto;
 }
 
 #tipsblock {

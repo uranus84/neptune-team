@@ -45,10 +45,12 @@ app.get('/googlepics', (req,res) => {
 		var photoArray = results.data.results;
 		//var photoString = results.data.results[0].photos[0].photo_reference;
 		var imageUrlArray = [];
-		photoArray.forEach((result) =>{
-			imageId = result.photos[0].photo_reference;
-			imageUrlArray.push('https://maps.googleapis.com/maps/api/place/photo?maxheight=290&maxwidth=400&key=' + (process.env.MAP_API || key.GOOGLE_MAP_API) + '&photoreference=' + imageId);
-		})
+        photoArray.forEach((result) =>{
+            if (Array.isArray(result.photos)){
+              imageId = result.photos[0].photo_reference;
+              imageUrlArray.push('https://maps.googleapis.com/maps/api/place/photo?maxheight=290&maxwidth=400&key=' + (process.env.MAP_API || key.GOOGLE_MAP_API) + '&photoreference=' + imageId);
+            }
+        })
 		//var imageUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxheight=290&key=' + (process.env.MAP_API || key.GOOGLE_MAP_API) + '&photoreference=' + photoString;
 		//Sends back an array of direct urls, should be used as src for images. 
 		res.end(JSON.stringify(imageUrlArray));

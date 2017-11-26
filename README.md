@@ -10,11 +10,11 @@ Infomapp allows users to select a location on a map and receive information and 
 ## Table of Contents
 1. [Usage](#Usage)
 1. [Requirements](#requirements)
-1. [Getting Started](#Getting Started)
+1. [Getting Started](#GettingStarted)
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
 1. [Roadmap](#roadmap)
-1. [Style Guide](#Style Guide)
+1. [Style Guide](#StyleGuide)
 1. [Contributing](#contributing)
  
 ## Usage

@@ -6,9 +6,30 @@ import TopTweetsInfo from './Components/TopTweetsInfo.jsx';
 import WalkabilityInfo from './Components/WalkabilityInfo.jsx';
 import TwitterTrends from './Components/TwitterTrends.jsx';
 import axios from 'axios';
+import Previous from './Components/Previous.jsx'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  withRouter
+} from 'react-router-dom'
 
 
-class App extends React.Component {
+var App = () => (
+  <Router>
+      <div>
+        <Link to="/" className="btn btn-primary">Home</Link>
+        <Link to="/previous" className="btn btn-primary">Previous Searches</Link>
+        <Route exact path="/" component={Core}/>
+        <Route path="/previous" component={Previous}/>
+      </div>
+  </Router>
+)
+
+
+
+class Core extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -27,48 +48,49 @@ class App extends React.Component {
       recentTweetsFrom: "",
       recentTweetsAbout: "",
       oldTweetsFrom: "",
-      oldTweetsAbout: ""
+      oldTweetsAbout: "",
+      lastSearch: []
     };
   }
 
-  getTopTweets(lat, lon) {
-    axios.get('/topTweets', {params: {lat: lat, lon: lon}})
-      .then((tweets) =>{})
-      .catch((err) => {})
-  }
+  // getTopTweets(lat, lon) {
+  //   axios.get('/topTweets', {params: {lat: lat, lon: lon}})
+  //     .then((tweets) =>{})
+  //     .catch((err) => {})
+  // }
 
-  getTweetTrends(lat, lon, city, cityShortName) {
-    this.setState({
-      recentTweetsFrom: "",
-      recentTweetsAbout: "",
-      oldTweetsFrom: "",
-      oldTweetsAbout: ""      
-    })
+  // getTweetTrends(lat, lon, city, cityShortName) {
+  //   this.setState({
+  //     recentTweetsFrom: "",
+  //     recentTweetsAbout: "",
+  //     oldTweetsFrom: "",
+  //     oldTweetsAbout: ""      
+  //   })
 
-    axios.get('/recentTweetsFrom', {params: {lat: lat, lon: lon}})
-      .then((results) => {
-        this.setState({recentTweetsFrom: results.data})
-      })
-      .catch((err) => {console.log(err)})
+  //   axios.get('/recentTweetsFrom', {params: {lat: lat, lon: lon}})
+  //     .then((results) => {
+  //       this.setState({recentTweetsFrom: results.data})
+  //     })
+  //     .catch((err) => {console.log(err)})
 
-    axios.get('/oldTweetsFrom', {params: {lat: lat, lon: lon}})
-      .then((results) => {
-        this.setState({oldTweetsFrom: results.data})
-      })
-      .catch((err) => {console.log(err)})
+  //   axios.get('/oldTweetsFrom', {params: {lat: lat, lon: lon}})
+  //     .then((results) => {
+  //       this.setState({oldTweetsFrom: results.data})
+  //     })
+  //     .catch((err) => {console.log(err)})
 
-    axios.get('/recentTweetsAbout', {params: {city: city, cityShortName: cityShortName}})
-      .then((results) => {
-        this.setState({recentTweetsAbout: results.data})
-      })
-      .catch((err) => {console.log(err)})
+  //   axios.get('/recentTweetsAbout', {params: {city: city, cityShortName: cityShortName}})
+  //     .then((results) => {
+  //       this.setState({recentTweetsAbout: results.data})
+  //     })
+  //     .catch((err) => {console.log(err)})
 
-    axios.get('/oldTweetsAbout', {params: {city: city, cityShortName: cityShortName}})
-      .then((results) => {
-        this.setState({oldTweetsAbout: results.data})
-      })
-      .catch((err) => {console.log(err)})
-  }
+  //   axios.get('/oldTweetsAbout', {params: {city: city, cityShortName: cityShortName}})
+  //     .then((results) => {
+  //       this.setState({oldTweetsAbout: results.data})
+  //     })
+  //     .catch((err) => {console.log(err)})
+  // }
 
   getPhoto(lat, lon) {
     axios.get('/googlepics', {params: {lat: lat, lon: lon}})
@@ -110,9 +132,10 @@ class App extends React.Component {
   }
 
   componentWillMount() {
+    console.log('MASTER MAP APP WILLMOUNT RAN!')
     this.getPhoto(this.state.lat, this.state.lng);
     this.getWalkability(this.state.lat, this.state.lng);
-    this.getTweetTrends(this.state.lat, this.state.lng, this.state.city, this.state.cityShortName);
+    //this.getTweetTrends(this.state.lat, this.state.lng, this.state.city, this.state.cityShortName);
     this.setState({
       mapLoading: false
     });
@@ -224,8 +247,9 @@ class App extends React.Component {
                 {this.mapComponent()}
               </div>
               <div id="twittertrends">
-                <TwitterTrends recentTweetsAbout={this.state.recentTweetsAbout} recentTweetsFrom={this.state.recentTweetsFrom}
-                  oldTweetsFrom={this.state.oldTweetsFrom} oldTweetsAbout={this.state.oldTweetsAbout}/>
+                <TwitterTrends />
+                {/*<TwitterTrends recentTweetsAbout={this.state.recentTweetsAbout} recentTweetsFrom={this.state.recentTweetsFrom}
+                  oldTweetsFrom={this.state.oldTweetsFrom} oldTweetsAbout={this.state.oldTweetsAbout}/>*/}
               </div>
             </div>
             <div className="col-sm-6">

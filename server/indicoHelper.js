@@ -3,9 +3,11 @@ var indico = require('indico.io');
 var sendIndicoData = (req, res, tweetArr) => {
   var positivityScore;
   var personalityScores;
-  indico.sentimentHQ(tweetArr)
+  //joining tweets instead of submitting and array due to free API plan
+  indico.sentimentHQ(tweetArr.join(" "))
   .then((score) => { 
-    //score is an array of the scores of each tweet. we want to get the average of them
+    //adding the below line because we are submitting one long string instead of 100 tweets due to free API plan.
+    score = [score]
     var sum = 0;
     score.map( (val) => { sum += val })
     positivityScore = sum / score.length;
@@ -18,10 +20,11 @@ var sendIndicoData = (req, res, tweetArr) => {
   })
   .catch((err) => {console.log(err)});
 
-  //get personality scores
- indico.personality(tweetArr)
+  //joining tweets instead of submitting and array due to free API plan
+ indico.personality(tweetArr.join(" "))
   .then((score) => { 
-    //score is an array of the personality scores of each tweet. we want to get the average of them
+    //adding the below line because we are submitting one long string instead of 100 tweets due to free API plan
+    score = [score]
     // we make a placeHolder as to not disrupt the if statement at the end
     personalityScoresHolder = {
       openness: 0,

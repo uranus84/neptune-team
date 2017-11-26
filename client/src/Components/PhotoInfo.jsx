@@ -1,12 +1,14 @@
 import React from 'react';
 
 var PhotoInfo = (props) => {
-  if(props.photoUrl === "") {
+	const photos = props.photoUrl;
+	const photoList = photos.map((photo)=> <img src={photo}/>);
+  if(props.photoUrl.length < 1) {
     return (<div className="loader"></div>)
   } else {
     return (
       <p className="photoblock_content">
-        <img src={props.photoUrl} />
+        {photoList}
       </p>
     )
   }

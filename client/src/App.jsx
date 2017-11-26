@@ -14,7 +14,7 @@ class App extends React.Component {
     this.state = {
       tipsTestCity: 'san francisco',
       tipsTestState: 'California',
-      photoUrl : '',
+      photoUrl : [],
       walkscore : "",
       lat: 37.7749,
       lng: -122.4194,
@@ -27,22 +27,34 @@ class App extends React.Component {
       recentTweetsFrom: "",
       recentTweetsAbout: "",
       oldTweetsFrom: "",
-      oldTweetsAbout: ""
+      oldTweetsAbout: "",
+      topTweetsFrom: "",
+      topTweetsAbout: ""
     };
   }
 
-  // getTopTweets(lat, lon) {
-  //   axios.get('/topTweets', {params: {lat: lat, lon: lon}})
-  //     .then((tweets) =>{})
-  //     .catch((err) => {})
-  // }
+  getTopTweetsFrom(lat, lon) {
+    axios.get('/topTweetsFrom', {params: {lat: lat, lon: lon}})
+      .then((results) =>{
+        this.setState({topTweetsFrom: results.data})
+      })
+      .catch((err) => {})
+  }
+
+  getTopTweetsAbout(city, cityShortName) {
+    axios.get('/topTweetsAbout', {params: {city: city, cityShortName: cityShortName}})
+      .then((results) =>{
+        this.setState({topTweetsAbout: results.data})
+      })
+      .catch((err) => {})
+  }
 
   // getTweetTrends(lat, lon, city, cityShortName) {
   //   this.setState({
   //     recentTweetsFrom: "",
   //     recentTweetsAbout: "",
   //     oldTweetsFrom: "",
-  //     oldTweetsAbout: ""      
+  //     oldTweetsAbout: ""
   //   })
 
   //   axios.get('/recentTweetsFrom', {params: {lat: lat, lon: lon}})
@@ -113,7 +125,9 @@ class App extends React.Component {
     console.log('MASTER MAP APP WILLMOUNT RAN!')
     this.getPhoto(this.state.lat, this.state.lng);
     this.getWalkability(this.state.lat, this.state.lng);
-    //this.getTweetTrends(this.state.lat, this.state.lng, this.state.city, this.state.cityShortName);
+    this.getTweetTrends(this.state.lat, this.state.lng, this.state.city, this.state.cityShortName);
+    this.getTopTweetsFrom(this.state.lat, this.state.lng);
+    this.getTopTweetsAbout(this.state.city, this.state.cityShortName);
     this.setState({
       mapLoading: false
     });
@@ -197,6 +211,8 @@ class App extends React.Component {
     this.getPhoto(lat, lng);
     this.getWalkability(lat, lng);
     this.getTweetTrends(this.state.lat, this.state.lng, this.state.city, this.state.cityShortName);
+    this.getTopTweetsFrom(this.state.lat, this.state.lng);
+    this.getTopTweetsAbout(this.state.city, this.state.cityShortName);
   }
 
   //need this if we want to initialize the state the the user's location
@@ -245,7 +261,7 @@ class App extends React.Component {
                   </div>
                 </div>
                 <div id="toptweetsblock">
-                  <TopTweetsInfo />
+                  <TopTweetsInfo topTweetsFrom={this.state.topTweetsFrom} topTweetsAbout={this.state.topTweetsAbout} city={this.state.city}/>
                 </div>
                 <div id="photoblock">
                   <PhotoInfo photoUrl = {this.state.photoUrl} lat={this.state.lat} lng={this.state.lng}/>

@@ -59,6 +59,11 @@
   font-weight: bold;
 }
 
+.trends_data {
+  width:100%;
+  overflow: auto;
+}
+
 #infoblock {
   border: 1px solid black;
   text-align: center;
@@ -90,6 +95,8 @@
 
 .photoblock_content {
   font-weight: bold;
+  height: 290px;
+  overflow-y: auto;
 }
 
 #tipsblock {
@@ -102,6 +109,26 @@
 
 .tipsblock_content {
   font-weight: bold;
+}
+
+.tweetbox {
+  border-bottom: solid blue 1px;
+}
+
+.left-box {
+  float: left;
+  width:50%;
+  overflow:auto;
+  height: 100%;
+  padding:10px;
+}
+
+.right-box {
+  height:100%;
+  float: right;
+  width:50%;
+  overflow:auto;
+  padding: 10px;
 }
 
 .loader {
@@ -183,4 +210,40 @@
   position: absolute;
   top: 0px;
   right: 0px;
+}
+
+.dangerouswalk {
+  background-color:darkgray;
+  color: red;
+  font-size: 20px;
+  width: 50%;
+  margin:auto;
+  border-radius: 10px;
+}
+
+.okwalk {
+  background-color:darkgray;
+  color: yellow;
+  font-size: 20px;
+  width: 50%;
+  margin:auto;
+  border-radius: 10px;
+}
+
+.goodwalk {
+  background-color:darkgray;
+  color: green;
+  font-size: 20px;
+  width: 50%;
+  margin:auto;
+  border-radius: 10px;
+}
+
+.amazingwalk {
+  background-color:gold;
+  color: black;
+  font-size: 20px;
+  width: 50%;
+  margin:auto;
+  border-radius: 10px;
 }

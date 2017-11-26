@@ -5,6 +5,8 @@ import TipsPopUp from './TipsPopUp.jsx';
 
 
 
+
+
 class TipsBlock extends React.Component {
   constructor(props) {
     super(props);
@@ -15,14 +17,18 @@ class TipsBlock extends React.Component {
       tipsState: '',
       tipsName: '',
       tipsContent: '',
-      currentlyDisplayedTips: [{city: this.props.info.tipsTestCity, name: 'None', state: this.props.info.tipsTestState, tiptext: 'None'}]
+      currentlyDisplayedTips: [{city: this.props.info.city, name: 'None', state: this.props.info.state, tiptext: 'None'}]
     };
   }
 
+  componentWillReceiveProps () {
+    this.getTips();
+    this.setState({tipsCity: this.capitalizeFirstLetterOnly(this.props.info.city), tipsState: this.capitalizeFirstLetterOnly(this.props.info.state)});
+  }
 
   componentWillMount () {
     this.getTips();
-    this.setState({tipsCity: this.capitalizeFirstLetterOnly(this.props.info.tipsTestCity), tipsState: this.props.info.tipsTestState});
+    //this.setState({tipsCity: this.capitalizeFirstLetterOnly(this.props.info.city), tipsState: this.props.info.state});
   }
 
   changeIntentFn (e) {
@@ -105,26 +111,30 @@ class TipsBlock extends React.Component {
     
     if(!stateValidatorAndFormatter(this.state.tipsState)) {
       alert(this.state.tipsState + ' Is Not A State, Please Try Again');
-      // stateStyleColor = {color: 'red', fontWeight: 'bold'};
     } else {
-      // stateStyleColor = {color: 'black', fontWeight: 'normal'};
       axios.post('/tips', {cityData: this.state.tipsCity, stateData: stateValidatorAndFormatter(this.state.tipsState), nameData: this.state.tipsName, tipData: this.state.tipsContent })
         .then(function (response) {
-          console.log('/tips POST WORKED RESPONSE = ', response);
+          // console.log('/tips POST WORKED RESPONSE = ', response);
+          contexthere.setState({tipsCity: '', tipsState: '', tipsName: '', tipsContent: ''});
+          contexthere.getTips();
+          // console.log('FINAL RAN!!!');
         })
         .catch(function (error) {
           console.log('/tips POST ERROR',error);
         });
-      contexthere.setState({tipsCity: '', tipsState: '', tipsName: '', tipsContent: ''});
-      contexthere.getTips();
     }
   }
 
   getTips () {
     var context = this;
-    axios.get('/tips', {params: {city: this.props.info.tipsTestCity.toLowerCase(), state: this.props.info.tipsTestState.toLowerCase()}})
+    axios.get('/tips', {params: {city: this.props.info.city.toLowerCase(), state: this.props.info.state.toLowerCase()}})
       .then(function (response) {
-        console.log('/tips GET WORKED RESPONSE = ', response.data);
+        // console.log('/tips GET WORKED RESPONSE = ', response.data);
+        // console.log('CHECK THIS OUT!!!! = ', response.data.length);
+        if (response.data.length < 1) {
+          var notes = {city: context.props.info.city, datecreated: "", name: "No data", state: context.props.info.state, tiptext: "No Tips Provided Yet"}
+          response.data = [notes];
+        }
         context.setState({currentlyDisplayedTips: response.data});
       })
       .catch(function (error) {
@@ -184,7 +194,7 @@ class TipsBlock extends React.Component {
         <div className="popup_inner">
           <button id="readTips" className="btn btn-primary" onClick={this.changeIntentFn.bind(this)}>I Want To READ Tips</button>
           <button id="readTips" className="btn btn-primary toprightclass" onClick={this.changeIntentFn.bind(this)}>X</button>
-          <p>Add A Tip For <span style={{fontWeight: 'bold'}}>{this.capitalizeFirstLetterOnly(this.props.info.tipsTestCity)}</span> Below</p>
+          <p>Add A Tip For <span style={{fontWeight: 'bold'}}>{this.capitalizeFirstLetterOnly(this.props.info.city)}</span> Below</p>
           <div>
           <div>
             <div className="popup_label">Name :</div>
@@ -193,10 +203,12 @@ class TipsBlock extends React.Component {
           </div>
           <div>
             <div className="popup_label">City:</div>
+          {/*INPUT CITY*/}
             <input type="text" id="tipsCity" value={this.state.tipsCity} onChange={this.changeHandlerFn.bind(this)}></input>
           </div>
           <div>
             <div className="popup_label">State:</div>
+            {/*INPUT CITY*/}
             <input type="text" id="tipsState" value={this.state.tipsState} onChange={this.changeHandlerFn.bind(this)}></input>
           </div>
           <div>
@@ -213,12 +225,6 @@ class TipsBlock extends React.Component {
 
 
 
-var TestBit = () => (
-  <div>
-    <p>NEW PAGE</p>
-  </div>
-
-  )
 
 
 

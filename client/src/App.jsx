@@ -54,7 +54,7 @@ class App extends React.Component {
       recentTweetsFrom: "",
       recentTweetsAbout: "",
       oldTweetsFrom: "",
-      oldTweetsAbout: ""      
+      oldTweetsAbout: ""
     })
 
     axios.get('/recentTweetsFrom', {params: {lat: lat, lon: lon}})
@@ -122,6 +122,7 @@ class App extends React.Component {
   }
 
   componentWillMount() {
+    //console.log('MASTER MAP APP WILLMOUNT RAN!')
     this.getPhoto(this.state.lat, this.state.lng);
     this.getWalkability(this.state.lat, this.state.lng);
     this.getTweetTrends(this.state.lat, this.state.lng, this.state.city, this.state.cityShortName);
@@ -240,6 +241,7 @@ class App extends React.Component {
                 {this.mapComponent()}
               </div>
               <div id="twittertrends">
+                {/*<TwitterTrends />*/}
                 <TwitterTrends recentTweetsAbout={this.state.recentTweetsAbout} recentTweetsFrom={this.state.recentTweetsFrom}
                   oldTweetsFrom={this.state.oldTweetsFrom} oldTweetsAbout={this.state.oldTweetsAbout}/>
               </div>

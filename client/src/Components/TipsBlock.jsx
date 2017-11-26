@@ -6,6 +6,7 @@ import TipsPopUp from './TipsPopUp.jsx';
 
 
 
+
 class TipsBlock extends React.Component {
   constructor(props) {
     super(props);

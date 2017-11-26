@@ -7,29 +7,9 @@ import WalkabilityInfo from './Components/WalkabilityInfo.jsx';
 import TwitterTrends from './Components/TwitterTrends.jsx';
 import axios from 'axios';
 import Previous from './Components/Previous.jsx'
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect,
-  withRouter
-} from 'react-router-dom'
 
 
-var App = () => (
-  <Router>
-      <div>
-        <Link to="/" className="btn btn-primary">Home</Link>
-        <Link to="/previous" className="btn btn-primary">Previous Searches</Link>
-        <Route exact path="/" component={Core}/>
-        <Route path="/previous" component={Previous}/>
-      </div>
-  </Router>
-)
-
-
-
-class Core extends React.Component {
+class App extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -48,8 +28,7 @@ class Core extends React.Component {
       recentTweetsFrom: "",
       recentTweetsAbout: "",
       oldTweetsFrom: "",
-      oldTweetsAbout: "",
-      lastSearch: []
+      oldTweetsAbout: ""
     };
   }
 

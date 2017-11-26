@@ -5,7 +5,6 @@ import TipsBlock from './Components/TipsBlock.jsx';
 import TopTweetsInfo from './Components/TopTweetsInfo.jsx';
 import WalkabilityInfo from './Components/WalkabilityInfo.jsx';
 import TwitterTrends from './Components/TwitterTrends.jsx';
-import PostContentComponent from './Components/PostContentComponent.jsx';
 import axios from 'axios';
 
 
@@ -14,20 +13,62 @@ class App extends React.Component {
     super();
     this.state = {
       photoUrl : '',
-      walkscore : 0,
+      walkscore : "",
       lat: 37.7749,
       lng: -122.4194,
       city: 'san francisco',
+      cityShortName: "sf",
       state:'California',
       mapLoading: true,
-      tips: []
+      topTweetsFrom: "",
+      topTweetsAbout: "",
+      recentTweetsFrom: "",
+      recentTweetsAbout: "",
+      oldTweetsFrom: "",
+      oldTweetsAbout: ""
     };
   }
 
+  getTopTweets(lat, lon) {
+    axios.get('/topTweets', {params: {lat: lat, lon: lon}})
+      .then((tweets) =>{})
+      .catch((err) => {})
+  }
+
+  getTweetTrends(lat, lon, city, cityShortName) {
+    this.setState({
+      recentTweetsFrom: "",
+      recentTweetsAbout: "",
+      oldTweetsFrom: "",
+      oldTweetsAbout: ""      
+    })
+
+    axios.get('/recentTweetsFrom', {params: {lat: lat, lon: lon}})
+      .then((results) => {
+        this.setState({recentTweetsFrom: results.data})
+      })
+      .catch((err) => {console.log(err)})
+
+    axios.get('/oldTweetsFrom', {params: {lat: lat, lon: lon}})
+      .then((results) => {
+        this.setState({oldTweetsFrom: results.data})
+      })
+      .catch((err) => {console.log(err)})
+
+    axios.get('/recentTweetsAbout', {params: {city: city, cityShortName: cityShortName}})
+      .then((results) => {
+        this.setState({recentTweetsAbout: results.data})
+      })
+      .catch((err) => {console.log(err)})
+
+    axios.get('/oldTweetsAbout', {params: {city: city, cityShortName: cityShortName}})
+      .then((results) => {
+        this.setState({oldTweetsAbout: results.data})
+      })
+      .catch((err) => {console.log(err)})
+  }
+
   getPhoto(lat, lon) {
-    //Placeholders until we have lat/lon working
-    lat = lat || 37.773972;
-    lon = lon || -122.431297;
     axios.get('/googlepics', {params: {lat: lat, lon: lon}})
       .then ((result) => {
         this.setState({'photoUrl': result.data})
@@ -38,8 +79,7 @@ class App extends React.Component {
   }
 
   getWalkability(lat, lon) {
-    lat = lat || 37.773972;
-    lon = lon || -122.431297;
+    this.setState({walkscore: ""});
     axios.get('/walkscore', {params: {lat: lat, lon: lon}})
     .then ((result) => {
       this.setState({walkscore: Math.floor(parseInt(result.data,10))})
@@ -60,36 +100,20 @@ class App extends React.Component {
       if (addComp.types.includes("administrative_area_level_1")) {
         arr[1]= addComp['long_name'];
       }
+      if (addComp.types.includes("locality")) {
+        arr[2] = addComp['short_name'];
+      }
     });
     return arr; 
-  }
-
-  //gets the list of content from the database with city
-  getLocalTips() {
-    //get request to the server with current city
-      //this.setState({tips: result})
-  }
-
-  postLocalTipsHandler(email, input, city) {
-    //gets called when a user posts a tip.
-     //change the email later to this.state.email
-    axios.post('/postTips', {email: "deliverable@example.com", content: input, city: city})
-    .then((data)=>{
-      console.log('stored to database')
-    })
-    .catch((error)=> {
-      console.log(error);
-    })
-    //can add to the tips list and setState.
   }
 
   componentWillMount() {
     this.getPhoto(this.state.lat, this.state.lng);
     this.getWalkability(this.state.lat, this.state.lng);
+    this.getTweetTrends(this.state.lat, this.state.lng, this.state.city, this.state.cityShortName);
     this.setState({
       mapLoading: false
     });
-    //getLocalTips
 
     /*** LONG NASTY CODE TO GET USER'S LOCATION AS INIT VALUES,
     if you want to enable this, must comment out the top codes 
@@ -155,7 +179,7 @@ class App extends React.Component {
 
   //The Map component calls this function with the updated values
   //gets called with the user's clicked/searched location coordinates and city/state
-  positionChange(lat, lng, city, state) {
+  positionChange(lat, lng, city, state, cityShortName) {
     console.log('The coordinates: ', lat, lng);
     console.log('the city and state: ', city, state);
 
@@ -163,15 +187,14 @@ class App extends React.Component {
       lat: lat,
       lng: lng,
       city: city,
-      state: state
+      state: state,
+      cityShortName: cityShortName
     });
+    console.log(this.state);
     this.getPhoto(lat, lng);
     this.getWalkability(lat, lng);
-    //this.getLocalTips(city)
+    this.getTweetTrends(this.state.lat, this.state.lng, this.state.city, this.state.cityShortName);
   }
-
-  
-
 
   //need this if we want to initialize the state the the user's location
   mapComponent() {
@@ -179,16 +202,6 @@ class App extends React.Component {
       return <div style={{width: '100%', height: '400px'}}>Loading...</div>;
     } else {
       return <Map callback={this.positionChange.bind(this)} lat={this.state.lat} lng={this.state.lng} city={this.state.city} state={this.state.state} getCityState={this.getCityState}/>;
-    }
-  }
-
-  //if the local tips is empty, please wait 
-  //else the component
-  tipsBlockComponent() {
-    if (this.state.tips.length === 0) {
-      return <div>There are no posted content. </div>
-    } else {
-      return <TipsBlock tips={this.state.tips}/>
     }
   }
 
@@ -202,44 +215,39 @@ class App extends React.Component {
               <h2 id="subtitlefont">Learn More With Just A Click</h2>
             </div>
           </div>
-
           <div className="row">
 
-            <div className="col-sm-9">  
+            <div className="col-sm-6">  
               <div id="mapblock" className="vertical-center">  
                 {this.mapComponent()}      
               </div>
               <div id="twittertrends">
-                <TwitterTrends/>
-              </div>
-              <div>
-                <PostContentComponent city={this.state.city} post={this.postLocalTipsHandler.bind(this)}/>
+                <TwitterTrends recentTweetsAbout={this.state.recentTweetsAbout} recentTweetsFrom={this.state.recentTweetsFrom}
+                  oldTweetsFrom={this.state.oldTweetsFrom} oldTweetsAbout={this.state.oldTweetsAbout}/>
               </div>
             </div>
-
-
-            <div className="col">
+            <div className="col-sm-6">
               <div id="infoblock">
-                
-                <div id="walkabilityblock">
-                  <WalkabilityInfo walkscore = {this.state.walkscore}/>
+                <div className="row">
+                  <div className="col-sm-6">
+                    <div id="walkabilityblock">
+                      <WalkabilityInfo walkscore = {this.state.walkscore}/>
+                    </div>
+                  </div>
+                  <div className="col-sm-6">
+                    <div id ="tipsblock">
+                      <TipsBlock/>
+                    </div>
+                  </div>
                 </div>
-
                 <div id="toptweetsblock">
                   <TopTweetsInfo/>
                 </div>
-
-                <div id ="tipsblock">
-                  <TipsBlock city={this.state.city}/>
-                </div>
-                
                 <div id="photoblock">
                   <PhotoInfo photoUrl = {this.state.photoUrl} lat={this.state.lat} lng={this.state.lng}/>
                 </div>
-
               </div>
             </div>
-
           </div>
         </div>
     );
@@ -247,5 +255,4 @@ class App extends React.Component {
 }
 
 export default App;
-
 

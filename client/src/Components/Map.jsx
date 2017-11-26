@@ -91,6 +91,7 @@ class Map extends React.Component {
         }
         var city = citystate[0].toLowerCase();
         var state = citystate[1].toLowerCase();
+        var cityShortName = citystate[2].toLowerCase();
 
          //check if the city was already searched.
         if (this.searchedCities[city+state]) {
@@ -102,7 +103,7 @@ class Map extends React.Component {
           this.map.setCenter(event.latLng);
           this.map.setZoom(6);
           this.setMarker(event.latLng.lat(), event.latLng.lng(), city, state);
-          this.props.callback(event.latLng.lat(), event.latLng.lng(), city, state);
+          this.props.callback(event.latLng.lat(), event.latLng.lng(), city, state, cityShortName);
         }
       }.bind(this)
       );  

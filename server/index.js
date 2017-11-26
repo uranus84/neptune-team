@@ -1,14 +1,23 @@
 var express = require('express');
 var axios = require('axios');
 var key = require('./API.js');
-var emailExistence = require('email-existence');
-var kickbox = require('kickbox').client('test_494fd5cef36eb0198c09bdd91974178fb639a5a2cfbb52b9e46942ce16ee49af').kickbox();
-var bodyParser = require('body-parser')
+var indico = require('indico.io');
+var Twitter = require('twitter');
+var moment = require('moment');
+indico.apiKey = process.env.INDICO_API || key.INDICO_API
+var indicoHelper = require('./indicoHelper');
 
+
+var client = new Twitter({
+  consumer_key: process.env.API_KEY || key.API_KEY,
+  consumer_secret: process.env.API_SECRET || key.API_SECRET,
+  access_token_key: process.env.ACCESS_TOKEN || key.ACCESS_TOKEN,
+  access_token_secret: process.env.ACCESS_TOKEN_SECRET || key.ACCESS_TOKEN_SECRET
+});
 
 var app = express();
 app.use(express.static(__dirname + '/../client/dist'));
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
 
 app.get('/GET', (req, res) => {
@@ -61,31 +70,99 @@ app.get('/walkscore', (req,res) => {
 })
 
 
-app.post('/postTips', (req, res) => {
-    res.status(201);
-    console.log(req.body)
+// <<<<<<< HEAD
+// app.post('/postTips', (req, res) => {
+//     res.status(201);
+//     console.log(req.body)
 
-		var email = req.body.email;
-		var content = req.body.content;
-		var city = req.body.city;
+// 		var email = req.body.email;
+// 		var content = req.body.content;
+// 		var city = req.body.city;
 		
-		//must change this later 
-		kickbox.verify(email, function (err, response) {
-	  	if (response.body.result === 'deliverable') {
-	  		console.log('this example email exists, so now we must store to database');
-	  		//store the email, content and city into database
+// 		//must change this later 
+// 		kickbox.verify(email, function (err, response) {
+// 	  	if (response.body.result === 'deliverable') {
+// 	  		console.log('this example email exists, so now we must store to database');
+// 	  		//store the email, content and city into database
 
-	  	}
-		});
-    res.end('successful store to DB');
+// 	  	}
+// 		});
+//     res.end('successful store to DB');
+// })
+
+// //handle get request from server here for local Tips
+// //get the values that have city 
+// //return value to client
+
+
+// =======
+
+app.get('/recentTweetsFrom', (req, res) => {
+	var locationData = req.query.lat + ',' + req.query.lon + ',10mi'
+	//couldnt figure out how to search for anything so i searched for tweets that dont contain sddsssjd
+  client.get('search/tweets', {q: ' -sddsssjd', lang: 'en', count: '100', result_type: 'recent', geocode: locationData})
+	  .then(function (tweets) {
+	    var tweetArr = [];
+	    tweets.statuses.map((val) => { tweetArr.push(val.text) });
+
+	    //get indico score
+	    indicoHelper.sendIndicoData(req, res, tweetArr);
+	  })
+	  .catch(function (error) {
+	    throw error;
+	  })
 })
 
-//handle get request from server here for local Tips
-//get the values that have city 
-//return value to client
+app.get('/oldTweetsFrom', (req, res) => {
+	var locationData = req.query.lat + ',' + req.query.lon + ',10mi'
+	var date = new Date();
+	var oneWeekAgo = moment(date.setDate(date.getDate() - 7)).format().split('T')[0];
+	//couldnt figure out how to search for anything so i searched for tweets that dont contain sddsssjd
+  client.get('search/tweets', {q: `-sddsssjd until:${oneWeekAgo}`, lang: 'en', count: '100', result_type: 'recent', geocode: locationData})
+	  .then(function (tweets) {
+	    var tweetArr = [];
+	    tweets.statuses.map((val) => { tweetArr.push(val.text) });
 
+	    //get indico score
+	    indicoHelper.sendIndicoData(req, res, tweetArr);
+	  })
+	  .catch(function (error) {
+	    throw error;
+	  })
+})
 
+app.get('/recentTweetsAbout', (req, res) => {
+	var city = req.query.city;
+	var cityShortName = req.query.cityShortName;
 
+  client.get('search/tweets', {q: `${city} OR ${cityShortName}`, lang: 'en', count: '100', result_type: 'recent'})
+	  .then(function (tweets) {
+	    var tweetArr = [];
+	    tweets.statuses.map((val) => { tweetArr.push(val.text) });
 
+	    //get indico score
+	    indicoHelper.sendIndicoData(req, res, tweetArr);
+	  })
+	  .catch(function (error) {
+	    throw error;
+	  })
+})
 
+app.get('/oldTweetsAbout', (req, res) => {
+	var city = req.query.city;
+	var cityShortName = req.query.cityShortName;
+	var date = new Date();
+	var oneWeekAgo = moment(date.setDate(date.getDate() - 7)).format().split('T')[0];
 
+  client.get('search/tweets', {q: `${city} OR ${cityShortName} until:${oneWeekAgo}`, lang: 'en', count: '100', result_type: 'recent'})
+	  .then(function (tweets) {
+	    var tweetArr = [];
+	    tweets.statuses.map((val) => { tweetArr.push(val.text) });
+
+	    //get indico score
+	    indicoHelper.sendIndicoData(req, res, tweetArr);
+	  })
+	  .catch(function (error) {
+	    throw error;
+	  })
+})

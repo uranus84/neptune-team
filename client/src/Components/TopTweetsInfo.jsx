@@ -1,11 +1,24 @@
 import React from 'react';
+import TweetBox from './TweetBox.jsx'
 
 
-var TopTweetsInfo = (props) => (
-  <div>
-    <p className="toptweetsblock_content">Top 3 Tweets FROM A Location</p>
-    <p className="toptweetsblock_content">Top 3 Tweets ABOUT A Location</p>
-  </div>
-  )
+var TopTweetsInfo = (props) => {
+  if(props.topTweetsAbout === "" || props.topTweetsFrom === "") {
+    return (<div className="loader"></div>)
+  } else {
+    return (
+      <div>
+        <div className="left-box">
+          <p className="toptweetsblock_content">Top 3 Tweets form {props.city.toUpperCase()}</p>
+          {props.topTweetsFrom.map( (val) => {return ( <TweetBox tweet={val}/> )} )}
+        </div>
+        <div className="right-box">
+          <p className="toptweetsblock_content">Top 3 Tweets about {props.city.toUpperCase()}</p>
+          {props.topTweetsAbout.map( (val) => {return ( <TweetBox tweet={val}/> )} )}
+        </div>
+      </div>
+    )
+  }
+}
 
 export default TopTweetsInfo;

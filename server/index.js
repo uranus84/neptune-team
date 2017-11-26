@@ -95,6 +95,9 @@ app.get('/tips', (req, res) => {
   console.log('CLIENT REQ TO SERVER GET @ /tips = ', req.query);
   db.getLocalTipsFromDataBaseFn(req.query, (err, info) => {
       if (err) {
+        if (err.fatal) {
+          console.trace('fatal error: ' + err.message);
+        }
         console.log('Error in GET to /tips', err);
       } else {
         console.log('INFO ABOUT TO BE SENT ON GET = ', info)
@@ -112,6 +115,7 @@ app.get('/admin', (req, res) => {
 
 app.post('/admin', (req, res) => {
   res.send('HIDDEN CONTENT');
+})
 
 })
 
@@ -184,3 +188,34 @@ app.get('/oldTweetsAbout', (req, res) => {
 	    throw error;
 	  })
 })
+
+app.get('/topTweetsAbout', (req, res) => {
+	var city = req.query.city;
+	var cityShortName = req.query.cityShortName;
+
+  client.get('search/tweets', {q: `${city} OR ${cityShortName}`, lang: 'en', count: '3', result_type: 'popular'})
+	  .then(function (tweets) {
+	    // console.log(tweets.statuses[0].text);
+	    res.status(200);
+	    res.end(JSON.stringify(tweets.statuses));
+	  })
+	  .catch(function (error) {
+	    throw error;
+	  })
+})
+
+app.get('/topTweetsFrom', (req, res) => {
+	var locationData = req.query.lat + ',' + req.query.lon + ',10mi'
+	console.log(locationData)
+	//couldnt figure out how to search for anything so i searched for tweets that dont contain sddsssjd
+  client.get('search/tweets', {q: ' -sddsssjd', lang: 'en', count: '3', result_type: 'mix', geocode: locationData})
+	  .then(function (tweets) {
+	  	console.log(tweets);
+	    res.status(200);
+	    res.end(JSON.stringify(tweets.statuses));
+	  })
+	  .catch(function (error) {
+	    throw error;
+	  })
+})
+

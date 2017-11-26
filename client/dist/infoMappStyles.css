@@ -61,6 +61,11 @@
   font-weight: bold;
 }
 
+.trends_data {
+  width:100%;
+  overflow: auto;
+}
+
 #infoblock {
   border: 1px solid black;
   text-align: center;
@@ -113,6 +118,26 @@
   font-weight: bold;
 }
 
+.tweetbox {
+  border-bottom: solid blue 1px;
+}
+
+.left-box {
+  float: left;
+  width:50%;
+  overflow:auto;
+  height: 100%;
+  padding:10px;
+}
+
+.right-box {
+  height:100%;
+  float: right;
+  width:50%;
+  overflow:auto;
+  padding: 10px;
+}
+
 .loader {
   border: 16px solid #f3f3f3;
   border-radius: 50%;
@@ -135,3 +160,60 @@
   100% { transform: rotate(360deg); }
 }
 
+
+
+.popup {
+  position: fixed;
+ 
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: rgba(0,0,0, 0.5);
+  z-index: 2;
+
+}
+
+.popup_inner {
+  position: absolute;
+  left: 25%;
+  right: 25%;
+  top: 25%;
+  bottom: 25%;
+  margin: auto;
+  background: white;
+
+}
+
+.popup_list_scrolls {
+  
+  background: lightgrey;
+  overflow-y: auto;
+  height: 300px;
+}
+
+.popup_label{
+    display:inline-block;
+    padding-left: 10px;
+    width:80px;
+}
+
+.popup_label_tips_exception {
+  display:inline-block;
+  padding-left: 10px;
+  width:120px;
+}
+
+.redbtn {
+  background-color: red;
+  color: white;
+}
+
+.toprightclass {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}

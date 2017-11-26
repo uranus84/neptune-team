@@ -39,6 +39,7 @@ app.listen(port, function () {
 });
 
 app.get('/googlepics', (req,res) => {
+  console.log('MAKING A GET');
 	//Gets a location based on a long/latitude
 	var locationData = req.query.lat + ', ' + req.query.lon; 
 	axios.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json', {params : {key: (process.env.MAP_API || key.GOOGLE_MAP_API), location: locationData, radius :2000}})
@@ -46,10 +47,12 @@ app.get('/googlepics', (req,res) => {
 		var photoArray = results.data.results;
 		//var photoString = results.data.results[0].photos[0].photo_reference;
 		var imageUrlArray = [];
-		photoArray.forEach((result) =>{
+		photoArray.forEach((result) => {
+      console.log('here is result: ', result);
 			imageId = result.photos[0].photo_reference;
 			imageUrlArray.push('https://maps.googleapis.com/maps/api/place/photo?maxheight=290&maxwidth=400&key=' + (process.env.MAP_API || key.GOOGLE_MAP_API) + '&photoreference=' + imageId);
 		})
+    console.log('IMAGE', imageUrlArray);
 		//var imageUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxheight=290&key=' + (process.env.MAP_API || key.GOOGLE_MAP_API) + '&photoreference=' + photoString;
 		//Sends back an array of direct urls, should be used as src for images. 
 		res.end(JSON.stringify(imageUrlArray));
@@ -81,7 +84,7 @@ app.get('/walkscore', (req,res) => {
 })
 
 app.post('/tips', (req, res)=> {
-  console.log('CLIENT REQ TO SERVER POST @ /tips = ', req.body);
+  // console.log('CLIENT REQ TO SERVER POST @ /tips = ', req.body);
   db.addTipToDataBaseFn(req.body, (err, data) => {
     if (err) {
       console.log('Error in POST to /tips = ', err)
@@ -92,7 +95,7 @@ app.post('/tips', (req, res)=> {
 
 
 app.get('/tips', (req, res) => {
-  console.log('CLIENT REQ TO SERVER GET @ /tips = ', req.query);
+  // console.log('CLIENT REQ TO SERVER GET @ /tips = ', req.query);
   db.getLocalTipsFromDataBaseFn(req.query, (err, info) => {
       if (err) {
         if (err.fatal) {
@@ -100,7 +103,7 @@ app.get('/tips', (req, res) => {
         }
         console.log('Error in GET to /tips', err);
       } else {
-        console.log('INFO ABOUT TO BE SENT ON GET = ', info)
+        // console.log('INFO ABOUT TO BE SENT ON GET = ', info)
         res.send(info);
       }
   });
@@ -205,11 +208,11 @@ app.get('/topTweetsAbout', (req, res) => {
 
 app.get('/topTweetsFrom', (req, res) => {
 	var locationData = req.query.lat + ',' + req.query.lon + ',10mi'
-	console.log(locationData)
+	// console.log(locationData)
 	//couldnt figure out how to search for anything so i searched for tweets that dont contain sddsssjd
   client.get('search/tweets', {q: ' -sddsssjd', lang: 'en', count: '3', result_type: 'mix', geocode: locationData})
 	  .then(function (tweets) {
-	  	console.log(tweets);
+	  	// console.log(tweets);
 	    res.status(200);
 	    res.end(JSON.stringify(tweets.statuses));
 	  })

@@ -83,8 +83,12 @@ class App extends React.Component {
   }
 
   getPhoto(lat, lon) {
+    console.log('HERE IS LAT AND LON ', lat, lon)
+
     axios.get('/googlepics', {params: {lat: lat, lon: lon}})
       .then ((result) => {
+        console.log('in getphoto function the data:', result.data);
+        //error if there is no picture?
         this.setState({'photoUrl': result.data})
       })
       .catch ((error) => {
@@ -122,7 +126,8 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    this.getPhoto(this.state.lat, this.state.lng);
+    console.log('calling from componentWIllMount');
+    //this.getPhoto(this.state.lat, this.state.lng);
     this.getWalkability(this.state.lat, this.state.lng);
     this.getTweetTrends(this.state.lat, this.state.lng, this.state.city, this.state.cityShortName);
     this.getTopTweetsFrom(this.state.lat, this.state.lng);
@@ -206,8 +211,9 @@ class App extends React.Component {
       state: state,
       cityShortName: cityShortName
     });
-    console.log(this.state);
-    this.getPhoto(lat, lng);
+
+    
+    //this.getPhoto(lat, lng);
     this.getWalkability(lat, lng);
     this.getTweetTrends(this.state.lat, this.state.lng, this.state.city, this.state.cityShortName);
     this.getTopTweetsFrom(this.state.lat, this.state.lng);
@@ -229,13 +235,13 @@ class App extends React.Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col-12-sm" id="titlebar">
-              <h1 id="titlefont">InfoMapp</h1>
+              <h1 id="titlefont">infoMapp</h1>
               <h2 id="subtitlefont">Learn More With Just A Click</h2>
             </div>
           </div>
           <div className="row">
 
-            <div className="col-sm-6">
+            <div className="col-sm-8">
               <div id="mapblock" className="vertical-center">
                 {this.mapComponent()}
               </div>
@@ -244,28 +250,27 @@ class App extends React.Component {
                   oldTweetsFrom={this.state.oldTweetsFrom} oldTweetsAbout={this.state.oldTweetsAbout}/>
               </div>
             </div>
-            <div className="col-sm-6">
-              <div id="infoblock">
-                <div className="row">
-                  <div className="col-sm-6">
-                    <div id="walkabilityblock">
-                      <WalkabilityInfo walkscore = {this.state.walkscore}/>
-                    </div>
-                  </div>
-                  <div className="col-sm-6">
-                    <div id ="tipsblock">
-                      <TipsBlock info={this.state}/>
-                    </div>
-                  </div>
+
+            <div className="col-sm-4">
+              
+                <div id="walkabilityblock">
+                  <WalkabilityInfo walkscore = {this.state.walkscore}/>
                 </div>
+             
+                <div id ="tipsblock">
+                  <TipsBlock info={this.state}/>
+                </div>
+             
                 <div id="toptweetsblock">
                   <TopTweetsInfo topTweetsFrom={this.state.topTweetsFrom} topTweetsAbout={this.state.topTweetsAbout} city={this.state.city}/>
                 </div>
-                <div id="photoblock">
-                  <PhotoInfo photoUrl = {this.state.photoUrl} lat={this.state.lat} lng={this.state.lng}/>
-                </div>
+             
+              
+              <div id="photoblock">
+                <PhotoInfo photoUrl={this.state.photoUrl} lat={this.state.lat} lng={this.state.lng}/>
               </div>
             </div>
+
           </div>
         </div>
     );
@@ -273,3 +278,9 @@ class App extends React.Component {
 }
 
 export default App;
+              // <div id="infoblock">
+              //   <div className="row">
+
+              //   </div>
+                
+              // </div>

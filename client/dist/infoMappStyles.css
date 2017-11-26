@@ -8,34 +8,39 @@
   
 }
 
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
 [class^="col-"] {
   padding-left: 0px;
   padding-right: 0px;
 }
 
 #titlebar {
-/*  background-color: lightgrey;*/
-  height: 100px;
-  margin: 0px;
+  height: 80px;
+  margin: 5px;
   padding: 5px;
   padding-left: 20px;
+
 }
 
 #titlefont {
-  font-family: 'Bungee Shade', cursive;
+  /*font-family: 'Bungee Shade', cursive;*/
   font-size: 50px;
-  color: black;
+  color: #4a7bef;
   margin: 0px;
+
 }
 
 #subtitlefont {
-  font-family: 'Tangerine', serif;
-  font-size: 25px;
+  /*font-family: 'Tangerine', serif;*/
+  font-size: 12px;
   margin: 0px;
 }
 
 #mapblock {
-  border: 1px solid black;
+  /*border: 1px solid black;*/
   text-align: center;
   height: 450px;
   padding: 10px;
@@ -73,12 +78,15 @@
 }
 
 #walkabilityblock {
+  text-align: center;
   border: 1px solid black;
   height: 200px;
 }
 
 .walkabilityblock_content {
   font-weight: bold;
+  font-size: 20px;
+   color: #4a7bef;
 }
 
 .walkabilityblock_score {
@@ -87,6 +95,7 @@
 }
 
 #toptweetsblock {
+  text-align: center;
   border: 1px solid black;
   height: 250px;
 }
@@ -110,7 +119,7 @@
 
 #tipsblock {
   border: 1px solid black;
-  text-align: left;
+  text-align: center;
   padding: 5px;
   height: 200px;
   overflow-y: auto;
@@ -141,15 +150,14 @@
 }
 
 .loader {
-  border: 16px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 16px solid #3498db;
-  width: 120px;
-  height: 120px;
   margin: auto;
-  width: 50%
+  border: 6px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 6px solid #3498db;
+  width: 30px;
+  height: 30px;
   -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
+  animation: spin 1s linear infinite;
 }
 
 @-webkit-keyframes spin {
@@ -221,37 +229,33 @@
 }
 
 .dangerouswalk {
-  background-color:darkgray;
-  color: red;
-  font-size: 20px;
-  width: 50%;
+  color: #DF6A6A;
+  font-size: 80px;
   margin:auto;
-  border-radius: 10px;
 }
 
 .okwalk {
-  background-color:darkgray;
-  color: yellow;
-  font-size: 20px;
-  width: 50%;
+  color: #DFDF6A;
+  font-size: 80px;
   margin:auto;
-  border-radius: 10px;
 }
 
 .goodwalk {
-  background-color:darkgray;
-  color: green;
-  font-size: 20px;
-  width: 50%;
+  color: #A5DF6A;
+  font-size: 80px;
   margin:auto;
-  border-radius: 10px;
 }
 
 .amazingwalk {
-  background-color:gold;
-  color: black;
-  font-size: 20px;
-  width: 50%;
+  color: #8ADF6A;
+  font-size: 80px;
   margin:auto;
-  border-radius: 10px;
+}
+
+.col-sm {
+  background-color: black;
+}
+
+#searchField {
+  margin-top: 5px;
 }

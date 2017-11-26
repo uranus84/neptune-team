@@ -14,6 +14,7 @@ class Map extends React.Component {
     //searchedCitites format: {citystate: [position, state]}
     //key is citystate because there can be multiple cities with same names in diff. states
     this.searchedCities = {};
+    //this.panorama;
   }
 
   componentDidMount() {
@@ -76,6 +77,17 @@ class Map extends React.Component {
     });
     this.setMarker(this.props.lat, this.props.lng, this.props.city, this.props.state);
 
+    // this.panorama = new google.maps.StreetViewPanorama(
+    //   this.refs.pano, {
+    //     position: {lat: this.props.lat, lng: this.props.lng},
+    //     pov: {
+    //       heading: 34,
+    //       pitch: 10
+    //     },
+    //     linksControl: true
+    //   });
+    // this.map.setStreetView(this.panorama);
+
     //when a user clicks on the map layer, only have access to the long/lat
     google.maps.event.addListener(layer, 'click', function(event) {
       console.log('here, searched cities: ',this.searchedCities);
@@ -102,6 +114,7 @@ class Map extends React.Component {
           this.searchedCities[city+state] = [event.latLng, state];
           this.map.setCenter(event.latLng);
           this.map.setZoom(6);
+          //this.panorama.setPosition(event.latLng);
           this.setMarker(event.latLng.lat(), event.latLng.lng(), city, state);
           this.props.callback(event.latLng.lat(), event.latLng.lng(), city, state, cityShortName);
         }
@@ -118,7 +131,7 @@ class Map extends React.Component {
     var styles = window.styles;
     //this.map.setOptions({ draggableCursor : "url(http://s3.amazonaws.com/besport.com_images/status-pin.png), auto" })
     this.map.setOptions({styles: styles, mapTypeId: google.maps.MapTypeId.ROADMAP,
-    disableDefaultUI: true, zoomControl: true,});
+    zoomControl: true,});
   }
 
   //Helper function that gets the Lng and Lat of a given address.
@@ -148,6 +161,7 @@ class Map extends React.Component {
             this.searchedCities[city+state] = [results[0].geometry.location, state];
 
             resultsMap.setCenter(results[0].geometry.location);
+            //this.panorama.setPosition(results[0].geometry.location);
             resultsMap.setZoom(6);
             this.setMarker(results[0].geometry.location.lat(), results[0].geometry.location.lng(), city, state);
             this.props.callback(results[0].geometry.location.lat(), results[0].geometry.location.lng(), city, state);
@@ -170,6 +184,7 @@ class Map extends React.Component {
     var position = this.searchedCities[key];
     console.log('searched this city already');
     this.map.setCenter({lat: position[0].lat(), lng:position[0].lng()});
+    //this.panorama.setPosition({lat: position[0].lat(), lng:position[0].lng()});
     this.map.setZoom(6);
     this.props.callback(position[0].lat(), position[0].lng(), city, position[1]);
   }
@@ -178,7 +193,8 @@ class Map extends React.Component {
     return (
     <div className="row">
       <div id="mapblock_content"> 
-        <div ref="map" style={{width: '100%', height: '400px', borderRadius: '5px'}}></div>
+        <div ref="map" style={{float: 'left', width: '100%', height: '400px', borderRadius: '5px'}}></div>
+        
         <Search search={this.searchClicked.bind(this)}/>
       </div>
     </div>
@@ -187,6 +203,7 @@ class Map extends React.Component {
 }
 
 export default Map;
+//<div ref="pano" style={{float: 'right', width: '30%', height: '400px', borderRadius: '5px'}}></div>
 
 
 

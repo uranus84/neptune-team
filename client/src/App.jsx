@@ -49,38 +49,38 @@ class App extends React.Component {
       .catch((err) => {})
   }
 
-  // getTweetTrends(lat, lon, city, cityShortName) {
-  //   this.setState({
-  //     recentTweetsFrom: "",
-  //     recentTweetsAbout: "",
-  //     oldTweetsFrom: "",
-  //     oldTweetsAbout: ""
-  //   })
+  getTweetTrends(lat, lon, city, cityShortName) {
+    this.setState({
+      recentTweetsFrom: "",
+      recentTweetsAbout: "",
+      oldTweetsFrom: "",
+      oldTweetsAbout: ""
+    })
 
-  //   axios.get('/recentTweetsFrom', {params: {lat: lat, lon: lon}})
-  //     .then((results) => {
-  //       this.setState({recentTweetsFrom: results.data})
-  //     })
-  //     .catch((err) => {console.log(err)})
+    axios.get('/recentTweetsFrom', {params: {lat: lat, lon: lon}})
+      .then((results) => {
+        this.setState({recentTweetsFrom: results.data})
+      })
+      .catch((err) => {console.log(err)})
 
-  //   axios.get('/oldTweetsFrom', {params: {lat: lat, lon: lon}})
-  //     .then((results) => {
-  //       this.setState({oldTweetsFrom: results.data})
-  //     })
-  //     .catch((err) => {console.log(err)})
+    axios.get('/oldTweetsFrom', {params: {lat: lat, lon: lon}})
+      .then((results) => {
+        this.setState({oldTweetsFrom: results.data})
+      })
+      .catch((err) => {console.log(err)})
 
-  //   axios.get('/recentTweetsAbout', {params: {city: city, cityShortName: cityShortName}})
-  //     .then((results) => {
-  //       this.setState({recentTweetsAbout: results.data})
-  //     })
-  //     .catch((err) => {console.log(err)})
+    axios.get('/recentTweetsAbout', {params: {city: city, cityShortName: cityShortName}})
+      .then((results) => {
+        this.setState({recentTweetsAbout: results.data})
+      })
+      .catch((err) => {console.log(err)})
 
-  //   axios.get('/oldTweetsAbout', {params: {city: city, cityShortName: cityShortName}})
-  //     .then((results) => {
-  //       this.setState({oldTweetsAbout: results.data})
-  //     })
-  //     .catch((err) => {console.log(err)})
-  // }
+    axios.get('/oldTweetsAbout', {params: {city: city, cityShortName: cityShortName}})
+      .then((results) => {
+        this.setState({oldTweetsAbout: results.data})
+      })
+      .catch((err) => {console.log(err)})
+  }
 
   getPhoto(lat, lon) {
     axios.get('/googlepics', {params: {lat: lat, lon: lon}})

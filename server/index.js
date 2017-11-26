@@ -80,34 +80,6 @@ app.get('/walkscore', (req,res) => {
 	})
 })
 
-
-// <<<<<<< HEAD
-// app.post('/postTips', (req, res) => {
-//     res.status(201);
-//     console.log(req.body)
-
-// 		var email = req.body.email;
-// 		var content = req.body.content;
-// 		var city = req.body.city;
-		
-// 		//must change this later 
-// 		kickbox.verify(email, function (err, response) {
-// 	  	if (response.body.result === 'deliverable') {
-// 	  		console.log('this example email exists, so now we must store to database');
-// 	  		//store the email, content and city into database
-
-// 	  	}
-// 		});
-//     res.end('successful store to DB');
-// })
-
-// //handle get request from server here for local Tips
-// //get the values that have city 
-// //return value to client
-
-
-// =======
-
 app.post('/tips', (req, res)=> {
   console.log('CLIENT REQ TO SERVER POST @ /tips = ', req.body);
   db.addTipToDataBaseFn(req.body, (err, data) => {

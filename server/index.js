@@ -53,7 +53,11 @@ app.get('/googlepics', (req,res) => {
         })
 		//var imageUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxheight=290&key=' + (process.env.MAP_API || key.GOOGLE_MAP_API) + '&photoreference=' + photoString;
 		//Sends back an array of direct urls, should be used as src for images. 
-		res.end(JSON.stringify(imageUrlArray));
+		if(imageUrlArray.length > 0){
+			res.end(JSON.stringify(imageUrlArray));
+		} else {
+			res.end(JSON.stringify('No results'))
+		}
 	})
 	.catch((error) =>{
 		console.log(error)
@@ -77,7 +81,7 @@ app.get('/walkscore', (req,res) => {
 	.catch((error)=>{
 		console.log(error);
 		res.status(200);
-		res.end('error');
+		res.end('No results');
 	})
 })
 

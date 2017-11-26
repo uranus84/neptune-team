@@ -6,7 +6,6 @@ import TopTweetsInfo from './Components/TopTweetsInfo.jsx';
 import WalkabilityInfo from './Components/WalkabilityInfo.jsx';
 import TwitterTrends from './Components/TwitterTrends.jsx';
 import axios from 'axios';
-import Previous from './Components/Previous.jsx'
 
 
 class App extends React.Component {

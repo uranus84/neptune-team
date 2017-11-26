@@ -241,9 +241,9 @@ class App extends React.Component {
                 {this.mapComponent()}
               </div>
               <div id="twittertrends">
-                <TwitterTrends />
-                {/*<TwitterTrends recentTweetsAbout={this.state.recentTweetsAbout} recentTweetsFrom={this.state.recentTweetsFrom}
-                  oldTweetsFrom={this.state.oldTweetsFrom} oldTweetsAbout={this.state.oldTweetsAbout}/>*/}
+                {/*<TwitterTrends />*/}
+                <TwitterTrends recentTweetsAbout={this.state.recentTweetsAbout} recentTweetsFrom={this.state.recentTweetsFrom}
+                  oldTweetsFrom={this.state.oldTweetsFrom} oldTweetsAbout={this.state.oldTweetsAbout}/>
               </div>
             </div>
             <div className="col-sm-6">

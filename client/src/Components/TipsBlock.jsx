@@ -114,10 +114,10 @@ class TipsBlock extends React.Component {
     } else {
       axios.post('/tips', {cityData: this.state.tipsCity, stateData: stateValidatorAndFormatter(this.state.tipsState), nameData: this.state.tipsName, tipData: this.state.tipsContent })
         .then(function (response) {
-          console.log('/tips POST WORKED RESPONSE = ', response);
+          // console.log('/tips POST WORKED RESPONSE = ', response);
           contexthere.setState({tipsCity: '', tipsState: '', tipsName: '', tipsContent: ''});
           contexthere.getTips();
-          console.log('FINAL RAN!!!');
+          // console.log('FINAL RAN!!!');
         })
         .catch(function (error) {
           console.log('/tips POST ERROR',error);
@@ -129,8 +129,8 @@ class TipsBlock extends React.Component {
     var context = this;
     axios.get('/tips', {params: {city: this.props.info.city.toLowerCase(), state: this.props.info.state.toLowerCase()}})
       .then(function (response) {
-        console.log('/tips GET WORKED RESPONSE = ', response.data);
-        console.log('CHECK THIS OUT!!!! = ', response.data.length);
+        // console.log('/tips GET WORKED RESPONSE = ', response.data);
+        // console.log('CHECK THIS OUT!!!! = ', response.data.length);
         if (response.data.length < 1) {
           var notes = {city: context.props.info.city, datecreated: "", name: "No data", state: context.props.info.state, tiptext: "No Tips Provided Yet"}
           response.data = [notes];

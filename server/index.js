@@ -39,14 +39,19 @@ app.listen(port, function () {
 
 app.get('/googlepics', (req,res) => {
 	//Gets a location based on a long/latitude
-	var locationData = req.query.lat + ', ' + req.query.lon;
+	var locationData = req.query.lat + ', ' + req.query.lon; 
 	axios.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json', {params : {key: (process.env.MAP_API || key.GOOGLE_MAP_API), location: locationData, radius :2000}})
 	.then ((results) =>{
-		//Pulls the first image information
-		var photoString = results.data.results[0].photos[0].photo_reference;
-		var imageUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxheight=290&key=' + (process.env.MAP_API || key.GOOGLE_MAP_API) + '&photoreference=' + photoString;
-		//Sends back a direct Url to reach the image.
-		res.end(imageUrl)
+		var photoArray = results.data.results;
+		//var photoString = results.data.results[0].photos[0].photo_reference;
+		var imageUrlArray = [];
+		photoArray.forEach((result) =>{
+			imageId = result.photos[0].photo_reference;
+			imageUrlArray.push('https://maps.googleapis.com/maps/api/place/photo?maxheight=290&maxwidth=400&key=' + (process.env.MAP_API || key.GOOGLE_MAP_API) + '&photoreference=' + imageId);
+		})
+		//var imageUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxheight=290&key=' + (process.env.MAP_API || key.GOOGLE_MAP_API) + '&photoreference=' + photoString;
+		//Sends back an array of direct urls, should be used as src for images. 
+		res.end(JSON.stringify(imageUrlArray));
 	})
 	.catch((error) =>{
 		console.log(error)
@@ -108,7 +113,7 @@ app.get('/admin', (req, res) => {
 app.post('/admin', (req, res) => {
   res.send('HIDDEN CONTENT');
 
-
+})
 
 app.get('/recentTweetsFrom', (req, res) => {
 	var locationData = req.query.lat + ',' + req.query.lon + ',10mi'

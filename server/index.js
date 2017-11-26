@@ -117,7 +117,6 @@ app.post('/admin', (req, res) => {
   res.send('HIDDEN CONTENT');
 })
 
-})
 
 app.get('/recentTweetsFrom', (req, res) => {
 	var locationData = req.query.lat + ',' + req.query.lon + ',10mi'

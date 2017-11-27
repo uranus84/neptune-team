@@ -9,7 +9,7 @@ var capitalizeFirstLetterOnly = function (str) {
   strArray = strArray.join(' ');
   return strArray;
 };
-
+ 
  
 var TipsList = (props) => (
   <div>

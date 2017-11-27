@@ -3,7 +3,7 @@ import Recharts from 'recharts';
 import{Radar, RadarChart, PolarGrid, Legend, PolarAngleAxis, PolarRadiusAxis} from 'recharts';
 import BarChartFrom from './ChartFrom.jsx';
 import BarChartAbout from './ChartAbout.jsx';
- 
+  
 
 var TwitterTrends = (props) => {
   var capitalizeFirstLetterOnly = function(str) {
@@ -27,7 +27,6 @@ var TwitterTrends = (props) => {
     positivityColorFrom = {fontWeight: "bold", color: "red"};
     positivityComment = "These are very unhappy people"
   }
-
 
   var positivityColorAbout = {fontWeight: "bold", color: "black"};
   if ((props.recentTweetsAbout.positivityScore * 100) >=90) {

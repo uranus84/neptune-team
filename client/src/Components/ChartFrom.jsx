@@ -10,7 +10,6 @@ import{BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'rechar
 
 var BarChartFrom = (props) => {
 
-
 const data = [
       {name: 'Openness', current: props.recentTweetsFrom.personalityScores.openness, past: props.oldTweetsFrom.personalityScores.openness},
       {name: 'Extrovert', current: props.recentTweetsFrom.personalityScores.extraversion, past: props.oldTweetsFrom.personalityScores.extraversion},

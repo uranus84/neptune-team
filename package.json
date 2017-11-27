@@ -71,7 +71,6 @@
     "twitter": "^1.7.1",
     "webpack": "^3.8.1"
   },
-  "devDependencies": {},
   "babel": {
     "presets": [
       "es2015",

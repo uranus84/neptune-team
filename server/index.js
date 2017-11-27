@@ -1,6 +1,6 @@
 var express = require('express');
 var axios = require('axios');
-// var key = require('./API.js');
+var key = require('./API-example.js');
 var env = require('node-env-file');
 var db = require('../database/index.js');
 var bodyParser = require('body-parser');

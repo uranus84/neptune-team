@@ -122,7 +122,7 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    console.log('MASTER MAP APP WILLMOUNT RAN!')
+    //console.log('MASTER MAP APP WILLMOUNT RAN!')
     this.getPhoto(this.state.lat, this.state.lng);
     this.getWalkability(this.state.lat, this.state.lng);
     this.getTweetTrends(this.state.lat, this.state.lng, this.state.city, this.state.cityShortName);

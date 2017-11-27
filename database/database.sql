@@ -1,4 +1,4 @@
-DROP DATABASE  infomapptips;  /* <= for testing COMMENT THIS OUT FOR FIRST DATABASE CREATION */
+-- DROP DATABASE  infomapptips;  /* <= for testing COMMENT THIS OUT FOR FIRST DATABASE CREATION */
 CREATE DATABASE infomapptips;
 
 USE infomapptips;  

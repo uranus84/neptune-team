@@ -3,9 +3,7 @@ import axios from 'axios';
 import TipsList from './TipsList.jsx';
 import TipsPopUp from './TipsPopUp.jsx';
 
-
-
-
+ 
 
 class TipsBlock extends React.Component {
   constructor(props) {
@@ -34,8 +32,6 @@ class TipsBlock extends React.Component {
   changeIntentFn (e) {
     this.setState({userIntentCurrent: e.target.id});
   }
-
-  
 
   submitTips () {
     var contexthere = this;

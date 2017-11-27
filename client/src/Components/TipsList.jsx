@@ -9,8 +9,8 @@ var capitalizeFirstLetterOnly = function (str) {
   strArray = strArray.join(' ');
   return strArray;
 };
-
-
+ 
+ 
 var TipsList = (props) => (
   <div>
     <p>Tips From: <span style={{fontWeight: 'bold'}}><br/>{capitalizeFirstLetterOnly(props.info[0].city)}, {capitalizeFirstLetterOnly(props.info[0].state)}</span></p>
@@ -20,7 +20,7 @@ var TipsList = (props) => (
     }
     </ul> 
   </div>
-)
+) 
 
 
 export default TipsList; 

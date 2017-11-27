@@ -53,6 +53,7 @@
   border: 1px solid black;
   height: 300px;  
   text-align: center;
+  overflow-y: auto;
 }
 
 .twittertrends_content {
@@ -154,11 +155,8 @@
 }
 
 
-
-
 .popup {
   position: fixed;
- 
   width: 100%;
   height: 100%;
   top: 0;
@@ -179,20 +177,18 @@
   bottom: 25%;
   margin: auto;
   background: white;
-
 }
 
 .popup_list_scrolls {
-  
   background: lightgrey;
   overflow-y: auto;
   height: 300px;
 }
 
 .popup_label{
-    display:inline-block;
-    padding-left: 10px;
-    width:80px;
+  display:inline-block;
+  padding-left: 10px;
+  width:80px;
 }
 
 .popup_label_tips_exception {
@@ -238,7 +234,7 @@
   margin:auto;
   border-radius: 10px;
 }
-
+ 
 .amazingwalk {
   background-color:gold;
   color: black;
@@ -247,3 +243,30 @@
   margin:auto;
   border-radius: 10px;
 }
+
+.pie_charts {
+  width: 75%;
+  margin: auto;
+}
+
+#tw_trends {
+  overflow-y: auto;
+}
+
+
+#temp {
+  border: 1px solid black;
+  float: right;
+}
+
+#chart_container {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 10px;
+  width: 800px;
+  height: 800px;
+  background-color: #fff;
+}
+
+

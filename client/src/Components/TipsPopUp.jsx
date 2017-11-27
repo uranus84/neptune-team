@@ -12,10 +12,9 @@ var TipsPopUp = (props) => (
       </div>
     </div>
   </div>
-
-  )
-
-
+)
+ 
+ 
 export default TipsPopUp;
 
 

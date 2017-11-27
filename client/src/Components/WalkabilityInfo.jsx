@@ -46,7 +46,7 @@ var WalkabilityInfo = (props) => {
       <div className="walkabilityblock_content">
  
         <span>Walk Score:</span>
-         <span id='subtext'></span>
+        <a href="https://www.walkscore.com/how-it-works/"><span id='subtext'></span></a>
         <a href="https://www.walkscore.com/how-it-works/">
           <div className = 'amazingwalk'> {props.walkscore}</div>
         </a>

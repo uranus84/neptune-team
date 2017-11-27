@@ -34,6 +34,7 @@ class App extends React.Component {
   }
 
   getTopTweetsFrom(lat, lon) {
+    this.setState({topTweetsFrom: ""});
     axios.get('/topTweetsFrom', {params: {lat: lat, lon: lon}})
       .then((results) =>{
         this.setState({topTweetsFrom: results.data})
@@ -42,6 +43,7 @@ class App extends React.Component {
   }
 
   getTopTweetsAbout(city, cityShortName) {
+    this.setState({topTweetsAbout: ""});
     axios.get('/topTweetsAbout', {params: {city: city, cityShortName: cityShortName}})
       .then((results) =>{
         this.setState({topTweetsAbout: results.data})

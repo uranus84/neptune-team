@@ -4,16 +4,16 @@ if (process.env.NODE_ENV !== 'production') {
 
 var express = require('express');
 var axios = require('axios');
-// var key = require('./API.js');
+var key = require('./API.js');
 var env = require('node-env-file');
-// var db = require('../database/index.js');
+var db = require('../database/index.js');
 var bodyParser = require('body-parser');
 var queryString = require('query-string');
 var indico = require('indico.io');
 var Twitter = require('twitter');
 var moment = require('moment');
 
-console.log(process.env.INDICO_API);
+// console.log(process.env.INDICO_API);
 indico.apiKey = process.env.INDICO_API || key.INDICO_API;
 var indicoHelper = require('./indicoHelper');
 
@@ -94,31 +94,31 @@ app.get('/walkscore', (req,res) => {
 	})
 })
 
-// app.post('/tips', (req, res)=> {
-//   // console.log('CLIENT REQ TO SERVER POST @ /tips = ', req.body);
-//   db.addTipToDataBaseFn(req.body, (err, data) => {
-//     if (err) {
-//       console.log('Error in POST to /tips = ', err)
-//     }; 
-//       res.send();
-//   });
-// })
+app.post('/tips', (req, res)=> {
+  // console.log('CLIENT REQ TO SERVER POST @ /tips = ', req.body);
+  db.addTipToDataBaseFn(req.body, (err, data) => {
+    if (err) {
+      console.log('Error in POST to /tips = ', err)
+    }; 
+      res.send();
+  });
+})
 
 
-// app.get('/tips', (req, res) => {
-//   // console.log('CLIENT REQ TO SERVER GET @ /tips = ', req.query);
-//   db.getLocalTipsFromDataBaseFn(req.query, (err, info) => {
-//       if (err) {
-//         if (err.fatal) {
-//           console.trace('fatal error: ' + err.message);
-//         }
-//         console.log('Error in GET to /tips', err);
-//       } else {
-//         // console.log('INFO ABOUT TO BE SENT ON GET = ', info)
-//         res.send(info);
-//       }
-//   });
-// });
+app.get('/tips', (req, res) => {
+  // console.log('CLIENT REQ TO SERVER GET @ /tips = ', req.query);
+  db.getLocalTipsFromDataBaseFn(req.query, (err, info) => {
+      if (err) {
+        if (err.fatal) {
+          console.trace('fatal error: ' + err.message);
+        }
+        console.log('Error in GET to /tips', err);
+      } else {
+        // console.log('INFO ABOUT TO BE SENT ON GET = ', info)
+        res.send(info);
+      }
+  });
+});
 
 
 app.get('/admin', (req, res) => {

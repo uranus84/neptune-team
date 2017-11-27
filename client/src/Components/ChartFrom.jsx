@@ -5,7 +5,7 @@ import{BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'rechar
 
 
 
-
+ 
  
 
 var BarChartFrom = (props) => {

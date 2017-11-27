@@ -3,7 +3,7 @@ import Recharts from 'recharts';
 import{Radar, RadarChart, PolarGrid, Legend, PolarAngleAxis, PolarRadiusAxis} from 'recharts';
 import BarChartFrom from './ChartFrom.jsx';
 import BarChartAbout from './ChartAbout.jsx';
-
+ 
 
 var TwitterTrends = (props) => {
   var capitalizeFirstLetterOnly = function(str) {

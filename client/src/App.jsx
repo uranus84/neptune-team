@@ -235,15 +235,13 @@ class App extends React.Component {
             </div>
           </div>
           <div className="row">
-
             <div className="col-sm-6">
               <div id="mapblock" className="vertical-center">
                 {this.mapComponent()}
               </div>
               <div id="twittertrends">
-                <TwitterTrends />
-                {/*<TwitterTrends recentTweetsAbout={this.state.recentTweetsAbout} recentTweetsFrom={this.state.recentTweetsFrom}
-                  oldTweetsFrom={this.state.oldTweetsFrom} oldTweetsAbout={this.state.oldTweetsAbout}/>*/}
+                <TwitterTrends recentTweetsAbout={this.state.recentTweetsAbout} recentTweetsFrom={this.state.recentTweetsFrom}
+                  oldTweetsFrom={this.state.oldTweetsFrom} oldTweetsAbout={this.state.oldTweetsAbout} city={this.state.city} state={this.state.state}/>
               </div>
             </div>
             <div className="col-sm-6">

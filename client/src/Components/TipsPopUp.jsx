@@ -12,7 +12,6 @@ var TipsPopUp = (props) => (
       </div>
     </div>
   </div>
-
   )
 
  

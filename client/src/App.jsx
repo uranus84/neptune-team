@@ -14,7 +14,7 @@ class App extends React.Component {
     this.state = {
       tipsTestCity: 'san francisco',
       tipsTestState: 'California',
-      photoUrl : [],
+      photoUrl : ['https://hardwaremassive.com/sites/default/files/images/chapters/SF%20HM.jpg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsAngQuSnE-6Lvi_F4P8_S8N7L4a1brkXc6ijgk17W2ydVPy4YPA','https://hardwaremassive.com/sites/default/files/images/chapters/SF%20HM.jpg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsAngQuSnE-6Lvi_F4P8_S8N7L4a1brkXc6ijgk17W2ydVPy4YPA'],
       walkscore : "",
       lat: 37.7749,
       lng: -122.4194,
@@ -50,12 +50,17 @@ class App extends React.Component {
   }
 
   getTweetTrends(lat, lon, city, cityShortName) {
-    this.setState({
-      recentTweetsFrom: "",
-      recentTweetsAbout: "",
-      oldTweetsFrom: "",
-      oldTweetsAbout: ""      
-    })
+    // this.setState({
+    //   recentTweetsFrom: "",
+    //   recentTweetsAbout: "",
+    //   oldTweetsFrom: "",
+    //   oldTweetsAbout: ""
+    // })
+
+    this.state.recentTweetsFrom = "";
+    this.state.recentTweetsAbout = "";
+    this.state.oldTweetsFrom = "";
+    this.state.oldTweetsAbout = "";
 
     axios.get('/recentTweetsFrom', {params: {lat: lat, lon: lon}})
       .then((results) => {
@@ -89,7 +94,7 @@ class App extends React.Component {
       .then ((result) => {
         console.log('in getphoto function the data:', result.data);
         //error if there is no picture?
-        this.setState({'photoUrl': result.data})
+        this.setState({'photoUrl': this.state.photoUrl})
       })
       .catch ((error) => {
         console.log(error)
@@ -100,6 +105,7 @@ class App extends React.Component {
     this.setState({walkscore: ""});
     axios.get('/walkscore', {params: {lat: lat, lon: lon}})
     .then ((result) => {
+      console.log('walkscore result: ', result);
       this.setState({walkscore: Math.floor(parseInt(result.data,10))})
     })
     .catch ((error) => {
@@ -126,8 +132,8 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    console.log('calling from componentWIllMount');
-    //this.getPhoto(this.state.lat, this.state.lng);
+    //console.log('MASTER MAP APP WILLMOUNT RAN!')
+    this.getPhoto(this.state.lat, this.state.lng);
     this.getWalkability(this.state.lat, this.state.lng);
     this.getTweetTrends(this.state.lat, this.state.lng, this.state.city, this.state.cityShortName);
     this.getTopTweetsFrom(this.state.lat, this.state.lng);
@@ -213,7 +219,7 @@ class App extends React.Component {
     });
 
     
-    //this.getPhoto(lat, lng);
+    this.getPhoto(lat, lng);
     this.getWalkability(lat, lng);
     this.getTweetTrends(this.state.lat, this.state.lng, this.state.city, this.state.cityShortName);
     this.getTopTweetsFrom(this.state.lat, this.state.lng);

@@ -193,7 +193,7 @@ class Map extends React.Component {
     return (
     <div className="row">
       <div id="mapblock_content"> 
-        <div ref="map" style={{float: 'left', width: '100%', height: '400px', borderRadius: '5px'}}></div>
+        <div ref="map" style={{marginBottom: '5px', backgroundColor: 'red', float: 'left', width: '100%', height: '390px', borderRadius: '5px'}}></div>
         
         <Search search={this.searchClicked.bind(this)}/>
       </div>

@@ -9,7 +9,7 @@ var TopTweetsInfo = (props) => {
     return (
       <div>
         <div className="left-box">
-          <p className="toptweetsblock_content">Top 3 Tweets form {props.city.toUpperCase()}</p>
+          <p className="toptweetsblock_content">Top 3 Tweets from {props.city.toUpperCase()}</p>
           {props.topTweetsFrom.map( (val) => {return ( <TweetBox tweet={val}/> )} )}
         </div>
         <div className="right-box">

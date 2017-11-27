@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 var TwitterTrends = (props) => {
   if(props.recentTweetsFrom === "" || props.recentTweetsAbout === "" || props.oldTweetsFrom === "" || props.oldTweetsAbout === "") {
     return (<div className="loader"></div>)
@@ -18,3 +19,4 @@ var TwitterTrends = (props) => {
 
 
 export default TwitterTrends;
+

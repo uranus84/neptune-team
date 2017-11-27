@@ -20,5 +20,5 @@ var TopTweetsInfo = (props) => {
     )
   }
 }
-
+ 
 export default TopTweetsInfo;

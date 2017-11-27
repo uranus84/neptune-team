@@ -3,14 +3,6 @@ import axios from 'axios';
 import TipsList from './TipsList.jsx';
 import TipsPopUp from './TipsPopUp.jsx';
 
-//might have to make a tipElement
-
-//do a for loop, pass each object of email, content and city 
-//to TipsBlockElement
-// this.props.city
-
-
-
 
 class TipsBlock extends React.Component {
   constructor(props) {
@@ -39,8 +31,6 @@ class TipsBlock extends React.Component {
   changeIntentFn (e) {
     this.setState({userIntentCurrent: e.target.id});
   }
-
-  
 
   submitTips () {
     var contexthere = this;
@@ -184,12 +174,12 @@ class TipsBlock extends React.Component {
             {/*<button onClick={this.getTips.bind(this)}>GET DATA TEST BUTTON</button>*/}
             {/*<button onClick={this.adminAccessFn.bind(this)}>TEST ON ADMIN ACCESS</button>*/}
             <h3>Tips From {this.capitalizeFirstLetterOnly(this.state.currentlyDisplayedTips[0].city)}</h3>
-            <button id="areTipsExpanded" className="btn btn-primary" style={{"marginBottom": '5px'}} onClick={this.expandTipsDisplayFn.bind(this)}>Expand Tips For Easier Reading</button>
+            <button id="areTipsExpanded" className="btn btn-primary" style={{"margin": '2px'}} onClick={this.expandTipsDisplayFn.bind(this)}>Expand Tips For Easier Reading</button>
             <button id="addTips" className="btn btn-primary" onClick={this.changeIntentFn.bind(this)}>I Want To ADD A Tip</button>
             <TipsList info={this.state.currentlyDisplayedTips}/>
           </div>
           {this.state.areTipsExpanded ? <TipsPopUp info={this.state.currentlyDisplayedTips} clickCloseFn={this.expandTipsDisplayFn.bind(this)}/> : <div></div>}
-    }
+     
         </div>
       )
     }
@@ -197,30 +187,37 @@ class TipsBlock extends React.Component {
       return (
       <div className="popup">
         <div className="popup_inner">
+          
           <button id="readTips" className="btn btn-primary" onClick={this.changeIntentFn.bind(this)}>I Want To READ Tips</button>
           <button id="readTips" className="btn btn-primary toprightclass" onClick={this.changeIntentFn.bind(this)}>X</button>
-          <p>Add A Tip For <span style={{fontWeight: 'bold'}}>{this.capitalizeFirstLetterOnly(this.props.info.city)}</span> Below</p>
+          
+          <h4>Add A Tip For <span style={{fontWeight: 'bold'}}>{this.capitalizeFirstLetterOnly(this.props.info.city)}</span> Below</h4>
           <div>
-          <div>
-            <div className="popup_label">Name :</div>
-            <input type="text" id="tipsName" value={this.state.tipsName} onChange={this.changeHandlerFn.bind(this)}></input>
+            <div>
+              <div className="popup_label">Name :</div>
+              <input type="text" id="tipsName" value={this.state.tipsName} onChange={this.changeHandlerFn.bind(this)}></input>
+            </div>
           </div>
-          </div>
+
           <div>
             <div className="popup_label">City:</div>
-          {/*INPUT CITY*/}
+            {/*INPUT CITY*/}
             <input type="text" id="tipsCity" value={this.state.tipsCity} onChange={this.changeHandlerFn.bind(this)}></input>
           </div>
+
           <div>
             <div className="popup_label">State:</div>
             {/*INPUT CITY*/}
             <input type="text" id="tipsState" value={this.state.tipsState} onChange={this.changeHandlerFn.bind(this)}></input>
           </div>
-          <div>
+
+          <div id='tipsContentWrapper'>
             <div className="popup_label_tips_exception">Tip Goes Here:</div>
-            <textarea type="text" rows="5" id="tipsContent" style={{width: '100%'}} value={this.state.tipsContent} onChange={this.changeHandlerFn.bind(this)}></textarea>
+            <textarea type="text" rows="5" id='tipsContent' style={{width: '50%', display: 'block'}} value={this.state.tipsContent} onChange={this.changeHandlerFn.bind(this)}></textarea>
           </div>
+
           <button id="submitTips" className="btn btn-primary, redbtn" onClick={this.submitTips.bind(this)}>SUBMIT TIP</button>
+        
         </div>
       </div>
       )

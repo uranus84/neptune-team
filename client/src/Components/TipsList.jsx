@@ -8,19 +8,19 @@ var capitalizeFirstLetterOnly = function (str) {
   }
   strArray = strArray.join(' ');
   return strArray;
-};
-
-
+}
+ 
+ 
 var TipsList = (props) => (
   <div>
     <p>Tips From: <span style={{fontWeight: 'bold'}}><br/>{capitalizeFirstLetterOnly(props.info[0].city)}, {capitalizeFirstLetterOnly(props.info[0].state)}</span></p>
-    <ul>
+    <ul className='list'>
     {
       props.info.map((item, i) => <TipsSpecificItems info={item} key={i}/>)
     }
     </ul> 
   </div>
-)
+) 
 
 
 export default TipsList; 

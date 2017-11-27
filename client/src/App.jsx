@@ -6,7 +6,7 @@ import TopTweetsInfo from './Components/TopTweetsInfo.jsx';
 import WalkabilityInfo from './Components/WalkabilityInfo.jsx';
 import TwitterTrends from './Components/TwitterTrends.jsx';
 import axios from 'axios';
-
+ 
 
 class App extends React.Component {
   constructor() {
@@ -253,7 +253,7 @@ class App extends React.Component {
               </div>
               <div id="twittertrends">
                 <TwitterTrends recentTweetsAbout={this.state.recentTweetsAbout} recentTweetsFrom={this.state.recentTweetsFrom}
-                  oldTweetsFrom={this.state.oldTweetsFrom} oldTweetsAbout={this.state.oldTweetsAbout}/>
+                  oldTweetsFrom={this.state.oldTweetsFrom} oldTweetsAbout={this.state.oldTweetsAbout} city={this.state.city} state={this.state.state}/>
               </div>
             </div>
 

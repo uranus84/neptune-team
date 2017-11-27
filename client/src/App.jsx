@@ -94,7 +94,7 @@ class App extends React.Component {
     axios.get('/googlepics', {params: {lat: lat, lon: lon}})
       .then ((result) => {
         //TODO: CHANGE THIS BACK LATER! PHOTO IS HARDCODED
-        this.setState({'photoUrl': this.state.photoUrl})
+        this.setState({'photoUrl': result.data})
       })
       .catch ((error) => {
         console.log(error)

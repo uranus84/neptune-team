@@ -88,12 +88,10 @@ class App extends React.Component {
   }
 
   getPhoto(lat, lon) {
-    console.log('HERE IS LAT AND LON ', lat, lon)
 
     axios.get('/googlepics', {params: {lat: lat, lon: lon}})
       .then ((result) => {
-        console.log('in getphoto function the data:', result.data);
-        //error if there is no picture?
+        //TODO: CHANGE THIS BACK LATER! PHOTO IS HARDCODED
         this.setState({'photoUrl': this.state.photoUrl})
       })
       .catch ((error) => {

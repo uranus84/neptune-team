@@ -18,7 +18,7 @@ body {
 }
 
 #titlebar {
-  height: 80px;
+  height: 40px;
   margin: 5px;
   padding: 5px;
   padding-left: 20px;
@@ -27,7 +27,7 @@ body {
 
 #titlefont {
   /*font-family: 'Bungee Shade', cursive;*/
-  font-size: 50px;
+  font-size: 30px;
   color: #4a7bef;
   margin: 0px;
 

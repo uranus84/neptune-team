@@ -1,17 +1,17 @@
 var mysql = require('mysql')
-var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'test789',
-  password : 'test789',
-  database : 'infomapptips'
-});
+// var connection = mysql.createConnection({
+//   host     : 'localhost',
+//   user     : 'test789',
+//   password : 'test789',
+//   database : 'infomapptips'
+// });
 
-connection.connect(
-  function(err) {
-    if (err) { console.log('DATABASE CONNECTION ERROR!', err); }
-    console.log('connected as id ' + connection.threadId);
-  }
-)
+// connection.connect(
+//   function(err) {
+//     if (err) { console.log('DATABASE CONNECTION ERROR!', err); }
+//     console.log('connected as id ' + connection.threadId);
+//   }
+// )
 
 
 var addTipToDataBaseFn = function(info, cb) {
@@ -40,7 +40,7 @@ var getLocalTipsFromDataBaseFn = function (info, cb) {
 }
 
 
-module.exports.connection = connection;
+// module.exports.connection = connection;
 module.exports.addTipToDataBaseFn = addTipToDataBaseFn;
 module.exports.getLocalTipsFromDataBaseFn = getLocalTipsFromDataBaseFn;
 

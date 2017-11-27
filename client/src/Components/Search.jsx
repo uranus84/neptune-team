@@ -17,7 +17,7 @@ class Search extends React.Component {
 
   render() {
     return (
-      <div className="input-group col-md-12">
+      <div id='searchField' className="input-group col-md-12">
         <input onChange={this.inputChanged.bind(this)} type="text" className="form-control" placeholder='Search for a City here'></input>
         <span className="input-group-btn">
           <button onClick={() => this.props.search(this.state.input)} className="btn btn-primary" type="button" >Search This Location</button>

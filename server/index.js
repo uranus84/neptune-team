@@ -1,13 +1,20 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').load();
+}
+
 var express = require('express');
 var axios = require('axios');
-var key = require('./API.js');
-var db = require('../database/index.js');
+// var key = require('./API.js');
+var env = require('node-env-file');
+// var db = require('../database/index.js');
 var bodyParser = require('body-parser');
 var queryString = require('query-string');
 var indico = require('indico.io');
 var Twitter = require('twitter');
 var moment = require('moment');
-indico.apiKey = process.env.INDICO_API || key.INDICO_API
+
+console.log(process.env.INDICO_API);
+indico.apiKey = process.env.INDICO_API || key.INDICO_API;
 var indicoHelper = require('./indicoHelper');
 
 
@@ -21,12 +28,13 @@ var client = new Twitter({
 
 var app = express();
 app.use(express.static(__dirname + '/../client/dist'));
+// app.use(bodyParser.json());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/GET', (req, res) => {
-  console.log('GET REQUEST');
+  //console.log('GET REQUEST');
   res.status(200);
   res.end("Hello San Francisco");
 })
@@ -38,9 +46,10 @@ app.listen(port, function () {
 });
 
 app.get('/googlepics', (req,res) => {
+  console.log('MAKING A GET');
 	//Gets a location based on a long/latitude
 	var locationData = req.query.lat + ', ' + req.query.lon; 
-	axios.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json', {params : {key: (process.env.MAP_API || key.GOOGLE_MAP_API), location: locationData, radius :2000}})
+	axios.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json', {params : {key: (process.env.GOOGLE_MAP_API || key.GOOGLE_MAP_API), location: locationData, radius :2000}})
 	.then ((results) =>{
 		var photoArray = results.data.results;
 		//var photoString = results.data.results[0].photos[0].photo_reference;
@@ -48,7 +57,7 @@ app.get('/googlepics', (req,res) => {
         photoArray.forEach((result) =>{
             if (Array.isArray(result.photos)){
               imageId = result.photos[0].photo_reference;
-              imageUrlArray.push('https://maps.googleapis.com/maps/api/place/photo?maxheight=290&maxwidth=400&key=' + (process.env.MAP_API || key.GOOGLE_MAP_API) + '&photoreference=' + imageId);
+              imageUrlArray.push('https://maps.googleapis.com/maps/api/place/photo?maxheight=290&maxwidth=400&key=' + (process.env.GOOGLE_MAP_API || key.GOOGLE_MAP_API) + '&photoreference=' + imageId);
             }
         })
 		//var imageUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxheight=290&key=' + (process.env.MAP_API || key.GOOGLE_MAP_API) + '&photoreference=' + photoString;
@@ -79,38 +88,37 @@ app.get('/walkscore', (req,res) => {
 		res.end(JSON.stringify(results.data[2][1]))
 	})
 	.catch((error)=>{
-		console.log(error);
+		//console.log(error);
 		res.status(200);
 		res.end('No results');
 	})
 })
 
+// app.post('/tips', (req, res)=> {
+//   // console.log('CLIENT REQ TO SERVER POST @ /tips = ', req.body);
+//   db.addTipToDataBaseFn(req.body, (err, data) => {
+//     if (err) {
+//       console.log('Error in POST to /tips = ', err)
+//     }; 
+//       res.send();
+//   });
+// })
 
-app.post('/tips', (req, res)=> {
-  console.log('CLIENT REQ TO SERVER POST @ /tips = ', req.body);
-  db.addTipToDataBaseFn(req.body, (err, data) => {
-    if (err) {
-      console.log('Error in POST to /tips = ', err)
-    }; 
-      res.send();
-  });
-})
 
-
-app.get('/tips', (req, res) => {
-  console.log('CLIENT REQ TO SERVER GET @ /tips = ', req.query);
-  db.getLocalTipsFromDataBaseFn(req.query, (err, info) => {
-      if (err) {
-        if (err.fatal) {
-          console.trace('fatal error: ' + err.message);
-        }
-        console.log('Error in GET to /tips', err);
-      } else {
-        console.log('INFO ABOUT TO BE SENT ON GET = ', info)
-        res.send(info);
-      }
-  });
-});
+// app.get('/tips', (req, res) => {
+//   // console.log('CLIENT REQ TO SERVER GET @ /tips = ', req.query);
+//   db.getLocalTipsFromDataBaseFn(req.query, (err, info) => {
+//       if (err) {
+//         if (err.fatal) {
+//           console.trace('fatal error: ' + err.message);
+//         }
+//         console.log('Error in GET to /tips', err);
+//       } else {
+//         // console.log('INFO ABOUT TO BE SENT ON GET = ', info)
+//         res.send(info);
+//       }
+//   });
+// });
 
 
 app.get('/admin', (req, res) => {
@@ -211,11 +219,11 @@ app.get('/topTweetsAbout', (req, res) => {
 
 app.get('/topTweetsFrom', (req, res) => {
 	var locationData = req.query.lat + ',' + req.query.lon + ',10mi'
-	console.log(locationData)
+	// console.log(locationData)
 	//couldnt figure out how to search for anything so i searched for tweets that dont contain sddsssjd
   client.get('search/tweets', {q: ' -sddsssjd', lang: 'en', count: '3', result_type: 'mix', geocode: locationData})
 	  .then(function (tweets) {
-	  	console.log(tweets);
+	  	// console.log(tweets);
 	    res.status(200);
 	    res.end(JSON.stringify(tweets.statuses));
 	  })

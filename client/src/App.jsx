@@ -14,7 +14,7 @@ class App extends React.Component {
     this.state = {
       tipsTestCity: 'san francisco',
       tipsTestState: 'California',
-      photoUrl : [],
+      photoUrl : ['https://hardwaremassive.com/sites/default/files/images/chapters/SF%20HM.jpg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsAngQuSnE-6Lvi_F4P8_S8N7L4a1brkXc6ijgk17W2ydVPy4YPA','https://hardwaremassive.com/sites/default/files/images/chapters/SF%20HM.jpg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsAngQuSnE-6Lvi_F4P8_S8N7L4a1brkXc6ijgk17W2ydVPy4YPA'],
       walkscore : "",
       lat: 37.7749,
       lng: -122.4194,
@@ -50,12 +50,17 @@ class App extends React.Component {
   }
 
   getTweetTrends(lat, lon, city, cityShortName) {
-    this.setState({
-      recentTweetsFrom: "",
-      recentTweetsAbout: "",
-      oldTweetsFrom: "",
-      oldTweetsAbout: ""
-    })
+    // this.setState({
+    //   recentTweetsFrom: "",
+    //   recentTweetsAbout: "",
+    //   oldTweetsFrom: "",
+    //   oldTweetsAbout: ""
+    // })
+
+    this.state.recentTweetsFrom = "";
+    this.state.recentTweetsAbout = "";
+    this.state.oldTweetsFrom = "";
+    this.state.oldTweetsAbout = "";
 
     axios.get('/recentTweetsFrom', {params: {lat: lat, lon: lon}})
       .then((results) => {
@@ -83,9 +88,11 @@ class App extends React.Component {
   }
 
   getPhoto(lat, lon) {
+
     axios.get('/googlepics', {params: {lat: lat, lon: lon}})
       .then ((result) => {
-        this.setState({'photoUrl': result.data})
+        //TODO: CHANGE THIS BACK LATER! PHOTO IS HARDCODED
+        this.setState({'photoUrl': this.state.photoUrl})
       })
       .catch ((error) => {
         console.log(error)
@@ -96,6 +103,7 @@ class App extends React.Component {
     this.setState({walkscore: ""});
     axios.get('/walkscore', {params: {lat: lat, lon: lon}})
     .then ((result) => {
+      console.log('walkscore result: ', result);
       this.setState({walkscore: Math.floor(parseInt(result.data,10))})
     })
     .catch ((error) => {
@@ -207,7 +215,8 @@ class App extends React.Component {
       state: state,
       cityShortName: cityShortName
     });
-    console.log(this.state);
+
+    
     this.getPhoto(lat, lng);
     this.getWalkability(lat, lng);
     this.getTweetTrends(this.state.lat, this.state.lng, this.state.city, this.state.cityShortName);
@@ -230,12 +239,13 @@ class App extends React.Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col-12-sm" id="titlebar">
-              <h1 id="titlefont">InfoMapp</h1>
+              <h1 id="titlefont">infoMapp</h1>
               <h2 id="subtitlefont">Learn More With Just A Click</h2>
             </div>
           </div>
           <div className="row">
-            <div className="col-sm-6">
+
+            <div className="col-sm-8">
               <div id="mapblock" className="vertical-center">
                 {this.mapComponent()}
               </div>
@@ -244,28 +254,27 @@ class App extends React.Component {
                   oldTweetsFrom={this.state.oldTweetsFrom} oldTweetsAbout={this.state.oldTweetsAbout} city={this.state.city} state={this.state.state}/>
               </div>
             </div>
-            <div className="col-sm-6">
-              <div id="infoblock">
-                <div className="row">
-                  <div className="col-sm-6">
-                    <div id="walkabilityblock">
-                      <WalkabilityInfo walkscore = {this.state.walkscore}/>
-                    </div>
-                  </div>
-                  <div className="col-sm-6">
-                    <div id ="tipsblock">
-                      <TipsBlock info={this.state}/>
-                    </div>
-                  </div>
+
+            <div className="col-sm-4">
+              
+                <div id="walkabilityblock">
+                  <WalkabilityInfo walkscore = {this.state.walkscore}/>
                 </div>
+             
+                <div id ="tipsblock">
+                  <TipsBlock info={this.state}/>
+                </div>
+             
                 <div id="toptweetsblock">
                   <TopTweetsInfo topTweetsFrom={this.state.topTweetsFrom} topTweetsAbout={this.state.topTweetsAbout} city={this.state.city}/>
                 </div>
-                <div id="photoblock">
-                  <PhotoInfo photoUrl = {this.state.photoUrl} lat={this.state.lat} lng={this.state.lng}/>
-                </div>
+             
+              
+              <div id="photoblock">
+                <PhotoInfo photoUrl={this.state.photoUrl} lat={this.state.lat} lng={this.state.lng}/>
               </div>
             </div>
+
           </div>
         </div>
     );
@@ -273,3 +282,9 @@ class App extends React.Component {
 }
 
 export default App;
+              // <div id="infoblock">
+              //   <div className="row">
+
+              //   </div>
+                
+              // </div>

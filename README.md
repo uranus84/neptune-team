@@ -1,54 +1,59 @@
-# Project Name
-
-> Pithy project description
-
+# infoMapp 
+Infomapp allows users to select a location on a map and receive information and trends analysis on the area.
+ 
 ## Team
-
-  - teamMember
-  - teamMember
-  - teamMember
-  - teamMember
-
+  - Ifi 
+  - Enkhtushig Namkhai
+  - Donovon Jenson
+  - Michael
+ 
 ## Table of Contents
-
 1. [Usage](#Usage)
 1. [Requirements](#requirements)
+1. [Getting Started](#Getting Started)
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
-    1. [Tasks](#tasks)
 1. [Roadmap](#roadmap)
+1. [Style Guide](#Style Guide)
 1. [Contributing](#contributing)
-
+ 
 ## Usage
-
-
-> Some usage instructions
-
+The app is made with a SERN stack and makes use of axios to handle requests.
+ 
 ## Requirements
-
-- Node 6.4.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
-
+Make sure to have these installed on your computer:
+- Node 
+- MySQL
+- Webpack
+ 
+## Getting Started
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+ 
+1. Fork the repo from  https://github.com/neptune-team/neptune-team
+2. Clone down your forked repo to your local machine
+3. Install the dependencies
+ 
 ## Development
-
 ### Installing Dependencies
-
+Once you have forked the repo from https://github.com/neptune-team/neptune-team , install all the dependencies by running.
+ 
 From within the root directory:
-
+ 
 ```sh
-npm install -g bower
 npm install
-bower install
 ```
-
-### Roadmap
-
-View the project roadmap [here](LINK_TO_DOC)
-
-
+### Getting the tokens for the API calls
+We use Google Maps, Twitter, Walkable, and Indico API’s to collect the data, so you will need API keys for them to make requests.
+ 
+## Roadmap
+View the project roadmap [here](https://docs.google.com/document/d/14R5krals0KnXu05CmTL3FIRflyM3Ktmrj6nMeNnD8hA/edit)
+ 
+## Style Guide
+We are following the AirBnb style guide, which can be found [here](https://github.com/airbnb/javascript)
+ 
 ## Contributing
+To contribute to this repo, see [CONTRIBUTING.md](https://github.com/neptune-team/neptune-team/blob/master/CONTRIBUTING.md) for contribution guidelines.
+ 
+ 
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+

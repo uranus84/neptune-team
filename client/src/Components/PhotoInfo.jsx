@@ -1,4 +1,5 @@
 import React from 'react';
+import PhotoElement from './PhotoElement.jsx';
 
 var PhotoInfo = (props) => {
 	const photos = props.photoUrl;
@@ -8,11 +9,11 @@ var PhotoInfo = (props) => {
     return (<div className="loader"></div>)
   } 
   else {
-  const photoList = photos.map((photo)=> <img src={photo}/>);
+  const photoList = photos.map((photo)=> <PhotoElement photo={photo}/>);
     return (
-      <p className="photoblock_content">
+      <div className="photoblock_content row">
         {photoList}
-      </p>
+      </div>
     )
   }
 }

@@ -33,4 +33,5 @@ config.js
 ## API keys ##
 server/API.js
 package-lock.json
+.env
 

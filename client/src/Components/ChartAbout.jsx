@@ -18,7 +18,7 @@ const data = [
 ];
 
     return (
-      <BarChart width={450} height={200} data={data}
+      <BarChart style={{left: '25%'}}  width={450} height={200} data={data}
             margin={{top: 10, right: 15, left: 10, bottom: 3}}>
        <XAxis dataKey="name"/>
        <YAxis yAxisId="left" orientation="left" stroke="#8884d8"/>
@@ -30,8 +30,6 @@ const data = [
        <Bar yAxisId="right" dataKey="past" fill="#82ca9d" />
       </BarChart>
     );
-
-
 }
 
 

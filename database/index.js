@@ -1,12 +1,12 @@
 var mysql = require('mysql')
-var connection = mysql.createConnection(process.env.JAWSDB_URL);
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'test789',
+  password : 'test789',
+  database : 'infomapptips'
+});
+//process.env.JAWSDB_URL
 
-// {
-//   host     : 'localhost',
-//   user     : 'test789',
-//   password : 'test789',
-//   database : 'infomapptips'
-// }
 connection.connect(
   function(err) {
     if (err) { console.log('DATABASE CONNECTION ERROR!', err); }

@@ -24,6 +24,7 @@
     "indico.io": "^0.10.5",
     "moment": "^2.19.2",
     "mysql": "^2.15.0",
+    "node-env-file": "^0.1.8",
     "nodemon": "^1.12.1",
     "path": "^0.12.7",
     "query-string": "^5.0.1",

@@ -30,8 +30,6 @@ const data = [
        <Bar yAxisId="right" dataKey="past" fill="#82ca9d" />
       </BarChart>
     );
-
-
 }
 
 

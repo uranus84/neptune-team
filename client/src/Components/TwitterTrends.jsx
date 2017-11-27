@@ -14,7 +14,7 @@ var TwitterTrends = (props) => {
     strArray = strArray.join(' ');
     return strArray;
   };
-
+ 
   var positivityColorFrom = {fontWeight: "bold", color: "black"};
   var positivityComment = '';
   if ((props.recentTweetsFrom.positivityScore * 100) >=90) {
@@ -41,7 +41,7 @@ var TwitterTrends = (props) => {
   }
 
 
-
+ 
 
   if(props.recentTweetsFrom === "" || props.recentTweetsAbout === "" || props.oldTweetsFrom === "" || props.oldTweetsAbout === "") {
     return (<div className="loader"></div>)

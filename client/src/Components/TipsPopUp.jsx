@@ -15,7 +15,7 @@ var TipsPopUp = (props) => (
 
   )
 
-
+ 
 export default TipsPopUp;
 
 

@@ -20,7 +20,7 @@ var TipsList = (props) => (
     }
     </ul> 
   </div>
-)
+) 
 
 
 export default TipsList; 

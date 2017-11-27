@@ -4,7 +4,7 @@ import TipsList from './TipsList.jsx';
 import TipsPopUp from './TipsPopUp.jsx';
 
 
-
+ 
 
 
 class TipsBlock extends React.Component {

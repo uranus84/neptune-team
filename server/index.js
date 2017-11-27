@@ -49,7 +49,7 @@ app.get('/googlepics', (req,res) => {
   console.log('MAKING A GET');
 	//Gets a location based on a long/latitude
 	var locationData = req.query.lat + ', ' + req.query.lon; 
-	axios.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json', {params : {key: (process.env.MAP_API || key.GOOGLE_MAP_API), location: locationData, radius :2000}})
+	axios.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json', {params : {key: (process.env.GOOGLE_MAP_API || key.GOOGLE_MAP_API), location: locationData, radius :2000}})
 	.then ((results) =>{
 		var photoArray = results.data.results;
 		//var photoString = results.data.results[0].photos[0].photo_reference;
@@ -57,7 +57,7 @@ app.get('/googlepics', (req,res) => {
         photoArray.forEach((result) =>{
             if (Array.isArray(result.photos)){
               imageId = result.photos[0].photo_reference;
-              imageUrlArray.push('https://maps.googleapis.com/maps/api/place/photo?maxheight=290&maxwidth=400&key=' + (process.env.MAP_API || key.GOOGLE_MAP_API) + '&photoreference=' + imageId);
+              imageUrlArray.push('https://maps.googleapis.com/maps/api/place/photo?maxheight=290&maxwidth=400&key=' + (process.env.GOOGLE_MAP_API || key.GOOGLE_MAP_API) + '&photoreference=' + imageId);
             }
         })
 		//var imageUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxheight=290&key=' + (process.env.MAP_API || key.GOOGLE_MAP_API) + '&photoreference=' + photoString;

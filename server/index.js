@@ -4,7 +4,6 @@ if (process.env.NODE_ENV !== 'production') {
 
 var express = require('express');
 var axios = require('axios');
-// var key = require('./API.js');
 var env = require('node-env-file');
 var db = require('../database/index.js');
 var bodyParser = require('body-parser');
@@ -13,16 +12,16 @@ var indico = require('indico.io');
 var Twitter = require('twitter');
 var moment = require('moment');
 
-// console.log(process.env.INDICO_API);
-// indico.apiKey = process.env.INDICO_API || key.INDICO_API;
+console.log(process.env.INDICO_API);
+indico.apiKey = process.env.INDICO_API;
 var indicoHelper = require('./indicoHelper');
 
 
 var client = new Twitter({
-  consumer_key: process.env.API_KEY || key.API_KEY,
-  consumer_secret: process.env.API_SECRET || key.API_SECRET,
-  access_token_key: process.env.ACCESS_TOKEN || key.ACCESS_TOKEN,
-  access_token_secret: process.env.ACCESS_TOKEN_SECRET || key.ACCESS_TOKEN_SECRET
+  consumer_key: process.env.API_KEY,
+  consumer_secret: process.env.API_SECRET,
+  access_token_key: process.env.ACCESS_TOKEN,
+  access_token_secret: process.env.ACCESS_TOKEN_SECRET
 });
 
 

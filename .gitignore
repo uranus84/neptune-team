@@ -34,5 +34,4 @@ config.js
 server/API.js
 package-lock.json
 .env
-client/dist/bundle.js
 

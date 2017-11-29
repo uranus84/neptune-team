@@ -14,7 +14,7 @@ var Twitter = require('twitter');
 var moment = require('moment');
 
 // console.log(process.env.INDICO_API);
-indico.apiKey = process.env.INDICO_API || key.INDICO_API;
+// indico.apiKey = process.env.INDICO_API || key.INDICO_API;
 var indicoHelper = require('./indicoHelper');
 
 

@@ -1,11 +1,10 @@
 # infoMapp 
-Infomapp allows users to select a location on a map and receive information and trends analysis on the area.
+Infomapp allows users to select a location on a map and receive information and trends analysis for the area.
  
 ## Team
-  - Ifi 
-  - Enkhtushig Namkhai
-  - Donovon Jenson
-  - Michael
+  - Kaiser Wu
+  - Andy Qi
+  - Amy Loftus
  
 ## Table of Contents
 1. [Usage](#Usage)
@@ -18,7 +17,7 @@ Infomapp allows users to select a location on a map and receive information and 
 1. [Contributing](#contributing)
  
 ## Usage
-The app is made with a SERN stack and makes use of axios to handle requests.
+The app is made with a SERN stack and makes use of axios to handle http requests.
  
 ## Requirements
 Make sure to have these installed on your computer:
@@ -29,13 +28,13 @@ Make sure to have these installed on your computer:
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
  
-1. Fork the repo from  https://github.com/neptune-team/neptune-team
+1. Fork the repo from  https://github.com/uranus84/neptune-team
 2. Clone down your forked repo to your local machine
 3. Install the dependencies
  
 ## Development
 ### Installing Dependencies
-Once you have forked the repo from https://github.com/neptune-team/neptune-team , install all the dependencies by running.
+Once you have forked the repo from https://github.com/uranus84/neptune-team , install all the dependencies by running.
  
 From within the root directory:
  
@@ -46,13 +45,13 @@ npm install
 We use Google Maps, Twitter, Walkable, and Indico API’s to collect the data, so you will need API keys for them to make requests.
  
 ## Roadmap
-View the project roadmap [here](https://docs.google.com/document/d/14R5krals0KnXu05CmTL3FIRflyM3Ktmrj6nMeNnD8hA/edit)
+View the project roadmap [here](https://docs.google.com/document/d/1c2Vwj0UJ5mC0LYGbtzhtOUHHhzz8GMoj_BsWR7cbb_M/edit)
  
 ## Style Guide
-We are following the AirBnb style guide, which can be found [here](https://github.com/airbnb/javascript)
+We are following the Hack Reactor style guide, which can be found [here](https://github.com/reactorcore/eslint-config-hackreactor#installation)
  
 ## Contributing
-To contribute to this repo, see [CONTRIBUTING.md](https://github.com/neptune-team/neptune-team/blob/master/CONTRIBUTING.md) for contribution guidelines.
+To contribute to this repo, see [CONTRIBUTING.md](https://github.com/uranus84/neptune-team/blob/master/CONTRIBUTING.md) for contribution guidelines.
  
  
 

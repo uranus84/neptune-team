@@ -120,7 +120,16 @@ app.get('/tips', (req, res) => {
 });
 
 app.get('/admin', (req, res) => {
-  res.send('HIDDEN CONTENT');
+  db.getAllTips((err, tips) => {
+    if (err) {
+      if (err.fatal) {
+        console.trace('fatal error: ' + err.message);
+      }
+      console.log('Error in GET to /admin', err);
+    } else {
+      res.send(tips);
+    }
+  });
 
 
 });

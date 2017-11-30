@@ -36,7 +36,7 @@ class AdminPanel extends React.Component {
   }
 
   deleteTip(tipId) {
-    axios.delete('/admin', { params: { tipId: tipId }})
+    axios.delete('/admin', { tipId: tipId })
       .then((response) => {
         console.log('deleted tip no. ', tipId);
       })
@@ -46,25 +46,27 @@ class AdminPanel extends React.Component {
   render() {
     return (
       <div>
-        <h1>Moderate Tips</h1>
-        <h3>All Submitted Tips</h3>
-        <table>
-          <tbody>
-            <tr>
-              <th>Date</th>
-              <th>Author</th>
-              <th>Content</th>
-              <th>City</th>
-              <th>State</th>
-              <th>Moderate</th>
-            </tr>
-            {
-              this.tips.map((tip, i) => {
-                return <AdminTipEntry tip={tip} key={i} deleteTip={this.deleteTip} />;
-              })
-            }
-          </tbody>
-        </table>
+        <h1 className="center">Moderate Tips</h1>
+        <h3 className="center">All Submitted Tips</h3>
+        <div className="admin-table">
+          <table>
+            <tbody>
+              <tr>
+                <th className="tbl-date">Date</th>
+                <th className="tbl-author">Author</th>
+                <th className="tbl-content">Content</th>
+                <th className="tbl-city">City</th>
+                <th className="tbl-state">State</th>
+                <th className="tbl-btns">Moderate</th>
+              </tr>
+              {
+                this.tips.map((tip, i) => {
+                  return <AdminTipEntry tip={tip} key={i} deleteTip={this.deleteTip} />;
+                })
+              }
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }

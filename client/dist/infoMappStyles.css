@@ -361,3 +361,34 @@ h4 {
   color: #4a7bef;
 }
 
+/* ========== ADMIN PANEL =========== */
+
+.admin-table {
+  width: 75%;
+  margin: 0 auto;
+  border: 2px solid black;
+}
+
+.center {
+  text-align: center;
+}
+
+th, td {
+  padding: .3em;
+  border: 1px solid black;
+}
+
+.tbl-date, .tbl-author, .tbl-city, .tbl-state {
+  width: 12.5%;
+}
+
+.tbl-content {
+  width: 35%;
+}
+
+.tbl-btns {
+  width: 15%;
+}
+
+
+

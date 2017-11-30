@@ -52,17 +52,17 @@ class App extends React.Component {
   }
 
   getTweetTrends(lat, lon, city, cityShortName) {
-    this.setState({
-      recentTweetsFrom: '',
-      recentTweetsAbout: '',
-      oldTweetsFrom: '',
-      oldTweetsAbout: ''
-    });
+    // this.setState({
+    //   recentTweetsFrom: '',
+    //   recentTweetsAbout: '',
+    //   oldTweetsFrom: '',
+    //   oldTweetsAbout: ''
+    // });
 
-    // this.state.recentTweetsFrom = '';
-    // this.state.recentTweetsAbout = '';
-    // this.state.oldTweetsFrom = '';
-    // this.state.oldTweetsAbout = '';
+    this.state.recentTweetsFrom = '';
+    this.state.recentTweetsAbout = '';
+    this.state.oldTweetsFrom = '';
+    this.state.oldTweetsAbout = '';
 
     axios.get('/recentTweetsFrom', {params: {lat: lat, lon: lon}})
       .then((results) => {

@@ -25,6 +25,6 @@ module.exports = {
     "mocha": true
   },
   "rules": {
-    "camelcase": "off"
+    "react/prop-types": "off"
   }
 };

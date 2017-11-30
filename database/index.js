@@ -17,7 +17,7 @@ var addTipToDataBaseFn = function(info, cb) {
   if (info.tipData.length < 1) { info.tipData = 'NONE PROVIDED'; }
   connection.query(`INSERT INTO tipstable (city, state, name, tiptext) VALUES ("${info.cityData.toLowerCase()}", "${info.stateData.toLowerCase()}", "${info.nameData}", "${info.tipData}" );`, 
     function (err, rows, fields) {
-      cb(err, rows);
+      cb(err, rows.insertId);
     });
 };
 

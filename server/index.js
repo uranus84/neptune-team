@@ -98,8 +98,9 @@ app.post('/tips', (req, res)=> {
   db.addTipToDataBaseFn(req.body, (err, data) => {
     if (err) {
       console.log('Error in POST to /tips = ', err);
-    } 
-    res.send();
+    }
+    res.status(201);
+    res.end(JSON.stringify(data));
   });
 });
 
@@ -140,7 +141,7 @@ app.delete('/admin', (req, res) => {
       }
       console.log('Error in DELETE to /admin', err);
     } else {
-      res.send();
+      res.send(`tip ${req.body.tipId} deleted`);
     }
   });
 });

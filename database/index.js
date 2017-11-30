@@ -1,14 +1,6 @@
 var mysql = require('mysql');
-//process.env.JAWSDB_URL
 
-var options = {
-  host     : 'icopoghru9oezxh8.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-  user     : 'wdjh17ha3wgo5702',
-  password : 'd210g8nwnwgrg0tv',
-  database : 'xzrctothavjrrohs'
-};
-
-var connection = mysql.createConnection(options);
+var connection = mysql.createConnection(process.env.JAWSDB_URL);
 
 connection.connect(
   function(err) {

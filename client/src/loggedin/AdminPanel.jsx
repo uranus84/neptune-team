@@ -18,7 +18,6 @@ class AdminPanel extends React.Component {
         }
       ]
     };
-    this.tips = this.state.tips;
     this.getAllTips = this.getAllTips.bind(this);
     this.deleteTip = this.deleteTip.bind(this);
   }
@@ -32,7 +31,7 @@ class AdminPanel extends React.Component {
       .then((response) => {
         this.setState({ tips: response.data});
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log('client received error', err));
   }
 
   deleteTip(tipId) {
@@ -60,7 +59,7 @@ class AdminPanel extends React.Component {
                 <th className="tbl-btns">Moderate</th>
               </tr>
               {
-                this.tips.map((tip, i) => {
+                this.state.tips.map((tip, i) => {
                   return <AdminTipEntry tip={tip} key={i} deleteTip={this.deleteTip} />;
                 })
               }

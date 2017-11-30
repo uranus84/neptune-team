@@ -35,10 +35,21 @@ var getLocalTipsFromDataBaseFn = function (info, cb) {
     });
 };
 
+const getAllTips = (cb) => {
+  connection.query('SELECT * FROM tipstable ORDER BY datecreated DESC', (err, rows, fields) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, rows);
+    }
+  });
+};
+
 
 module.exports.connection = connection;
 module.exports.addTipToDataBaseFn = addTipToDataBaseFn;
 module.exports.getLocalTipsFromDataBaseFn = getLocalTipsFromDataBaseFn;
+module.exports.getAllTips = getAllTips;
 
 
 

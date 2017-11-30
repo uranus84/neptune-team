@@ -10,7 +10,11 @@ var AdminTipEntry = (props) => {
         <td>{props.tip.tiptext}</td>
         <td>{props.tip.city}</td>
         <td>{props.tip.state}</td>
-        <td><button className="btn btn-primary">Delete</button></td>
+        <td>
+          <button className="btn btn-primary" onClick={(e) => props.deleteTip(props.tip.ID)}>
+            Delete
+          </button>
+        </td>
       </tr>
     );
   }

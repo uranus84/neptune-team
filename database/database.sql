@@ -1,7 +1,7 @@
 -- DROP DATABASE  infomapptips;  /* <= for testing COMMENT THIS OUT FOR FIRST DATABASE CREATION */
-CREATE DATABASE infomapptips;
+-- CREATE DATABASE infomapptips;
 
-USE infomapptips;  
+USE xzrctothavjrrohs;
 
 CREATE TABLE tipstable (
   ID            INT             NOT NULL          AUTO_INCREMENT,

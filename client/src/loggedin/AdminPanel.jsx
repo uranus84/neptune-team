@@ -35,9 +35,10 @@ class AdminPanel extends React.Component {
   }
 
   deleteTip(tipId) {
-    axios.delete('/admin', { tipId: tipId })
+    axios.delete('/admin', { data: { tipId: tipId } })
       .then((response) => {
         console.log('deleted tip no. ', tipId);
+        this.getAllTips();
       })
       .catch(err => console.log(err));
   }

@@ -130,8 +130,19 @@ app.get('/admin', (req, res) => {
       res.send(tips);
     }
   });
+});
 
-
+app.delete('/admin', (req, res) => {
+  db.deleteTip(req.body.tipId, (err, results) => {
+    if (err) {
+      if (err.fatal) {
+        console.trace('fatal error: ' + err.message);
+      }
+      console.log('Error in DELETE to /admin', err);
+    } else {
+      res.send();
+    }
+  });
 });
 
 app.post('/admin', (req, res) => {

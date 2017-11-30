@@ -45,11 +45,22 @@ const getAllTips = (cb) => {
   });
 };
 
+const deleteTip = (tipId, cb) => {
+  connection.query(`DELETE FROM tipstable WHERE ID = ${tipId}`, (err, rows, fields) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, rows);
+    }
+  });
+};
+
 
 module.exports.connection = connection;
 module.exports.addTipToDataBaseFn = addTipToDataBaseFn;
 module.exports.getLocalTipsFromDataBaseFn = getLocalTipsFromDataBaseFn;
 module.exports.getAllTips = getAllTips;
+module.exports.deleteTip = deleteTip;
 
 
 

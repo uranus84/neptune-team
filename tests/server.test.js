@@ -29,39 +29,6 @@ describe('server', () => {
     });
   });
 
-  describe('DELETE requests to /admin', () => {
-    it('should delete a tip from the database', (done) => {
-      // insert a tip to db, return its id
-      request({
-        method: 'POST',
-        uri: 'http://localhost:5000/tips',
-        json: {
-          cityData: 'san francisco',
-          stateData: 'california',
-          nameData: 'amy',
-          tipData: 'test tip information'
-        }
-      }, (error, response, postBody) => {
-        if (error) {
-          console.log(error);
-        } else {
-          // send delete request with that tip's id
-          request({
-            method: 'DELETE', 
-            uri: 'http://localhost:5000/admin',
-            json: {
-              tipId: postBody
-            }
-          }, (err, res, deleteBody) => {
-            // a better approach would be to query the db directly for the tip with that id
-            expect(deleteBody).to.equal(`tip ${postBody} deleted`);
-            done();
-          });
-        }
-      });
-    });
-  });
-
   describe('GET requests to /tips', () => {
     it('should respond with a 200 status code', (done) => {
       request('http://localhost:5000/tips', (error, response, body) => {
@@ -98,4 +65,58 @@ describe('server', () => {
         .catch(err => console.log(err));
     });
   });
+
+  describe('PUT requests to /admin', () => {
+    it('should update a tip from the database', (done) => {
+      // insert a tip to db, return its id
+      request({
+        method: 'POST',
+        uri: 'http://localhost:5000/tips',
+        json: {
+          cityData: 'san francisco',
+          stateData: 'california',
+          nameData: 'amy',
+          tipData: 'tip to be rejected'
+        }
+      }, (error, response, tipId) => {
+        if (error) {
+          console.log(error);
+        } else {
+          // send put request with that tip's id
+          request({
+            method: 'PUT', 
+            uri: 'http://localhost:5000/admin',
+            json: {
+              tipId: tipId,
+              status: 'rejected'
+            }
+          }, (error, response, putBody) => {
+            // fetch tips from same city. the rejected tip should not be included.
+            // not thrilled with mixing axios and request modules, but alas, they work.
+            axios.get('http://localhost:5000/tips', { params: {
+              city: 'san francisco',
+              state: 'california'
+            }})
+              .then((response) => {
+                expect(response.data.length).to.not.equal(0);
+                console.log(response.data);
+
+                let containsUpdatedTip = true;
+
+                for (let i = 0; i < response.data.length; i++) {
+                  if (response.data[i].ID === tipId) {
+                    containsUpdatedTip = true;
+                  } else { containsUpdatedTip = false; }
+                }
+                expect(containsUpdatedTip).to.equal(false);
+                done();
+              })
+              .catch(err => console.log(err));
+          });
+        }
+      });
+    });
+  });
+
+  
 });

@@ -133,7 +133,6 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    //console.log('MASTER MAP APP WILLMOUNT RAN!')
     this.getPhoto(this.state.lat, this.state.lng);
     this.getWalkability(this.state.lat, this.state.lng);
     this.getTweetTrends(this.state.lat, this.state.lng, this.state.city, this.state.cityShortName);
@@ -351,12 +350,53 @@ class App extends React.Component {
         </div>
       );
     }
+    if (this.state.view === 'compare') {
+      return (
+        <div className="col-sm-6">
+
+          <div className="col">
+            <div id="mapblock" className="vertical-center">
+              {this.mapComponent()}
+            </div>
+          </div>
+
+          <div className="col">
+            <div id="twittertrends">
+              <TwitterTrends recentTweetsAbout={this.state.recentTweetsAbout} recentTweetsFrom={this.state.recentTweetsFrom}
+                oldTweetsFrom={this.state.oldTweetsFrom} oldTweetsAbout={this.state.oldTweetsAbout} city={this.state.city} state={this.state.state}/>
+            </div>
+          </div>
+
+          <div className="row">
+          
+            <div className="col-sm-6">
+              <div id="walkabilityblock">
+                <WalkabilityInfo walkscore = {this.state.walkscore}/>
+              </div>
+            </div>
+
+            <div className="col-sm-6">
+              <div id ="tipsblock">
+                <TipsBlock info={this.state}/>
+              </div>
+            </div>
+
+          </div>
+
+          <div id="photoblock">
+            <PhotoInfo photoUrl={this.state.photoUrl} lat={this.state.lat} lng={this.state.lng}/>
+          </div>
+
+        </div>
+      );
+    }
   }
 
 }
 
 export default App;
-
+/*
+*/
 /*
               <div id="infoblock">
                 <div className="row">

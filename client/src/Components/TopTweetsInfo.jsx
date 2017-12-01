@@ -10,11 +10,11 @@ var TopTweetsInfo = (props) => {
       <div>
         <div className="left-box">
           <p className="toptweetsblock_content">Top 3 Tweets from {props.city.toUpperCase()}</p>
-          {props.topTweetsFrom.map( (val) => { return ( <TweetBox tweet={val}/> ); } )}
+          {props.topTweetsFrom.map( (val) => { return ( <TweetBox key={val.id} tweet={val}/> ); } )}
         </div>
         <div className="right-box">
           <p className="toptweetsblock_content">Top 3 Tweets about {props.city.toUpperCase()}</p>
-          {props.topTweetsAbout.map( (val) => { return ( <TweetBox tweet={val}/> ); } )}
+          {props.topTweetsAbout.map( (val) => { return ( <TweetBox key={val.id} tweet={val}/> ); } )}
         </div>
       </div>
     );

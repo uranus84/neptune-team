@@ -18,7 +18,7 @@ class AdminPanel extends React.Component {
       ]
     };
     this.getAllTips = this.getAllTips.bind(this);
-    this.deleteTip = this.deleteTip.bind(this);
+    this.updateTipStatus = this.updateTipStatus.bind(this);
   }
 
   componentWillMount() {
@@ -33,10 +33,10 @@ class AdminPanel extends React.Component {
       .catch(err => console.log('client received error', err));
   }
 
-  deleteTip(tipId) {
-    axios.delete('/admin', { data: { tipId: tipId } })
+  updateTipStatus(tipId, status) {
+    axios.put('/admin', { tipId: tipId, status: status })
       .then((response) => {
-        console.log('deleted tip no. ', tipId);
+        console.log('updated tip no. ', tipId);
         this.getAllTips();
       })
       .catch(err => console.log(err));
@@ -61,7 +61,7 @@ class AdminPanel extends React.Component {
               </tr>
               {
                 this.state.tips.map((tip, i) => {
-                  return <AdminTipEntry tip={tip} key={i} deleteTip={this.deleteTip} />;
+                  return <AdminTipEntry tip={tip} key={i} updateTipStatus={this.updateTipStatus} />;
                 })
               }
             </tbody>

@@ -13,8 +13,11 @@ var AdminTipEntry = (props) => {
         <td>{props.tip.state}</td>
         <td>{status}</td>
         <td>
-          <button className="btn btn-primary" onClick={(e) => props.deleteTip(props.tip.ID)}>
-            Delete
+          <button
+            className="btn btn-primary"
+            onClick={(e) => props.updateTipStatus(props.tip.ID, 'rejected')}
+          >
+            Reject
           </button>
         </td>
       </tr>

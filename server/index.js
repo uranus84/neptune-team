@@ -133,15 +133,15 @@ app.get('/admin', (req, res) => {
   });
 });
 
-app.delete('/admin', (req, res) => {
-  db.deleteTip(req.body.tipId, (err, results) => {
+app.put('/admin', (req, res) => {
+  db.updateTipStatus(req.body.tipId, req.body.status, (err, results) => {
     if (err) {
       if (err.fatal) {
         console.trace('fatal error: ' + err.message);
       }
-      console.log('Error in DELETE to /admin', err);
+      console.log('Error in PUT to /admin', err);
     } else {
-      res.send(`tip ${req.body.tipId} deleted`);
+      res.send(`tip ${req.body.tipId} updated`);
     }
   });
 });

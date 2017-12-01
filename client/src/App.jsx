@@ -38,6 +38,7 @@ class App extends React.Component {
     axios.get('/logout')
       .then((result) => {
         console.log(result);
+        this.setState({ adminPriv: result.data.adminPriv });
       })
       .catch((err) => {
         console.log(err);

@@ -34,6 +34,16 @@ class App extends React.Component {
     };
   }
 
+  logout() {
+    axios.get('/logout')
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   getTopTweetsFrom(lat, lon) {
     this.setState({topTweetsFrom: ''});
     axios.get('/topTweetsFrom', {params: {lat: lat, lon: lon}})
@@ -269,7 +279,6 @@ class App extends React.Component {
                 <PhotoInfo photoUrl={this.state.photoUrl} lat={this.state.lat} lng={this.state.lng}/>
               </div>
             </div>
-
           </div>
         </div>
       );
@@ -345,7 +354,8 @@ class App extends React.Component {
       );
     }
   }
-
 }
 
 export default App;
+// <a href="/auth/facebook" className="btn btn-primary"><span className="fa fa-facebook"></span>Facebook</a>
+// <button className="btn btn-primary" onClick={ () => this.logout() }>Logout</button>

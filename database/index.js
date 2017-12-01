@@ -9,14 +9,12 @@ connection.connect(
   }
 );
 
-
 var addTipToDataBaseFn = function(info, cb) {
   connection.query(`INSERT INTO tipstable (city, state, name, tiptext) VALUES ("${info.cityData.toLowerCase()}", "${info.stateData.toLowerCase()}", "${info.nameData}", "${info.tipData}" );`, 
     function (err, rows, fields) {
       cb(err, rows.insertId);
     });
 };
-
 
 var getLocalTipsFromDataBaseFn = function (info, cb) {
   console.log('Database search FN ran looking for ', info.city, ' & ', info.state);
@@ -71,6 +69,29 @@ const flagTip = (tipId, concern, cb) => {
   });
 };
 
+var adminLogin = function (info, cb) {
+  console.log('Trying to login');
+  connection.query(`SELECT * FROM admin WHERE user_id='${info.facebookId}';`,
+    function(err, rows) {
+      if (err) {
+        cb(err, null);
+      } else {
+        cb(null, rows);
+      }
+    });
+};
+
+var adminLogout = function (id, cb) {
+  console.log('Trying to logout');
+  connection.query(`SELECT * FROM admin WHERE user_id = ${id};`,
+    function(err, rows) {
+      if (err) {
+        cb(err, null);
+      } else {
+        cb(null, rows);
+      }
+    });
+};
 
 module.exports.connection = connection;
 module.exports.addTipToDataBaseFn = addTipToDataBaseFn;
@@ -78,8 +99,9 @@ module.exports.getLocalTipsFromDataBaseFn = getLocalTipsFromDataBaseFn;
 module.exports.getAllTips = getAllTips;
 module.exports.updateTipStatus = updateTipStatus;
 module.exports.flagTip = flagTip;
-
-
+module.exports.deleteTip = deleteTip;
+module.exports.isAdmin = adminLogin;
+module.exports.logout = adminLogout;
 
 
 

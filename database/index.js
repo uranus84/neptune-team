@@ -11,10 +11,6 @@ connection.connect(
 
 
 var addTipToDataBaseFn = function(info, cb) {
-  if (info.cityData.length < 1) { info.cityData = 'NONE PROVIDED'; }
-  if (info.stateData.length < 1) { info.stateData = 'NONE PROVIDED'; }
-  if (info.nameData.length < 1) { info.nameData = 'NONE PROVIDED'; }
-  if (info.tipData.length < 1) { info.tipData = 'NONE PROVIDED'; }
   connection.query(`INSERT INTO tipstable (city, state, name, tiptext) VALUES ("${info.cityData.toLowerCase()}", "${info.stateData.toLowerCase()}", "${info.nameData}", "${info.tipData}" );`, 
     function (err, rows, fields) {
       cb(err, rows.insertId);
@@ -24,7 +20,7 @@ var addTipToDataBaseFn = function(info, cb) {
 
 var getLocalTipsFromDataBaseFn = function (info, cb) {
   console.log('Database search FN ran looking for ', info.city, ' & ', info.state);
-  connection.query(`SELECT * FROM tipstable WHERE city='${info.city}' AND state='${info.state}';`,
+  connection.query(`SELECT * FROM tipstable WHERE city='${info.city}' AND state='${info.state}' AND status != 'rejected';`,
   //connection.query("SELECT * FROM tipstable WHERE city='san francisco' AND state='california';",
     function (err, rows, fields) {
       if (err) {
@@ -45,8 +41,8 @@ const getAllTips = (cb) => {
   });
 };
 
-const deleteTip = (tipId, cb) => {
-  connection.query(`DELETE FROM tipstable WHERE ID = ${tipId}`, (err, rows, fields) => {
+const updateTipStatus = (tipId, status, cb) => {
+  connection.query(`UPDATE tipstable SET status = '${status}' WHERE ID = ${tipId}`, (err, rows, fields) => {
     if (err) {
       cb(err, null);
     } else {
@@ -60,7 +56,7 @@ module.exports.connection = connection;
 module.exports.addTipToDataBaseFn = addTipToDataBaseFn;
 module.exports.getLocalTipsFromDataBaseFn = getLocalTipsFromDataBaseFn;
 module.exports.getAllTips = getAllTips;
-module.exports.deleteTip = deleteTip;
+module.exports.updateTipStatus = updateTipStatus;
 
 
 

@@ -383,11 +383,19 @@ th, td {
 }
 
 .tbl-content {
-  width: 35%;
+  width: 30%;
 }
 
-.tbl-btns {
-  width: 15%;
+.tbl-btns, .tbl-status {
+  width: 10%;
+}
+
+.rejected {
+  background-color: lightpink;
+}
+
+.btn-img {
+  width: 20px;
 }
 
 

@@ -244,65 +244,73 @@ class TipsBlock extends React.Component {
               X
             </button>
             
-            <h4>Add A Tip For 
-              <span style={{fontWeight: 'bold'}}>
-                {this.capitalizeFirstLetterOnly(this.props.info.city)}
-              </span>
-            Below</h4>
-            <div>
+            <form onSubmit={this.submitTips.bind(this)}>
+              <h4>Add A Tip For 
+                <span style={{fontWeight: 'bold'}}>
+                  {this.capitalizeFirstLetterOnly(this.props.info.city)}
+                </span>
+              Below</h4>
               <div>
-                <div className="popup_label">Name :</div>
+                <div>
+                  <div className="popup_label">Name :</div>
+                  {/*INPUT USER'S NAME*/}
+                  <input
+                    type="text"
+                    required
+                    id="tipsName"
+                    value={this.state.tipsName}
+                    onChange={this.changeHandlerFn.bind(this)}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <div className="popup_label">City:</div>
+                {/*INPUT CITY*/}
                 <input
                   type="text"
-                  id="tipsName"
-                  value={this.state.tipsName}
+                  required
+                  id="tipsCity"
+                  value={this.state.tipsCity}
                   onChange={this.changeHandlerFn.bind(this)}
                 />
               </div>
-            </div>
 
-            <div>
-              <div className="popup_label">City:</div>
-              {/*INPUT CITY*/}
-              <input
-                type="text"
-                id="tipsCity"
-                value={this.state.tipsCity}
-                onChange={this.changeHandlerFn.bind(this)}
-              />
-            </div>
+              <div>
+                <div className="popup_label">State:</div>
+                {/*INPUT STATE*/}
+                <input
+                  type="text"
+                  required
+                  id="tipsState"
+                  value={this.state.tipsState}
+                  onChange={this.changeHandlerFn.bind(this)}
+                />
+              </div>
 
-            <div>
-              <div className="popup_label">State:</div>
-              {/*INPUT CITY*/}
-              <input
-                type="text"
-                id="tipsState"
-                value={this.state.tipsState}
-                onChange={this.changeHandlerFn.bind(this)}
-              />
-            </div>
+              <div id='tipsContentWrapper'>
+                <div className="popup_label_tips_exception">Tip Goes Here:</div>
+                {/*INPUT TIP CONTENT*/}
+                <textarea
+                  type="text"
+                  required
+                  rows="5"
+                  id='tipsContent'
+                  style={{ width: '50%', display: 'block' }}
+                  value={this.state.tipsContent}
+                  onChange={this.changeHandlerFn.bind(this)}
+                >
+                </textarea>
+              </div>
 
-            <div id='tipsContentWrapper'>
-              <div className="popup_label_tips_exception">Tip Goes Here:</div>
-              <textarea
-                type="text"
-                rows="5"
-                id='tipsContent'
-                style={{ width: '50%', display: 'block' }}
-                value={this.state.tipsContent}
-                onChange={this.changeHandlerFn.bind(this)}
+              <button
+                id="submitTips"
+                type="submit"
+                className="btn btn-primary, redbtn"
               >
-              </textarea>
-            </div>
-
-            <button
-              id="submitTips"
-              className="btn btn-primary, redbtn"
-              onClick={this.submitTips.bind(this)}
-            >
-              SUBMIT TIP
-            </button>
+                SUBMIT TIP
+              </button>
+            </form>
           
           </div>
         </div>

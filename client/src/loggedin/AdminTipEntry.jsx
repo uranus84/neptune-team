@@ -19,6 +19,12 @@ var AdminTipEntry = (props) => {
           >
             Reject
           </button>
+          <button
+            className="btn btn-primary"
+            onClick={(e) => props.updateTipStatus(props.tip.ID, 'approved')}
+          >
+            Approve
+          </button>
         </td>
       </tr>
     );

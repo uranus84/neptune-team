@@ -390,5 +390,9 @@ th, td {
   width: 10%;
 }
 
+.rejected {
+  background-color: lightpink;
+}
+
 
 

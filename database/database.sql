@@ -9,10 +9,10 @@ USE xzrctothavjrrohs;
 
 CREATE TABLE IF NOT EXISTS tipstable (
   ID            INT             NOT NULL            AUTO_INCREMENT,
-  city          VARCHAR(60),
-  state         VARCHAR(20),
-  name          VARCHAR(30),
-  tiptext       VARCHAR(200),
+  city          VARCHAR(60)                DEFAULT  'NONE PROVIDED',
+  state         VARCHAR(20)                DEFAULT  'NONE PROVIDED',
+  name          VARCHAR(30)                DEFAULT  'NONE PROVIDED',
+  tiptext       VARCHAR(200)               DEFAULT  'NONE PROVIDED',
   datecreated   TIMESTAMP       NOT NULL   DEFAULT  CURRENT_TIMESTAMP,
   status        VARCHAR(12),               DEFAULT  "approved", 
   PRIMARY KEY (ID)

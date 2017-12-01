@@ -24,7 +24,7 @@ var addTipToDataBaseFn = function(info, cb) {
 
 var getLocalTipsFromDataBaseFn = function (info, cb) {
   console.log('Database search FN ran looking for ', info.city, ' & ', info.state);
-  connection.query(`SELECT * FROM tipstable WHERE city='${info.city}' AND state='${info.state}';`,
+  connection.query(`SELECT * FROM tipstable WHERE city='${info.city}' AND state='${info.state}' AND status != 'rejected';`,
   //connection.query("SELECT * FROM tipstable WHERE city='san francisco' AND state='california';",
     function (err, rows, fields) {
       if (err) {

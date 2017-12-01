@@ -5,7 +5,7 @@ class Index extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'map'
+      view: 'social'
     };
     this.changeView = this.changeView.bind(this);
     this.renderView = this.renderView.bind(this);

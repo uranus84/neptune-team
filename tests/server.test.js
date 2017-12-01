@@ -99,7 +99,6 @@ describe('server', () => {
             }})
               .then((response) => {
                 expect(response.data.length).to.not.equal(0);
-                console.log(response.data);
 
                 let containsUpdatedTip = true;
 

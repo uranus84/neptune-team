@@ -5,6 +5,10 @@ if (process.env.NODE_ENV !== 'production') {
 var express = require('express');
 var axios = require('axios');
 // var key = require('./API.js');
+var passport = require('passport');
+var FacebookStrategy = require('passport-facebook').Strategy;
+var session = require('express-session');
+var cors = require('cors');
 var env = require('node-env-file');
 var db = require('../database/index.js');
 var bodyParser = require('body-parser');
@@ -13,9 +17,9 @@ var indico = require('indico.io');
 var Twitter = require('twitter');
 var moment = require('moment');
 
+require('../database/passport.js')(passport);
 indico.apiKey = process.env.INDICO_API;
 var indicoHelper = require('./indicoHelper');
-
 
 var client = new Twitter({
   consumer_key: process.env.API_KEY,
@@ -24,24 +28,54 @@ var client = new Twitter({
   access_token_secret: process.env.ACCESS_TOKEN_SECRET
 });
 
-
 var app = express();
+
+// var corsOption = {
+//   origin: true,
+//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//   credentials: true,
+//   exposedHeaders: ['x-auth-token']
+// };
+// app.use(cors(corsOption));
+
 app.use(express.static(__dirname + '/../client/dist'));
 // app.use(bodyParser.json());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(session({
+  secret: 's3cr3t',
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('/auth/facebook', passport.authenticate('facebook'), function(err, profile) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log(profile);
+  }
+});
+
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', {
+    successRedirect: '/',
+    failureRedirect: '/'
+  })
+);
+
+app.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/');
+});
+
 app.get('/GET', (req, res) => {
   //console.log('GET REQUEST');
   res.status(200);
   res.end('Hello San Francisco');
-});
-
-
-var port = process.env.PORT || 5000;
-app.listen(port, function () {
-  console.log(`listening on port ${port}`);
 });
 
 app.get('/googlepics', (req, res) => {
@@ -104,7 +138,6 @@ app.post('/tips', (req, res)=> {
   });
 });
 
-
 app.get('/tips', (req, res) => {
   // console.log('CLIENT REQ TO SERVER GET @ /tips = ', req.query);
   db.getLocalTipsFromDataBaseFn(req.query, (err, info) => {
@@ -162,7 +195,6 @@ app.put('/admin', (req, res) => {
 app.post('/admin', (req, res) => {
   res.send('HIDDEN CONTENT');
 });
-
 
 app.get('/recentTweetsFrom', (req, res) => {
   var locationData = req.query.lat + ',' + req.query.lon + ',10mi';
@@ -262,5 +294,10 @@ app.get('/topTweetsFrom', (req, res) => {
     .catch(function (error) {
       throw error;
     });
+});
+
+var port = process.env.PORT || 5000;
+app.listen(port, function () {
+  console.log(`listening on port ${port}`);
 });
 

@@ -5,22 +5,21 @@ class Index extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'home'
+      view: 'map'
     };
     this.changeView = this.changeView.bind(this);
+    this.renderView = this.renderView.bind(this);
   }
 
   changeView(view) {
     this.setState({
       view: view
     });
+    this.renderView();
   }
 
   renderView() {
-    const view = this.state.view;
-    if (view === 'home') {
-      return <App />;
-    }
+    return ( <App view={this.state.view} /> );
   }
 
   render() {

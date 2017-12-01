@@ -9,12 +9,12 @@ import axios from 'axios';
  
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       tipsTestCity: 'san francisco',
       tipsTestState: 'California',
-      photoUrl: ['https://hardwaremassive.com/sites/default/files/images/chapters/SF%20HM.jpg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsAngQuSnE-6Lvi_F4P8_S8N7L4a1brkXc6ijgk17W2ydVPy4YPA', 'https://hardwaremassive.com/sites/default/files/images/chapters/SF%20HM.jpg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsAngQuSnE-6Lvi_F4P8_S8N7L4a1brkXc6ijgk17W2ydVPy4YPA'],
+      photoUrl: [],
       walkscore: '',
       lat: 37.7749,
       lng: -122.4194,
@@ -29,7 +29,8 @@ class App extends React.Component {
       oldTweetsFrom: '',
       oldTweetsAbout: '',
       topTweetsFrom: '',
-      topTweetsAbout: ''
+      topTweetsAbout: '',
+      view: this.props.view
     };
   }
 
@@ -52,17 +53,17 @@ class App extends React.Component {
   }
 
   getTweetTrends(lat, lon, city, cityShortName) {
-    // this.setState({
-    //   recentTweetsFrom: '',
-    //   recentTweetsAbout: '',
-    //   oldTweetsFrom: '',
-    //   oldTweetsAbout: ''
-    // });
+    this.setState({
+      recentTweetsFrom: '',
+      recentTweetsAbout: '',
+      oldTweetsFrom: '',
+      oldTweetsAbout: ''
+    });
 
-    this.state.recentTweetsFrom = '';
-    this.state.recentTweetsAbout = '';
-    this.state.oldTweetsFrom = '';
-    this.state.oldTweetsAbout = '';
+    // this.state.recentTweetsFrom = '';
+    // this.state.recentTweetsAbout = '';
+    // this.state.oldTweetsFrom = '';
+    // this.state.oldTweetsAbout = '';
 
     axios.get('/recentTweetsFrom', {params: {lat: lat, lon: lon}})
       .then((results) => {
@@ -235,8 +236,7 @@ class App extends React.Component {
     }
   }
 
-  render() {
-    console.log('app rerendeing');
+  renderView() {
     return (
       <div className="container-fluid">
         <div className="row">
@@ -281,6 +281,46 @@ class App extends React.Component {
       </div>
     );
   }
+
+  render() {
+    console.log('app rerendering');
+    if (this.state.view === 'home') {
+      return (
+        <div id="home-page">
+          <h1>This is the Home page!</h1>
+        </div>
+      );
+    }
+    if (this.state.view === 'map') {
+      return (
+        <div>
+          <h1>This is the Map page!</h1>
+          <div className="row">
+
+            <div className="col-sm-8">
+              <div id="mapblock" className="vertical-center">
+                {this.mapComponent()}
+              </div>
+            </div>
+
+            <div className="col-sm-4">
+              <div id="walkabilityblock">
+                <WalkabilityInfo walkscore = {this.state.walkscore}/>
+              </div>
+              <div id="photoblock">
+                <PhotoInfo photoUrl={this.state.photoUrl} lat={this.state.lat} lng={this.state.lng}/>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      );
+    }
+    if (this.state.view === 'social') {
+      return;
+    }
+  }
+
 }
 
 export default App;

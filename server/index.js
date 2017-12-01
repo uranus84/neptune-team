@@ -13,7 +13,6 @@ var indico = require('indico.io');
 var Twitter = require('twitter');
 var moment = require('moment');
 
-console.log(process.env.INDICO_API);
 indico.apiKey = process.env.INDICO_API;
 var indicoHelper = require('./indicoHelper');
 

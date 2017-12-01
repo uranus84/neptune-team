@@ -5,7 +5,7 @@ class Index extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'social'
+      view: 'compare'
     };
     this.changeView = this.changeView.bind(this);
     this.renderView = this.renderView.bind(this);
@@ -28,6 +28,7 @@ class Index extends React.Component {
         <div>
           <h1>TEST HEADER</h1>
         </div>
+        {this.renderView()}
         {this.renderView()}
       </div>
     );

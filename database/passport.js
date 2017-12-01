@@ -8,30 +8,36 @@ module.exports = function(passport) {
     clientID        : config.facebookAuth.clientID,
     clientSecret    : config.facebookAuth.clientSecret,
     callbackURL     : config.facebookAuth.callbackURL,
-    profileFields   : ['id', 'email', 'first_name', 'last_name']
+    scope           : ['user_friends'],
+    profileFields   : ['id', 'email', 'first_name', 'last_name', 'friends']
   },
   function(accessToken, refreshToken, profile, done) {
     console.log(profile);
-    Admin.isAdmin({ facebookId: profile.id }, function (err, profile) {
-      //where does this done function go?
-      return done(err, profile);
+    const user = {
+      'firstName' : profile.name.givenName,
+      'lastName'  : profile.name.familyName,
+      'id'        : profile.id
+    };
+
+    //where does this done function go?
+    Admin.isAdmin(user.id, function(err, rows) {
+      console.log(`Userid is ${user.id}`);
+      if (rows[0] === undefined) {
+        return done(null, false);
+      } else if (err) {
+        return done(err, null);
+      } else {
+        return done(null, profile);
+      }
     });
   }));
 
   passport.serializeUser(function(user, done) {
-    console.log(user);
+    // console.log('wow dis is a user!', user);
     done(null, user);
   });
 
   passport.deserializeUser(function(id, done) {
-    Admin.logout(id, function(err, rows) {
-      if (rows === null) {
-        done(null, 'No users found');
-      } else if (err) {
-        done(err, null);
-      } else {
-        done(null, rows[0]);
-      }
-    });
+    done(null, id);
   });
 };

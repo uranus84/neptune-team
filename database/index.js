@@ -69,21 +69,9 @@ const flagTip = (tipId, concern, cb) => {
   });
 };
 
-var adminLogin = function (info, cb) {
+var adminLogin = function (facebookId, cb) {
   console.log('Trying to login');
-  connection.query(`SELECT * FROM admin WHERE user_id='${info.facebookId}';`,
-    function(err, rows) {
-      if (err) {
-        cb(err, null);
-      } else {
-        cb(null, rows);
-      }
-    });
-};
-
-var adminLogout = function (id, cb) {
-  console.log('Trying to logout');
-  connection.query(`SELECT * FROM admin WHERE user_id = ${id};`,
+  connection.query(`SELECT * FROM moderators WHERE user_id='${facebookId}';`,
     function(err, rows) {
       if (err) {
         cb(err, null);
@@ -101,10 +89,3 @@ module.exports.updateTipStatus = updateTipStatus;
 module.exports.flagTip = flagTip;
 module.exports.deleteTip = deleteTip;
 module.exports.isAdmin = adminLogin;
-module.exports.logout = adminLogout;
-
-
-
-
-
-

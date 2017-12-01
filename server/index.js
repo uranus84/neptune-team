@@ -52,24 +52,21 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/auth/facebook', passport.authenticate('facebook'), function(err, profile) {
+app.get('/auth/facebook', passport.authenticate('facebook'));
+
+app.get('/auth/facebook/callback', passport.authenticate('facebook', (err, user) => {
   if (err) {
+    console.log('Error thrown from authenticate: ');
     console.log(err);
   } else {
-    console.log(profile);
+    console.log('User info from authenticate: ');
+    console.log(user);
   }
-});
+}));
 
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', {
-    successRedirect: '/',
-    failureRedirect: '/'
-  })
-);
-
-app.get('/logout', function(req, res) {
+app.get('/logout', function(req, res){
   req.logout();
-  res.redirect('/');
+  res.send(JSON.stringify({ adminPriv: false }));
 });
 
 app.get('/GET', (req, res) => {

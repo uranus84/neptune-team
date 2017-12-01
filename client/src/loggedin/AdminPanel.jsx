@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-// import AdminTipList from './AdminTipList.jsx';
 import AdminTipEntry from './AdminTipEntry.jsx';
 
 class AdminPanel extends React.Component {
@@ -57,6 +56,7 @@ class AdminPanel extends React.Component {
                 <th className="tbl-content">Content</th>
                 <th className="tbl-city">City</th>
                 <th className="tbl-state">State</th>
+                <th className="tbl-status">Status</th>
                 <th className="tbl-btns">Moderate</th>
               </tr>
               {

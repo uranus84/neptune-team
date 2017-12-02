@@ -11,7 +11,7 @@ var TipsSpecificItems = (props) => {
             <p className='tipsSpecificItems'>
               This tip has been flagged for inappropriate content.
               <button
-                className="btn btn-primary"
+                className="btn btn-primary float-bottom-right btn-sm"
                 onClick={(e) => props.toggleFlaggedTip(props.index)}
               >
                 Show
@@ -30,7 +30,7 @@ var TipsSpecificItems = (props) => {
               <br/> -{props.info.name}
               <br/>{moment(props.info.datecreated).calendar()}
               <button
-                className="btn btn-primary"
+                className="btn btn-primary float-bottom-right btn-sm"
                 onClick={(e) => props.toggleFlaggedTip(props.index)}
               >
                 Hide
@@ -50,7 +50,7 @@ var TipsSpecificItems = (props) => {
             <input
               type="image"
               id="flag-tip"
-              className="btn-img flag"
+              className="btn-img flag float-bottom-right"
               src={flag}
               onClick={(e) => props.flagTip(e, props.info.ID)}
             />

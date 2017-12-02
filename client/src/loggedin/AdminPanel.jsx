@@ -46,8 +46,8 @@ class AdminPanel extends React.Component {
       .catch(err => console.log('client received error', err));
   }
 
-  updateTipStatus(tipId, status) {
-    axios.put('/admin', { tipId: tipId, status: status })
+  updateTipStatus(tipId, status, concern) {
+    axios.put('/admin', { tipId: tipId, status: status, concern: concern })
       .then((response) => {
         console.log('updated tip no. ', tipId);
         this.getAllTips();

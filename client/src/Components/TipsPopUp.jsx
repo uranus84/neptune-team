@@ -8,11 +8,11 @@ var TipsPopUp = (props) => (
       <button className="btn btn-primary toprightclass" onClick={props.clickCloseFn}>X</button>
       <h2>Tips Expanded Reader</h2>
       <div className="popup_list_scrolls">
-        <TipsList info={props.info}/>
+        <TipsList flagTip={props.flagTip} info={props.info}/>
       </div>
     </div>
   </div>
-)
+);
  
  
 export default TipsPopUp;

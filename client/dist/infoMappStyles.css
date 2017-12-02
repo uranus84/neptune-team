@@ -398,5 +398,11 @@ th, td {
   width: 20px;
 }
 
+/* ========== FLAGGING ========= */
+
+.flag-tip:hover {
+  cursor: pointer;
+}
+
 
 

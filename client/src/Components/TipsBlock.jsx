@@ -24,6 +24,7 @@ class TipsBlock extends React.Component {
       ]
     };
     this.flagTip = this.flagTip.bind(this);
+    this.toggleFlaggedTip = this.toggleFlaggedTip.bind(this);
   }
 
   componentWillReceiveProps () {
@@ -35,6 +36,7 @@ class TipsBlock extends React.Component {
   }
 
   componentWillMount () {
+    console.log('mounting tips block');
     this.getTips();
     //this.setState({tipsCity: this.capitalizeFirstLetterOnly(this.props.info.city), tipsState: this.props.info.state});
   }
@@ -154,6 +156,15 @@ class TipsBlock extends React.Component {
             tiptext: 'No Tips Provided Yet'
           };
           response.data = [notes];
+        } else {
+          // add a "hide" tag in order to allow user to show/hide flagged content
+          for (var i = 0; i < response.data.length; i++) {
+            if (response.data[i].status === 'flagged') {
+              response.data[i].hide = true;
+            } else {
+              response.data[i].hide = false;
+            }
+          }
         }
         context.setState({currentlyDisplayedTips: response.data});
       })
@@ -183,8 +194,15 @@ class TipsBlock extends React.Component {
     axios.put('/tips', { tipId: tipId })
       .then((response) => {
         console.log('flagged tip no. ', tipId);
+        this.getTips();
       })
       .catch(err => console.log(err));
+  }
+
+  toggleFlaggedTip(index) {
+    var tips = this.state.currentlyDisplayedTips;
+    tips[index].hide = !tips[index].hide;
+    this.setState({ currentlyDisplayedTips: tips });
   }
 
   render () {
@@ -211,12 +229,16 @@ class TipsBlock extends React.Component {
             >
               I Want To ADD A Tip
             </button>
-            <TipsList flagTip={this.flagTip} info={this.state.currentlyDisplayedTips}/>
+            <TipsList
+              flagTip={this.flagTip}
+              toggleFlaggedTip={this.toggleFlaggedTip}
+              info={this.state.currentlyDisplayedTips}/>
           </div>
           {
             this.state.areTipsExpanded ? <TipsPopUp
               info={this.state.currentlyDisplayedTips} 
               flagTip={this.flagTip}
+              toggleFlaggedTip={this.toggleFlaggedTip}
               clickCloseFn={this.expandTipsDisplayFn.bind(this)}
             /> : <div></div>
           }

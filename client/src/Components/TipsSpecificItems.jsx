@@ -7,11 +7,12 @@ var TipsSpecificItems = (props) => {
     return (
       <div >
         <li>
-          <p className='tipsSpecificItems'>{props.info.tiptext} <br/> -{props.info.name} <br/>{moment(props.info.datecreated).calendar()}</p>
-          <div onClick={(e) => props.flagTip(props.info.ID)}>
-            <input type="image" className="btn-img" src={flag}/>
-            <span className="flag-tip">Flag tip for removal</span>
-          </div>
+          <p className='tipsSpecificItems'>
+            {props.info.tiptext}
+            <br/> -{props.info.name}
+            <br/>{moment(props.info.datecreated).calendar()}
+            <input type="image" className="btn-img flag" src={flag} onClick={(e) => props.flagTip(props.info.ID)}/>
+          </p>
         </li>
       </div>
     );

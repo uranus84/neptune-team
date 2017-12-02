@@ -25,22 +25,30 @@ class Index extends React.Component {
   render() {
     return (
       <div className="main">
-        <div>
-          <button type="button" name="map" onClick={() => { 
-            this.changeView('map');
-          }}>Map</button>
+        <div className="row">
+          <div className="col-sm-2" id="titlebar">
+            <h1 id="titlefont">infoMapp</h1>
+            <h2 id="subtitlefont">Learn More With Just A Click</h2>
+          </div>
+          <div className="col-sm-2">
+            <button type="button" onClick={() => { this.changeView('map'); }}>Map</button>
+            <button type="button" onClick={() => { this.changeView('social'); }}>Social</button>
+            <button type="button" onClick={() => { this.changeView('compare'); }}>Compare</button>
+          </div>
         </div>
-        {this.state.view === 'compare' ? (
-          <div>
-            {this.renderView()}
-            {this.renderView()}
-          </div>
-        ) : (
-          <div>
-            {this.renderView()}
-          </div>
-        )
-        }
+        <div className="row">
+          {this.state.view === 'compare' ? (
+            <div>
+              {this.renderView()}
+              {this.renderView()}
+            </div>
+          ) : (
+            <div>
+              {this.renderView()}
+            </div>
+          )
+          }
+        </div>
       </div>
     );
   }

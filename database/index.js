@@ -42,7 +42,7 @@ const getAllTips = (cb) => {
 };
 
 const updateTipStatus = (tipId, status, cb) => {
-  connection.query(`UPDATE tipstable SET status = '${status}' WHERE ID = ${tipId}`, (err, rows, fields) => {
+  connection.query(`UPDATE tipstable SET status = ? WHERE ID = ${tipId}`, status, (err, rows, fields) => {
     if (err) {
       cb(err, null);
     } else {
@@ -52,7 +52,7 @@ const updateTipStatus = (tipId, status, cb) => {
 };
 
 const flagTip = (tipId, concern, cb) => {
-  connection.query(`UPDATE tipstable SET status = 'flagged', concern = '${concern}' WHERE ID = ${tipId}`, (err, rows, fields) => {
+  connection.query(`UPDATE tipstable SET status = "flagged", concern = ? WHERE ID = ${tipId}`, concern, (err, rows, fields) => {
     if (err) {
       cb(err, null);
     } else {

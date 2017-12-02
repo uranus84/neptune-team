@@ -10,6 +10,8 @@ class TipsBlock extends React.Component {
     this.state = {
       userIntentCurrent: 'readTips',
       areTipsExpanded: false,
+      flaggedTipConcern: '',
+      flaggedTipId: null,
       tipsCity: '',
       tipsState: '',
       tipsName: '',
@@ -41,8 +43,8 @@ class TipsBlock extends React.Component {
     //this.setState({tipsCity: this.capitalizeFirstLetterOnly(this.props.info.city), tipsState: this.props.info.state});
   }
 
-  changeIntentFn (e) {
-    this.setState({userIntentCurrent: e.target.id});
+  changeIntentFn (e, tipId) {
+    this.setState({ userIntentCurrent: e.target.id, flaggedTipId: tipId });
   }
 
   submitTips () {
@@ -173,8 +175,8 @@ class TipsBlock extends React.Component {
       });
   }
 
-  changeHandlerFn(e) {
-    this.setState({[e.target.id]: e.target.value});
+  changeHandlerFn(e, tipId) {
+    this.setState({ [e.target.id]: e.target.value});
   }
 
   capitalizeFirstLetterOnly (str) {
@@ -190,10 +192,10 @@ class TipsBlock extends React.Component {
     this.setState({ areTipsExpanded: !this.state.areTipsExpanded });
   }
 
-  flagTip(tipId) {
-    axios.put('/tips', { tipId: tipId })
+  flagTip() {
+    axios.put('/tips', { tipId: this.state.flaggedTipId, concern: this.state.flaggedTipConcern })
       .then((response) => {
-        console.log('flagged tip no. ', tipId);
+        console.log('flagged tip no. ', this.state.flaggedTipId);
         this.getTips();
       })
       .catch(err => console.log(err));
@@ -230,14 +232,14 @@ class TipsBlock extends React.Component {
               I Want To ADD A Tip
             </button>
             <TipsList
-              flagTip={this.flagTip}
+              flagTip={this.changeIntentFn.bind(this)}
               toggleFlaggedTip={this.toggleFlaggedTip}
               info={this.state.currentlyDisplayedTips}/>
           </div>
           {
             this.state.areTipsExpanded ? <TipsPopUp
               info={this.state.currentlyDisplayedTips} 
-              flagTip={this.flagTip}
+              flagTip={this.changeIntentFn.bind(this)}
               toggleFlaggedTip={this.toggleFlaggedTip}
               clickCloseFn={this.expandTipsDisplayFn.bind(this)}
             /> : <div></div>
@@ -330,6 +332,48 @@ class TipsBlock extends React.Component {
                 className="btn btn-primary, redbtn"
               >
                 SUBMIT TIP
+              </button>
+            </form>
+          
+          </div>
+        </div>
+      );
+    }
+    if (this.state.userIntentCurrent === 'flag-tip') {
+      return (
+        <div className="popup">
+          <div className="popup_inner">
+            <button
+              id="readTips"
+              className="btn btn-primary toprightclass"
+              onClick={this.changeIntentFn.bind(this)}
+            >
+              X
+            </button>
+            
+            <form onSubmit={this.flagTip.bind(this)}>
+              <h4>Flag Tip for Inappropriate Content</h4>
+
+              <div id='tipsContentWrapper'>
+                <div className="popup_label_tips_exception">Why are you flagging this tip?</div>
+                <textarea
+                  type="text"
+                  required
+                  rows="5"
+                  id="flaggedTipConcern"
+                  style={{ width: '50%', display: 'block' }}
+                  value={this.state.flaggedTipConcern}
+                  onChange={this.changeHandlerFn.bind(this)}
+                >
+                </textarea>
+              </div>
+
+              <button
+                id="flagTip"
+                type="submit"
+                className="btn btn-primary, redbtn"
+              >
+                FLAG TIP
               </button>
             </form>
           

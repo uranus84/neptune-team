@@ -49,9 +49,10 @@ var TipsSpecificItems = (props) => {
             <br/>{moment(props.info.datecreated).calendar()}
             <input
               type="image"
+              id="flag-tip"
               className="btn-img flag"
               src={flag}
-              onClick={(e) => props.flagTip(props.info.ID)}
+              onClick={(e) => props.flagTip(e, props.info.ID)}
             />
           </p>
         </li>

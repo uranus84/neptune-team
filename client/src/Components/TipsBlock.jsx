@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import moment from 'moment';
 import TipsList from './TipsList.jsx';
 import TipsPopUp from './TipsPopUp.jsx';
 
@@ -11,7 +12,7 @@ class TipsBlock extends React.Component {
       userIntentCurrent: 'readTips',
       areTipsExpanded: false,
       flaggedTipConcern: '',
-      flaggedTipId: null,
+      flaggedTipIndex: null,
       tipsCity: '',
       tipsState: '',
       tipsName: '',
@@ -43,8 +44,8 @@ class TipsBlock extends React.Component {
     //this.setState({tipsCity: this.capitalizeFirstLetterOnly(this.props.info.city), tipsState: this.props.info.state});
   }
 
-  changeIntentFn (e, tipId) {
-    this.setState({ userIntentCurrent: e.target.id, flaggedTipId: tipId });
+  changeIntentFn (e, index) {
+    this.setState({ userIntentCurrent: e.target.id, flaggedTipIndex: index });
   }
 
   submitTips () {
@@ -175,7 +176,7 @@ class TipsBlock extends React.Component {
       });
   }
 
-  changeHandlerFn(e, tipId) {
+  changeHandlerFn(e) {
     this.setState({ [e.target.id]: e.target.value});
   }
 
@@ -193,9 +194,10 @@ class TipsBlock extends React.Component {
   }
 
   flagTip() {
-    axios.put('/tips', { tipId: this.state.flaggedTipId, concern: this.state.flaggedTipConcern })
+    var tipId = this.state.currentlyDisplayedTips[this.state.flaggedTipIndex].ID;
+    axios.put('/tips', { tipId: tipId, concern: this.state.flaggedTipConcern })
       .then((response) => {
-        console.log('flagged tip no. ', this.state.flaggedTipId);
+        console.log('flagged tip no. ', tipId);
         this.getTips();
       })
       .catch(err => console.log(err));
@@ -340,6 +342,7 @@ class TipsBlock extends React.Component {
       );
     }
     if (this.state.userIntentCurrent === 'flag-tip') {
+      var flaggedTip = this.state.currentlyDisplayedTips[this.state.flaggedTipIndex];
       return (
         <div className="popup">
           <div className="popup_inner">
@@ -353,6 +356,12 @@ class TipsBlock extends React.Component {
             
             <form onSubmit={this.flagTip.bind(this)}>
               <h4>Flag Tip for Inappropriate Content</h4>
+
+              <p className='tipsSpecificItems'>
+                {flaggedTip.tiptext}
+                <br/> -{flaggedTip.name}
+                <br/>{moment(flaggedTip.datecreated).calendar()}
+              </p>
 
               <div id="tipsContentWrapper">
                 <div className="popup_label_tips_exception">Why are you flagging this tip?</div>

@@ -341,13 +341,3 @@ class App extends React.Component {
 }
 
 export default App;
-/*
-*/
-/*
-              <div id="infoblock">
-                <div className="row">
-
-                </div>
-                
-              </div>
-*/

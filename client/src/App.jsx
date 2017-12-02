@@ -5,6 +5,7 @@ import TipsBlock from './Components/TipsBlock.jsx';
 import TopTweetsInfo from './Components/TopTweetsInfo.jsx';
 import WalkabilityInfo from './Components/WalkabilityInfo.jsx';
 import TwitterTrends from './Components/TwitterTrends.jsx';
+import AdminPanel from './loggedin/AdminPanel.jsx';
 import axios from 'axios';
  
 
@@ -239,14 +240,18 @@ class App extends React.Component {
     if (this.props.view === 'home') {
       return (
         <div id="home-page">
-          <h1>This is the Home page!</h1>
+          <h1>Welcome!</h1>
+          <h3>
+            You can either log in through Facebook, or just jump right in and click on the map page to search for a city.
+          </h3>
+          <img className="eggplant" src="https://cdn1.medicalnewstoday.com/content/images/articles/279/279359/eggplants.jpg" height="300" width="400"></img>
+          <h3>This page looked a tad empty, so here are some eggplants. Enjoy!</h3>
         </div>
       );
     }
     if (this.props.view === 'map') {
       return (
         <div>
-          <h1>This is the Map page!</h1>
 
           <div className="row">
 
@@ -329,6 +334,13 @@ class App extends React.Component {
             <PhotoInfo photoUrl={this.state.photoUrl} lat={this.state.lat} lng={this.state.lng}/>
           </div>
 
+        </div>
+      );
+    }
+    if (this.props.view === 'admin') {
+      return (
+        <div className="row">
+          <AdminPanel />
         </div>
       );
     }

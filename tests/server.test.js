@@ -93,6 +93,7 @@ describe('server', () => {
           }, (error, response, putBody) => {
             // fetch tips from same city. the rejected tip should not be included.
             // not thrilled with mixing axios and request modules, but alas, they work.
+            // TODO: should probably delete the message afterward.
             axios.get('http://localhost:5000/tips', { params: {
               city: 'san francisco',
               state: 'california'
@@ -117,5 +118,56 @@ describe('server', () => {
     });
   });
 
+  describe('PUT requests to /tips', () => {
+    it('should update a tip from the database', (done) => {
+      // insert a tip to db, return its id
+      request({
+        method: 'POST',
+        uri: 'http://localhost:5000/tips',
+        json: {
+          cityData: 'san francisco',
+          stateData: 'california',
+          nameData: 'amy',
+          tipData: 'tip to be rejected'
+        }
+      }, (error, response, tipId) => {
+        if (error) {
+          console.log(error);
+        } else {
+          // send put request with that tip's id
+          request({
+            method: 'PUT', 
+            uri: 'http://localhost:5000/tips',
+            json: {
+              tipId: tipId,
+              status: 'flagged'
+            }
+          }, (error, response, putBody) => {
+            // fetch tips from same city. the rejected tip should not be included.
+            // not thrilled with mixing axios and request modules, but alas, they work.
+            // TODO: should probably delete the message afterward.
+            axios.get('http://localhost:5000/tips', { params: {
+              city: 'san francisco',
+              state: 'california'
+            }})
+              .then((response) => {
+                expect(response.data.length).to.not.equal(0);
+
+                let containsFlaggedTip = false;
+
+                for (let i = 0; i < response.data.length; i++) {
+                  if (response.data[i].ID === tipId && response.data[i].status === 'flagged') {
+                    containsFlaggedTip = true;
+                  }
+                }
+                expect(containsFlaggedTip).to.equal(true);
+                done();
+              })
+              .catch(err => console.log(err));
+          });
+        }
+      });
+    });
+  });
   
 });

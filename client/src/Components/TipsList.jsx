@@ -1,5 +1,6 @@
 import React from 'react';
 import TipsSpecificItems from './TipsSpecificItems.jsx';
+import TipsFlaggedHidden from './TipsFlaggedHidden.jsx';
 
 var capitalizeFirstLetterOnly = function (str) {
   var strArray = str.split(' ');
@@ -16,7 +17,13 @@ var TipsList = (props) => (
     <p>Tips From: <span style={{fontWeight: 'bold'}}><br/>{capitalizeFirstLetterOnly(props.info[0].city)}, {capitalizeFirstLetterOnly(props.info[0].state)}</span></p>
     <ul className='list'>
       {
-        props.info.map((item, i) => <TipsSpecificItems flagTip={props.flagTip} info={item} key={i}/>)
+        props.info.map((item, i) => {
+          if (item.status === 'flagged') {
+            return <TipsFlaggedHidden info={item} key={i} />;
+          } else {
+            return <TipsSpecificItems flagTip={props.flagTip} info={item} key={i}/>;
+          }
+        })
       }
     </ul> 
   </div>

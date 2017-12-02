@@ -51,12 +51,23 @@ const updateTipStatus = (tipId, status, cb) => {
   });
 };
 
+const flagTip = (tipId, concern, cb) => {
+  connection.query(`UPDATE tipstable SET status = 'flagged', concern = '${concern}' WHERE ID = ${tipId}`, (err, rows, fields) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, rows);
+    }
+  });
+};
+
 
 module.exports.connection = connection;
 module.exports.addTipToDataBaseFn = addTipToDataBaseFn;
 module.exports.getLocalTipsFromDataBaseFn = getLocalTipsFromDataBaseFn;
 module.exports.getAllTips = getAllTips;
 module.exports.updateTipStatus = updateTipStatus;
+module.exports.flagTip = flagTip;
 
 
 

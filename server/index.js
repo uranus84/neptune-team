@@ -30,13 +30,13 @@ var client = new Twitter({
 
 var app = express();
 
-// var corsOption = {
-//   origin: true,
-//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//   credentials: true,
-//   exposedHeaders: ['x-auth-token']
-// };
-// app.use(cors(corsOption));
+var corsOption = {
+  origin: true,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  exposedHeaders: ['x-auth-token']
+};
+app.use(cors(corsOption));
 
 app.use(express.static(__dirname + '/../client/dist'));
 // app.use(bodyParser.json());
@@ -52,19 +52,21 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// app.all('/*', function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   next();
+// });
+
 app.get('/auth/facebook', passport.authenticate('facebook'));
 
-app.get('/auth/facebook/callback', passport.authenticate('facebook', (err, user) => {
-  if (err) {
-    console.log('Error thrown from authenticate: ');
-    console.log(err);
-  } else {
-    console.log('User info from authenticate: ');
-    console.log(user);
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook'), (req, res) => {
+    console.log(res);
+    res.redirect('/');
   }
-}));
+);
 
-app.get('/logout', function(req, res){
+app.get('/logout', function(req, res) {
   req.logout();
   res.send(JSON.stringify({ adminPriv: false }));
 });

@@ -404,8 +404,11 @@ th, td {
 
 /* ========== FLAGGING ========= */
 
-.flag-tip:hover {
-  cursor: pointer;
+.flag {
+  float: right;
+  padding-bottom: 5px;
+  padding-right: 5px;
+  overflow: auto;
 }
 
 

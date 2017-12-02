@@ -29,8 +29,7 @@ class App extends React.Component {
       oldTweetsFrom: '',
       oldTweetsAbout: '',
       topTweetsFrom: '',
-      topTweetsAbout: '',
-      view: this.props.view
+      topTweetsAbout: ''
     };
   }
 
@@ -283,14 +282,14 @@ class App extends React.Component {
 
   render() {
     console.log('app rerendering');
-    if (this.state.view === 'home') {
+    if (this.props.view === 'home') {
       return (
         <div id="home-page">
           <h1>This is the Home page!</h1>
         </div>
       );
     }
-    if (this.state.view === 'map') {
+    if (this.props.view === 'map') {
       return (
         <div>
 
@@ -322,7 +321,7 @@ class App extends React.Component {
         </div>
       );
     }
-    if (this.state.view === 'social') {
+    if (this.props.view === 'social') {
       return (
         <div className="row">
 
@@ -350,7 +349,7 @@ class App extends React.Component {
         </div>
       );
     }
-    if (this.state.view === 'compare') {
+    if (this.props.view === 'compare') {
       return (
         <div className="col-sm-6">
 

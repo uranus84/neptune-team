@@ -121,7 +121,7 @@ app.get('/tips', (req, res) => {
 });
 
 app.put('/tips', (req, res) => {
-  db.updateTipStatus(req.body.tipId, 'flagged', (err, results) => {
+  db.flagTip(req.body.tipId, req.body.concern, (err, results) => {
     if (err) {
       if (err.fatal) {
         console.trace('fatal error: ' + err.message);

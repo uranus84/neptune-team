@@ -16,7 +16,7 @@ var AdminTipEntry = (props) => {
           <td>
             <input
               type="image" src={check} className="btn-img"
-              onClick={(e) => props.updateTipStatus(props.tip.ID, 'approved')}
+              onClick={(e) => props.updateTipStatus(props.tip.ID, 'approved', 'issue resolved by moderator')}
             />
             <input
               type="image" src={x} className="btn-img"
@@ -42,7 +42,7 @@ var AdminTipEntry = (props) => {
           <td>
             <input
               type="image" src={check} className="btn-img"
-              onClick={(e) => props.updateTipStatus(props.tip.ID, 'approved')}
+              onClick={(e) => props.updateTipStatus(props.tip.ID, 'approved', 'issue resolved by moderator')}
             />
             <input
               type="image" src={x} className="btn-img"

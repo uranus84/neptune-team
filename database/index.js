@@ -41,14 +41,24 @@ const getAllTips = (cb) => {
   });
 };
 
-const updateTipStatus = (tipId, status, cb) => {
-  connection.query(`UPDATE tipstable SET status = ? WHERE ID = ${tipId}`, status, (err, rows, fields) => {
-    if (err) {
-      cb(err, null);
-    } else {
-      cb(null, rows);
-    }
-  });
+const updateTipStatus = (tipId, status, concern, cb) => {
+  if (concern) {
+    connection.query(`UPDATE tipstable SET status = ?, concern = '${concern}' WHERE ID = ${tipId}`, status, (err, rows, fields) => {
+      if (err) {
+        cb(err, null);
+      } else {
+        cb(null, rows);
+      }
+    });
+  } else {
+    connection.query(`UPDATE tipstable SET status = ? WHERE ID = ${tipId}`, status, (err, rows, fields) => {
+      if (err) {
+        cb(err, null);
+      } else {
+        cb(null, rows);
+      }
+    });
+  }
 };
 
 const flagTip = (tipId, concern, cb) => {

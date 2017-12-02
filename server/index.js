@@ -147,7 +147,7 @@ app.get('/admin', (req, res) => {
 });
 
 app.put('/admin', (req, res) => {
-  db.updateTipStatus(req.body.tipId, req.body.status, (err, results) => {
+  db.updateTipStatus(req.body.tipId, req.body.status, req.body.concern, (err, results) => {
     if (err) {
       if (err.fatal) {
         console.trace('fatal error: ' + err.message);

@@ -128,7 +128,7 @@ describe('server', () => {
           cityData: 'san francisco',
           stateData: 'california',
           nameData: 'amy',
-          tipData: 'tip to be rejected'
+          tipData: 'tip to be flagged'
         }
       }, (error, response, tipId) => {
         if (error) {
@@ -140,7 +140,7 @@ describe('server', () => {
             uri: 'http://localhost:5000/tips',
             json: {
               tipId: tipId,
-              status: 'flagged'
+              concern: 'this is a bad tip!'
             }
           }, (error, response, putBody) => {
             // fetch tips from same city. the rejected tip should not be included.

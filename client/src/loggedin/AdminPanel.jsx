@@ -66,6 +66,7 @@ class AdminPanel extends React.Component {
         <p className="center filter-tips">View:
           <select onChange={(e) => this.filterTips(e.target.value)}>
             <option value="all">All</option>
+            <option value="flagged">Flagged</option>
             <option value="approved">Approved</option>
             <option value="rejected">Rejected</option>
           </select>

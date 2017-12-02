@@ -120,6 +120,19 @@ app.get('/tips', (req, res) => {
   });
 });
 
+app.put('/tips', (req, res) => {
+  db.updateTipStatus(req.body.tipId, 'flagged', (err, results) => {
+    if (err) {
+      if (err.fatal) {
+        console.trace('fatal error: ' + err.message);
+      }
+      console.log('Error in PUT to /tips', err);
+    } else {
+      res.send(`tip ${req.body.tipId} flagged`);
+    }
+  });
+});
+
 app.get('/admin', (req, res) => {
   db.getAllTips((err, tips) => {
     if (err) {

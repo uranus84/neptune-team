@@ -391,6 +391,10 @@ th, td {
 }
 
 .rejected {
+  background-color: lightgray;
+}
+
+.flagged {
   background-color: lightpink;
 }
 

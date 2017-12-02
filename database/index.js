@@ -43,7 +43,7 @@ const getAllTips = (cb) => {
 
 const updateTipStatus = (tipId, status, concern, cb) => {
   if (concern) {
-    connection.query(`UPDATE tipstable SET status = ?, concern = '${concern}' WHERE ID = ${tipId}`, status, (err, rows, fields) => {
+    connection.query(`UPDATE tipstable SET status = ?, concern = "${concern}" WHERE ID = ${tipId}`, status, (err, rows, fields) => {
       if (err) {
         cb(err, null);
       } else {

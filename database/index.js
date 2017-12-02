@@ -70,13 +70,15 @@ const flagTip = (tipId, concern, cb) => {
 };
 
 var adminLogin = function (facebookId, cb) {
-  console.log('Trying to login');
+  // console.log('Trying to login');
   connection.query(`SELECT * FROM moderators WHERE user_id='${facebookId}';`,
-    function(err, rows) {
+    function(err, admin) {
       if (err) {
         cb(err, null);
+      } else if (admin.length === 0) {
+        cb(null, false);
       } else {
-        cb(null, rows);
+        cb(null, true);
       }
     });
 };

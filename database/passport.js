@@ -12,28 +12,25 @@ module.exports = function(passport) {
     profileFields   : ['id', 'email', 'first_name', 'last_name', 'friends']
   },
   function(accessToken, refreshToken, profile, next) {
-    console.log(profile);
+    // console.log(profile);
     const user = {
       'firstName' : profile.name.givenName,
       'lastName'  : profile.name.familyName,
       'id'        : profile.id
     };
 
-    //where does this next function go?
-    Admin.isAdmin(user.id, function(err, rows) {
+    Admin.isAdmin(user.id, function(err, admin) {
       console.log(`Userid is ${user.id}`);
-      if (rows[0] === undefined) {
-        return next(null, false);
-      } else if (err) {
+      if (err) {
         return next(err, null);
       } else {
+        profile.admin = admin;
         return next(null, profile);
       }
     });
   }));
 
   passport.serializeUser(function(user, next) {
-    // console.log('wow dis is a user!', user);
     next(null, user);
   });
 

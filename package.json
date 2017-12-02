@@ -37,6 +37,7 @@
     "express-session": "^1.15.6",
     "indico.io": "^0.10.5",
     "jest": "^21.2.1",
+    "memory-cache": "^0.2.0",
     "moment": "^2.19.2",
     "mysql": "^2.15.0",
     "node-env-file": "^0.1.8",

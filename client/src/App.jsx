@@ -273,24 +273,19 @@ class App extends React.Component {
         <div className="row">
 
           <div className="col-sm-8">
-
             <div id="twittertrends">
               <TwitterTrends recentTweetsAbout={this.state.recentTweetsAbout} recentTweetsFrom={this.state.recentTweetsFrom}
                 oldTweetsFrom={this.state.oldTweetsFrom} oldTweetsAbout={this.state.oldTweetsAbout} city={this.state.city} state={this.state.state}/>
             </div>
-            
           </div>
 
           <div className="col-sm-4">
-         
             <div id ="tipsblock">
               <TipsBlock info={this.state}/>
             </div>
-         
             <div id="toptweetsblock">
               <TopTweetsInfo topTweetsFrom={this.state.topTweetsFrom} topTweetsAbout={this.state.topTweetsAbout} city={this.state.city}/>
             </div>
-
           </div>
 
         </div>

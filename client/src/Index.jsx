@@ -1,11 +1,12 @@
 import React from 'react';
 import App from './App.jsx';
+import axios from 'axios';
 
 class Index extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'compare'
+      view: 'social'
     };
     this.changeView = this.changeView.bind(this);
     this.renderView = this.renderView.bind(this);
@@ -15,7 +16,6 @@ class Index extends React.Component {
     this.setState({
       view: view
     });
-    this.renderView();
   }
 
   renderView() {
@@ -26,10 +26,21 @@ class Index extends React.Component {
     return (
       <div className="main">
         <div>
-          <h1>TEST HEADER</h1>
+          <button type="button" name="map" onClick={() => { 
+            this.changeView('map');
+          }}>Map</button>
         </div>
-        {this.renderView()}
-        {this.renderView()}
+        {this.state.view === 'compare' ? (
+          <div>
+            {this.renderView()}
+            {this.renderView()}
+          </div>
+        ) : (
+          <div>
+            {this.renderView()}
+          </div>
+        )
+        }
       </div>
     );
   }

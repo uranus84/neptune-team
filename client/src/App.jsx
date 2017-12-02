@@ -34,11 +34,20 @@ class App extends React.Component {
     };
   }
 
+  admin() {
+    axios.get('/admin')
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   logout() {
     axios.get('/logout')
       .then((result) => {
         console.log(result);
-        this.setState({ adminPriv: result.data.adminPriv });
       })
       .catch((err) => {
         console.log(err);
@@ -360,3 +369,4 @@ class App extends React.Component {
 export default App;
 // <a href="/auth/facebook" className="btn btn-primary"><span className="fa fa-facebook"></span>Facebook</a>
 // <button className="btn btn-primary" onClick={ () => this.logout() }>Logout</button>
+// <button className="btn btn-primary" onClick={ () => this.admin() }>Test</button>

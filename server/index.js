@@ -16,6 +16,8 @@ var queryString = require('query-string');
 var indico = require('indico.io');
 var Twitter = require('twitter');
 var moment = require('moment');
+var url = require('url');
+var cache = require('memory-cache');
 
 require('../database/passport.js')(passport);
 indico.apiKey = process.env.INDICO_API;
@@ -61,14 +63,27 @@ app.get('/auth/facebook', passport.authenticate('facebook'));
 
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook'), (req, res) => {
-    console.log(res);
-    res.redirect('/');
+    cache.put(req.sessionID, req.user);
+    res.redirect(url.format({
+      pathname: '/',
+      query: {
+        session: req.sessionID
+      }
+    }));
   }
 );
 
+app.get('/admin', (req, res) => {
+  if (req.user) {
+    console.log(req.user);
+  } else {
+    console.log('it is undefined?');
+  }
+});
+
 app.get('/logout', function(req, res) {
   req.logout();
-  res.send(JSON.stringify({ adminPriv: false }));
+  res.redirect('/');
 });
 
 app.get('/GET', (req, res) => {
@@ -111,7 +126,7 @@ app.get('/googlepics', (req, res) => {
 app.get('/walkscore', (req, res) => {
   var locationData = {lat: req.query.lat, lon: req.query.lon};
   axios.get('http://api.walkscore.com/score', {params: {lat: locationData.lat, lon: locationData.lon, wsapikey: (process.env.WALKSCORE_API || key.WALKSCORE_API), address: '', format: JSON}})
-    .then ((results)=>{
+    .then ((results) => {
       //console.log(results);
       //Returned value is a weird string, splitting it to get just the walk score out
       results.data = results.data.split(',');
@@ -119,7 +134,7 @@ app.get('/walkscore', (req, res) => {
       res.status(200);
       res.end(JSON.stringify(results.data[2][1]));
     })
-    .catch((error)=>{
+    .catch((error) => {
       //console.log(error);
       res.status(200);
       res.end('No results');

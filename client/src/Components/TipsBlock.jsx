@@ -23,6 +23,7 @@ class TipsBlock extends React.Component {
         }
       ]
     };
+    this.flagTip = this.flagTip.bind(this);
   }
 
   componentWillReceiveProps () {
@@ -178,16 +179,13 @@ class TipsBlock extends React.Component {
     this.setState({ areTipsExpanded: !this.state.areTipsExpanded });
   }
 
-  //TEST ADMIN LOGIN
-  // adminAccessFn () {
-  //   axios.get('/admin')
-  //     .then(function (response) {
-  //       console.log('/admin GET WORKED RESPONSE = ', response.data);
-  //     })
-  //     .catch(function (error) {
-  //       console.log('/admin GET ERROR', error);
-  //     });
-  // }
+  flagTip(tipId) {
+    axios.put('/tips', { tipId: tipId })
+      .then((response) => {
+        console.log('flagged tip no. ', tipId);
+      })
+      .catch(err => console.log(err));
+  }
 
   render () {
     // var stateStyleColor = {color: 'black', fontWeight: 'normal'};
@@ -213,11 +211,12 @@ class TipsBlock extends React.Component {
             >
               I Want To ADD A Tip
             </button>
-            <TipsList info={this.state.currentlyDisplayedTips}/>
+            <TipsList flagTip={this.flagTip} info={this.state.currentlyDisplayedTips}/>
           </div>
           {
             this.state.areTipsExpanded ? <TipsPopUp
               info={this.state.currentlyDisplayedTips} 
+              flagTip={this.flagTip}
               clickCloseFn={this.expandTipsDisplayFn.bind(this)}
             /> : <div></div>
           }

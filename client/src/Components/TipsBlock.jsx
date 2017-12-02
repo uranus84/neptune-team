@@ -269,7 +269,7 @@ class TipsBlock extends React.Component {
             
             <form onSubmit={this.submitTips.bind(this)}>
               <h4>Add A Tip For 
-                <span style={{fontWeight: 'bold'}}>
+                <span style={{fontWeight: "bold"}}>
                   {this.capitalizeFirstLetterOnly(this.props.info.city)}
                 </span>
               Below</h4>
@@ -311,15 +311,15 @@ class TipsBlock extends React.Component {
                 />
               </div>
 
-              <div id='tipsContentWrapper'>
+              <div id="tipsContentWrapper">
                 <div className="popup_label_tips_exception">Tip Goes Here:</div>
                 {/*INPUT TIP CONTENT*/}
                 <textarea
                   type="text"
                   required
                   rows="5"
-                  id='tipsContent'
-                  style={{ width: '50%', display: 'block' }}
+                  id="tipsContent"
+                  style={{ width: "50%", display: "block" }}
                   value={this.state.tipsContent}
                   onChange={this.changeHandlerFn.bind(this)}
                 >
@@ -354,7 +354,7 @@ class TipsBlock extends React.Component {
             <form onSubmit={this.flagTip.bind(this)}>
               <h4>Flag Tip for Inappropriate Content</h4>
 
-              <div id='tipsContentWrapper'>
+              <div id="tipsContentWrapper">
                 <div className="popup_label_tips_exception">Why are you flagging this tip?</div>
                 <textarea
                   type="text"

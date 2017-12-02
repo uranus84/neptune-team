@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App.jsx';
+import Index from './Index.jsx';
 
 document.addEventListener('DOMContentLoaded', function() {
   ReactDOM.render(
-    <App />,
+    <Index />,
     document.getElementById('mount')
   );
 });

@@ -9,84 +9,84 @@ import axios from 'axios';
  
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       tipsTestCity: 'san francisco',
       tipsTestState: 'California',
-      photoUrl : ['https://hardwaremassive.com/sites/default/files/images/chapters/SF%20HM.jpg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsAngQuSnE-6Lvi_F4P8_S8N7L4a1brkXc6ijgk17W2ydVPy4YPA','https://hardwaremassive.com/sites/default/files/images/chapters/SF%20HM.jpg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsAngQuSnE-6Lvi_F4P8_S8N7L4a1brkXc6ijgk17W2ydVPy4YPA'],
-      walkscore : "",
+      photoUrl: [],
+      walkscore: '',
       lat: 37.7749,
       lng: -122.4194,
       city: 'san francisco',
-      cityShortName: "sf",
-      state:'California',
+      cityShortName: 'sf',
+      state: 'California',
       mapLoading: true,
-      topTweetsFrom: "",
-      topTweetsAbout: "",
-      recentTweetsFrom: "",
-      recentTweetsAbout: "",
-      oldTweetsFrom: "",
-      oldTweetsAbout: "",
-      topTweetsFrom: "",
-      topTweetsAbout: ""
+      topTweetsFrom: '',
+      topTweetsAbout: '',
+      recentTweetsFrom: '',
+      recentTweetsAbout: '',
+      oldTweetsFrom: '',
+      oldTweetsAbout: '',
+      topTweetsFrom: '',
+      topTweetsAbout: ''
     };
   }
 
   getTopTweetsFrom(lat, lon) {
-    this.setState({topTweetsFrom: ""});
+    this.setState({topTweetsFrom: ''});
     axios.get('/topTweetsFrom', {params: {lat: lat, lon: lon}})
       .then((results) =>{
-        this.setState({topTweetsFrom: results.data})
+        this.setState({topTweetsFrom: results.data});
       })
-      .catch((err) => {})
+      .catch((err) => {});
   }
 
   getTopTweetsAbout(city, cityShortName) {
-    this.setState({topTweetsAbout: ""});
+    this.setState({topTweetsAbout: ''});
     axios.get('/topTweetsAbout', {params: {city: city, cityShortName: cityShortName}})
       .then((results) =>{
-        this.setState({topTweetsAbout: results.data})
+        this.setState({topTweetsAbout: results.data});
       })
-      .catch((err) => {})
+      .catch((err) => {});
   }
 
   getTweetTrends(lat, lon, city, cityShortName) {
-    // this.setState({
-    //   recentTweetsFrom: "",
-    //   recentTweetsAbout: "",
-    //   oldTweetsFrom: "",
-    //   oldTweetsAbout: ""
-    // })
+    this.setState({
+      recentTweetsFrom: '',
+      recentTweetsAbout: '',
+      oldTweetsFrom: '',
+      oldTweetsAbout: ''
+    });
 
-    this.state.recentTweetsFrom = "";
-    this.state.recentTweetsAbout = "";
-    this.state.oldTweetsFrom = "";
-    this.state.oldTweetsAbout = "";
+    // this.state.recentTweetsFrom = '';
+    // this.state.recentTweetsAbout = '';
+    // this.state.oldTweetsFrom = '';
+    // this.state.oldTweetsAbout = '';
 
     axios.get('/recentTweetsFrom', {params: {lat: lat, lon: lon}})
       .then((results) => {
-        this.setState({recentTweetsFrom: results.data})
+        this.setState({recentTweetsFrom: results.data});
       })
-      .catch((err) => {console.log(err)})
+      .catch((err) => { console.log(err); });
 
     axios.get('/oldTweetsFrom', {params: {lat: lat, lon: lon}})
       .then((results) => {
-        this.setState({oldTweetsFrom: results.data})
+        this.setState({oldTweetsFrom: results.data});
       })
-      .catch((err) => {console.log(err)})
+      .catch((err) => { console.log(err); });
 
     axios.get('/recentTweetsAbout', {params: {city: city, cityShortName: cityShortName}})
       .then((results) => {
-        this.setState({recentTweetsAbout: results.data})
+        this.setState({recentTweetsAbout: results.data});
       })
-      .catch((err) => {console.log(err)})
+      .catch((err) => { console.log(err); });
 
     axios.get('/oldTweetsAbout', {params: {city: city, cityShortName: cityShortName}})
       .then((results) => {
-        this.setState({oldTweetsAbout: results.data})
+        this.setState({oldTweetsAbout: results.data});
       })
-      .catch((err) => {console.log(err)})
+      .catch((err) => { console.log(err); });
   }
 
   getPhoto(lat, lon) {
@@ -94,23 +94,23 @@ class App extends React.Component {
     axios.get('/googlepics', {params: {lat: lat, lon: lon}})
       .then ((result) => {
         //TODO: CHANGE THIS BACK LATER! PHOTO IS HARDCODED
-        this.setState({'photoUrl': result.data})
+        this.setState({'photoUrl': result.data});
       })
       .catch ((error) => {
-        console.log(error)
-      })
+        console.log(error);
+      });
   }
 
   getWalkability(lat, lon) {
-    this.setState({walkscore: ""});
+    this.setState({walkscore: ''});
     axios.get('/walkscore', {params: {lat: lat, lon: lon}})
-    .then ((result) => {
-      console.log('walkscore result: ', result);
-      this.setState({walkscore: Math.floor(parseInt(result.data,10))})
-    })
-    .catch ((error) => {
-      console.log(error)
-    })
+      .then ((result) => {
+        console.log('walkscore result: ', result);
+        this.setState({walkscore: Math.floor(parseInt(result.data, 10))});
+      })
+      .catch ((error) => {
+        console.log(error);
+      });
   }
 
   //This function gets passed down to Map, to extract the City and State from Geocode result
@@ -118,13 +118,13 @@ class App extends React.Component {
     //assuming locality and admin. are unique
     var arr = [];
     results[0]['address_components'].forEach(function(addComp) {
-      if (addComp.types.includes("locality")) {
+      if (addComp.types.includes('locality')) {
         arr[0] = addComp['long_name'];
       }
-      if (addComp.types.includes("administrative_area_level_1")) {
-        arr[1]= addComp['long_name'];
+      if (addComp.types.includes('administrative_area_level_1')) {
+        arr[1] = addComp['long_name'];
       }
-      if (addComp.types.includes("locality")) {
+      if (addComp.types.includes('locality')) {
         arr[2] = addComp['short_name'];
       }
     });
@@ -132,7 +132,6 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    //console.log('MASTER MAP APP WILLMOUNT RAN!')
     this.getPhoto(this.state.lat, this.state.lng);
     this.getWalkability(this.state.lat, this.state.lng);
     this.getTweetTrends(this.state.lat, this.state.lng, this.state.city, this.state.cityShortName);
@@ -236,57 +235,104 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('app rerendeing');
-    return (
-        <div className="container-fluid">
+    console.log('app rerendering');
+    if (this.props.view === 'home') {
+      return (
+        <div id="home-page">
+          <h1>This is the Home page!</h1>
+        </div>
+      );
+    }
+    if (this.props.view === 'map') {
+      return (
+        <div>
+          <h1>This is the Map page!</h1>
           <div className="row">
-            <div className="col-12-sm" id="titlebar">
-              <h1 id="titlefont">infoMapp</h1>
-              <h2 id="subtitlefont">Learn More With Just A Click</h2>
-            </div>
-          </div>
-          <div className="row">
-
+            
             <div className="col-sm-8">
               <div id="mapblock" className="vertical-center">
                 {this.mapComponent()}
               </div>
-              <div id="twittertrends">
-                <TwitterTrends recentTweetsAbout={this.state.recentTweetsAbout} recentTweetsFrom={this.state.recentTweetsFrom}
-                  oldTweetsFrom={this.state.oldTweetsFrom} oldTweetsAbout={this.state.oldTweetsAbout} city={this.state.city} state={this.state.state}/>
-              </div>
             </div>
-
+            
             <div className="col-sm-4">
-              
-                <div id="walkabilityblock">
-                  <WalkabilityInfo walkscore = {this.state.walkscore}/>
-                </div>
-             
-                <div id ="tipsblock">
-                  <TipsBlock info={this.state}/>
-                </div>
-             
-                <div id="toptweetsblock">
-                  <TopTweetsInfo topTweetsFrom={this.state.topTweetsFrom} topTweetsAbout={this.state.topTweetsAbout} city={this.state.city}/>
-                </div>
-             
-              
+              <div id="walkabilityblock">
+                <WalkabilityInfo walkscore = {this.state.walkscore}/>
+              </div>
               <div id="photoblock">
                 <PhotoInfo photoUrl={this.state.photoUrl} lat={this.state.lat} lng={this.state.lng}/>
               </div>
             </div>
-
+            
           </div>
         </div>
-    );
+      );
+    }
+    if (this.props.view === 'social') {
+      return (
+        <div className="row">
+
+          <div className="col-sm-8">
+            <div id="twittertrends">
+              <TwitterTrends recentTweetsAbout={this.state.recentTweetsAbout} recentTweetsFrom={this.state.recentTweetsFrom}
+                oldTweetsFrom={this.state.oldTweetsFrom} oldTweetsAbout={this.state.oldTweetsAbout} city={this.state.city} state={this.state.state}/>
+            </div>
+          </div>
+
+          <div className="col-sm-4">
+            <div id ="tipsblock">
+              <TipsBlock info={this.state}/>
+            </div>
+            <div id="toptweetsblock">
+              <TopTweetsInfo topTweetsFrom={this.state.topTweetsFrom} topTweetsAbout={this.state.topTweetsAbout} city={this.state.city}/>
+            </div>
+          </div>
+
+        </div>
+      );
+    }
+    if (this.props.view === 'compare') {
+      return (
+        <div className="col-sm-6">
+
+          <div className="col">
+            <div id="mapblock" className="vertical-center">
+              {this.mapComponent()}
+            </div>
+          </div>
+
+          <div className="col">
+            <div id="twittertrends">
+              <TwitterTrends recentTweetsAbout={this.state.recentTweetsAbout} recentTweetsFrom={this.state.recentTweetsFrom}
+                oldTweetsFrom={this.state.oldTweetsFrom} oldTweetsAbout={this.state.oldTweetsAbout} city={this.state.city} state={this.state.state}/>
+            </div>
+          </div>
+
+          <div className="row">
+          
+            <div className="col-sm-6">
+              <div id="walkabilityblock">
+                <WalkabilityInfo walkscore = {this.state.walkscore}/>
+              </div>
+            </div>
+
+            <div className="col-sm-6">
+              <div id ="tipsblock">
+                <TipsBlock info={this.state}/>
+              </div>
+            </div>
+
+          </div>
+
+          <div id="photoblock">
+            <PhotoInfo photoUrl={this.state.photoUrl} lat={this.state.lat} lng={this.state.lng}/>
+          </div>
+
+        </div>
+      );
+    }
   }
+
 }
 
 export default App;
-              // <div id="infoblock">
-              //   <div className="row">
-
-              //   </div>
-                
-              // </div>

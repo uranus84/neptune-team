@@ -4,6 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 var express = require('express');
 var axios = require('axios');
+// var key = require('./API.js');
 var env = require('node-env-file');
 var db = require('../database/index.js');
 var bodyParser = require('body-parser');
@@ -12,7 +13,6 @@ var indico = require('indico.io');
 var Twitter = require('twitter');
 var moment = require('moment');
 
-console.log(process.env.INDICO_API);
 indico.apiKey = process.env.INDICO_API;
 var indicoHelper = require('./indicoHelper');
 

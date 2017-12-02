@@ -234,52 +234,6 @@ class App extends React.Component {
     }
   }
 
-  renderView() {
-    return (
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-12-sm" id="titlebar">
-            <h1 id="titlefont">infoMapp</h1>
-            <h2 id="subtitlefont">Learn More With Just A Click</h2>
-          </div>
-        </div>
-        <div className="row">
-
-          <div className="col-sm-8">
-            <div id="mapblock" className="vertical-center">
-              {this.mapComponent()}
-            </div>
-            <div id="twittertrends">
-              <TwitterTrends recentTweetsAbout={this.state.recentTweetsAbout} recentTweetsFrom={this.state.recentTweetsFrom}
-                oldTweetsFrom={this.state.oldTweetsFrom} oldTweetsAbout={this.state.oldTweetsAbout} city={this.state.city} state={this.state.state}/>
-            </div>
-          </div>
-
-          <div className="col-sm-4">
-          
-            <div id="walkabilityblock">
-              <WalkabilityInfo walkscore = {this.state.walkscore}/>
-            </div>
-         
-            <div id ="tipsblock">
-              <TipsBlock info={this.state}/>
-            </div>
-         
-            <div id="toptweetsblock">
-              <TopTweetsInfo topTweetsFrom={this.state.topTweetsFrom} topTweetsAbout={this.state.topTweetsAbout} city={this.state.city}/>
-            </div>
-           
-            
-            <div id="photoblock">
-              <PhotoInfo photoUrl={this.state.photoUrl} lat={this.state.lat} lng={this.state.lng}/>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    );
-  }
-
   render() {
     console.log('app rerendering');
     if (this.props.view === 'home') {
@@ -292,31 +246,24 @@ class App extends React.Component {
     if (this.props.view === 'map') {
       return (
         <div>
-
           <h1>This is the Map page!</h1>
-
           <div className="row">
-
+            
             <div className="col-sm-8">
-
               <div id="mapblock" className="vertical-center">
                 {this.mapComponent()}
               </div>
-
             </div>
-
+            
             <div className="col-sm-4">
-
               <div id="walkabilityblock">
                 <WalkabilityInfo walkscore = {this.state.walkscore}/>
               </div>
-
               <div id="photoblock">
                 <PhotoInfo photoUrl={this.state.photoUrl} lat={this.state.lat} lng={this.state.lng}/>
               </div>
-
             </div>
-
+            
           </div>
         </div>
       );

@@ -52,7 +52,7 @@ var TipsSpecificItems = (props) => {
               id="flag-tip"
               className="btn-img flag float-bottom-right"
               src={flag}
-              onClick={(e) => props.flagTip(e, props.index)}
+              onClick={(e) => props.openFlagPopup(e, props.index)}
             />
           </p>
         </li>

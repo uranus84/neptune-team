@@ -75,16 +75,23 @@ app.get('/auth/facebook/callback',
 
 app.get('/lalaAdmin', (req, res) => {
   if (req.user) {
-    console.log(req.user);
+    console.log(req);
   } else {
     console.log('it is undefined?');
   }
   res.send();
 });
 
-app.get('/logout', function(req, res) {
-  req.logout();
-  res.redirect('/');
+app.get('/logout', function (req, res) {
+  req.session.destroy((err) => {
+    if (err) {
+      return next(err);
+    }
+    
+    req.logout();
+
+    res.redirect('/');
+  });
 });
 
 app.get('/GET', (req, res) => {

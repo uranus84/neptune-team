@@ -35,7 +35,12 @@ class Index extends React.Component {
             <button type="button" className="nav-item btn btn-primary btn-outline-success my-2 my-sm-0 nav-btn" onClick={() => { this.changeView('map'); }}>Map</button>
             <button type="button" className="nav-item btn btn-primary btn-outline-success my-2 my-sm-0 nav-btn" onClick={() => { this.changeView('social'); }}>Social</button>
             <button type="button" className="nav-item btn btn-primary btn-outline-success my-2 my-sm-0 nav-btn" onClick={() => { this.changeView('compare'); }}>Compare</button>
+            <div className="btn-group-vertical pull-right">
+              <a href="/auth/facebook" className="nav-item btn btn-primary btn-outline-success my-2 my-sm-0 nav-btn admin-btn"><span className="fa fa-facebook"></span>Facebook</a>
+              <button type="button" className="nav-item btn btn-primary btn-outline-success my-2 my-sm-0 nav-btn admin-btn" onClick={ () => this.logout() }>Logout</button>
+            </div>
             <button type="button" className="nav-item btn btn-primary btn-outline-success my-2 my-sm-0 nav-btn admin-btn pull-right" onClick={() => { this.changeView('admin'); }}>Admin</button>
+            <button type="button" className="nav-item btn btn-primary btn-outline-success my-2 my-sm-0 nav-btn admin-btn pull-right" onClick={ () => this.admin() }>Test</button>
           </div>
         </nav>
         <div className="row">

@@ -73,12 +73,13 @@ app.get('/auth/facebook/callback',
   }
 );
 
-app.get('/admin', (req, res) => {
+app.get('/lalaAdmin', (req, res) => {
   if (req.user) {
     console.log(req.user);
   } else {
     console.log('it is undefined?');
   }
+  res.send();
 });
 
 app.get('/logout', function(req, res) {

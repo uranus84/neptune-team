@@ -89,5 +89,4 @@ module.exports.getLocalTipsFromDataBaseFn = getLocalTipsFromDataBaseFn;
 module.exports.getAllTips = getAllTips;
 module.exports.updateTipStatus = updateTipStatus;
 module.exports.flagTip = flagTip;
-module.exports.deleteTip = deleteTip;
 module.exports.isAdmin = adminLogin;

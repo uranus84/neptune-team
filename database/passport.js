@@ -8,8 +8,8 @@ module.exports = function(passport) {
     clientID        : config.facebookAuth.clientID,
     clientSecret    : config.facebookAuth.clientSecret,
     callbackURL     : config.facebookAuth.callbackURL,
-    scope           : ['user_friends'],
-    profileFields   : ['id', 'email', 'first_name', 'last_name', 'friends']
+    scope           : ['user_friends', 'user_location'],
+    profileFields   : ['id', 'email', 'first_name', 'last_name', 'friends', 'location']
   },
   function(accessToken, refreshToken, profile, next) {
     // console.log(profile);

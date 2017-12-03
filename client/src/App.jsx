@@ -7,6 +7,7 @@ import WalkabilityInfo from './Components/WalkabilityInfo.jsx';
 import TwitterTrends from './Components/TwitterTrends.jsx';
 import AdminPanel from './loggedin/AdminPanel.jsx';
 import axios from 'axios';
+import eggplants from './img/eggplants.jpg';
  
 
 class App extends React.Component {
@@ -265,7 +266,7 @@ class App extends React.Component {
             <h3>
               You can either log in through Facebook, or just jump right in and click on the map page to search for a city.
             </h3>
-            <img className="eggplant" src="https://cdn1.medicalnewstoday.com/content/images/articles/279/279359/eggplants.jpg" height="300" width="400"></img>
+            <img className="eggplant" src={eggplants} height="300" width="400"></img>
             <h3>This page looked a tad empty, so here are some eggplants. Enjoy!</h3>
           </div>
           <div>

@@ -234,14 +234,14 @@ class TipsBlock extends React.Component {
               I Want To ADD A Tip
             </button>
             <TipsList
-              flagTip={this.changeIntentFn.bind(this)}
+              openFlagPopup={this.changeIntentFn.bind(this)}
               toggleFlaggedTip={this.toggleFlaggedTip}
               info={this.state.currentlyDisplayedTips}/>
           </div>
           {
             this.state.areTipsExpanded ? <TipsPopUp
               info={this.state.currentlyDisplayedTips} 
-              flagTip={this.changeIntentFn.bind(this)}
+              openFlagPopup={this.changeIntentFn.bind(this)}
               toggleFlaggedTip={this.toggleFlaggedTip}
               clickCloseFn={this.expandTipsDisplayFn.bind(this)}
             /> : <div></div>
@@ -354,7 +354,7 @@ class TipsBlock extends React.Component {
               X
             </button>
             
-            <form onSubmit={this.flagTip.bind(this)}>
+            <form onSubmit={this.flagTip}>
               <h4>Flag Tip for Inappropriate Content</h4>
 
               <p className='tipsSpecificItems'>

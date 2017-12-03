@@ -35,7 +35,7 @@ class App extends React.Component {
   }
 
   admin() {
-    axios.get('/admin')
+    axios.get('/lalaAdmin')
       .then((result) => {
         console.log(result);
       })

@@ -21,7 +21,7 @@ var TipsList = (props) => (
             info={item}
             key={i}
             index={i}
-            flagTip={props.flagTip}
+            openFlagPopup={props.openFlagPopup}
             toggleFlaggedTip={props.toggleFlaggedTip}
           />;
         })

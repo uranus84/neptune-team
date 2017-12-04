@@ -77,7 +77,6 @@ class AdminPanel extends React.Component {
     return (
       <div>
         <h1 className="center">Moderate Tips</h1>
-        <h3 className="center">All Submitted Tips</h3>
         <p className="center filter-tips">You have {this.state.flaggedTipsCount} flagged tips. View:
           <select onChange={(e) => this.filterTips(e.target.value)}>
             <option value="all">All</option>

@@ -73,9 +73,8 @@ app.get('/auth/facebook/callback',
   }
 );
 
-app.get('/lalaAdmin', (req, res) => {
+app.get('/moderator', (req, res) => {
   if (req.user) {
-    console.log(req.user);
     res.send(req.user.admin);
   } else {
     console.log('no user is logged in');
@@ -88,7 +87,6 @@ app.get('/logout', function (req, res) {
     if (err) {
       return next(err);
     }
-    
     req.logout();
 
     res.redirect('/');

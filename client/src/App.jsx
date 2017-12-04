@@ -154,11 +154,6 @@ class App extends React.Component {
     this.setState({
       mapLoading: false
     });
-    axios.get('/lalaAdmin')
-      .then((response) => {
-        this.setState({ isModerator: response.data});
-      })
-      .catch(err => console.log(err));
   }
 
   //The Map component calls this function with the updated values
@@ -295,9 +290,9 @@ class App extends React.Component {
         </div>
       );
     }
-    if (this.props.view === 'admin') {
-      console.log('admin status ', this.state.isModerator);
-      if (this.state.isModerator) {
+    if (this.props.view === 'moderator') {
+      console.log('admin status ', this.props.isModerator);
+      if (this.props.isModerator) {
         return (
           <div className="row">
             <AdminPanel />
@@ -312,6 +307,13 @@ class App extends React.Component {
           </div>
         );
       }
+    }
+    if (this.props.view === 'loggedOut') {
+      return (
+        <div className="row">
+          <p className="center">You are now logged out.</p>
+        </div>
+      );
     }
   }
 }

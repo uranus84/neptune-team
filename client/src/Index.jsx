@@ -6,10 +6,12 @@ class Index extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'home'
+      view: 'home',
+      isModerator: false
     };
     this.changeView = this.changeView.bind(this);
     this.renderView = this.renderView.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   changeView(view) {
@@ -19,7 +21,21 @@ class Index extends React.Component {
   }
 
   renderView() {
-    return ( <App view={this.state.view} /> );
+    return ( <App isModerator={this.state.isModerator} view={this.state.view} /> );
+  }
+
+  logout() {
+    axios.get('/logout');
+    this.setState({ isModerator: false });
+    this.changeView('loggedOut');
+  }
+
+  componentWillMount() {
+    axios.get('/moderator')
+      .then((response) => {
+        this.setState({ isModerator: response.data});
+      })
+      .catch(err => console.log(err));
   }
 
   render() {
@@ -37,9 +53,9 @@ class Index extends React.Component {
             <button type="button" className="nav-item btn btn-primary btn-outline-success my-2 my-sm-0 nav-btn" onClick={() => { this.changeView('compare'); }}>Compare</button>
             <div className="btn-group-vertical pull-right">
               <a href="/auth/facebook" className="nav-item btn btn-primary btn-outline-success my-2 my-sm-0 nav-btn admin-btn"><span className="fa fa-facebook"></span>Facebook</a>
-              <button type="button" className="nav-item btn btn-primary btn-outline-success my-2 my-sm-0 nav-btn admin-btn" onClick={ () => this.logout() }>Logout</button>
+              <button type="button" className="nav-item btn btn-primary btn-outline-success my-2 my-sm-0 nav-btn admin-btn" onClick={ this.logout }>Logout</button>
             </div>
-            <button type="button" className="nav-item btn btn-primary btn-outline-success my-2 my-sm-0 nav-btn admin-btn pull-right" onClick={() => { this.changeView('admin'); }}>Admin</button>
+            <button type="button" className="nav-item btn btn-primary btn-outline-success my-2 my-sm-0 nav-btn admin-btn pull-right" onClick={() => { this.changeView('moderator'); }}>Moderator</button>
           </div>
         </nav>
         <div className="row">

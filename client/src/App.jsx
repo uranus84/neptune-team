@@ -31,8 +31,15 @@ class App extends React.Component {
       oldTweetsFrom: '',
       oldTweetsAbout: '',
       topTweetsFrom: '',
-      topTweetsAbout: ''
+      topTweetsAbout: '',
+      friends: []
     };
+  }
+
+  getFriends() {
+    FB.api('/me/friends?fields=location,about,birthday,name,picture', (res) => {
+      console.log(res);
+    });
   }
 
   admin() {
@@ -272,7 +279,7 @@ class App extends React.Component {
           <div>
             <a href="/auth/facebook" className="btn btn-primary"><span className="fa fa-facebook"></span>Facebook</a>
             <a href="/logout" className="btn btn-primary"><span className="fa fa-facebook"></span>Logout</a>
-            <button className="btn btn-primary" onClick={ () => this.admin() }>Test</button>
+            <button className="btn btn-primary" onClick={ () => this.getFriends() }>Test</button>
           </div>
         </div>
       );

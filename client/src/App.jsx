@@ -276,11 +276,6 @@ class App extends React.Component {
             <img className="eggplant" src={eggplants} height="300" width="400"></img>
             <h3>This page looked a tad empty, so here are some eggplants. Enjoy!</h3>
           </div>
-          <div>
-            <a href="/auth/facebook" className="btn btn-primary"><span className="fa fa-facebook"></span>Facebook</a>
-            <a href="/logout" className="btn btn-primary"><span className="fa fa-facebook"></span>Logout</a>
-            <button className="btn btn-primary" onClick={ () => this.getFriends() }>Test</button>
-          </div>
         </div>
       );
     }

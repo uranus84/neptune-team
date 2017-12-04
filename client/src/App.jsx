@@ -14,6 +14,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isModerator: false,
       tipsTestCity: 'san francisco',
       tipsTestState: 'California',
       photoUrl: [],
@@ -52,16 +53,6 @@ class App extends React.Component {
       });
   }
 
-  // logout() {
-  //   axios.get('/logout')
-  //     .then((result) => {
-  //       // console.log(result);
-  //     })
-  //     .catch((err) => {
-  //       // console.log(err);
-  //     });
-  // }
-
   getTopTweetsFrom(lat, lon) {
     this.setState({topTweetsFrom: ''});
     axios.get('/topTweetsFrom', {params: {lat: lat, lon: lon}})
@@ -87,11 +78,6 @@ class App extends React.Component {
       oldTweetsFrom: '',
       oldTweetsAbout: ''
     });
-
-    // this.state.recentTweetsFrom = '';
-    // this.state.recentTweetsAbout = '';
-    // this.state.oldTweetsFrom = '';
-    // this.state.oldTweetsAbout = '';
 
     axios.get('/recentTweetsFrom', {params: {lat: lat, lon: lon}})
       .then((results) => {
@@ -119,7 +105,6 @@ class App extends React.Component {
   }
 
   getPhoto(lat, lon) {
-
     axios.get('/googlepics', {params: {lat: lat, lon: lon}})
       .then ((result) => {
         //TODO: CHANGE THIS BACK LATER! PHOTO IS HARDCODED
@@ -169,67 +154,11 @@ class App extends React.Component {
     this.setState({
       mapLoading: false
     });
-
-    /*** LONG NASTY CODE TO GET USER'S LOCATION AS INIT VALUES,
-    if you want to enable this, must comment out the top codes
-      and uncomment everything bellow ***/
-
-    //get the user's location, and set lat and lng to be that
-    //if they decline, set sf to be the main.
-
-    //HTML5 geolocation.
-    // if (navigator.geolocation) {
-    //   navigator.geolocation.getCurrentPosition(function(position) {
-    //     console.log('User allowed access to their location');
-
-    //     var pos = {
-    //       lat: position.coords.latitude,
-    //       lng: position.coords.longitude
-    //     };
-
-    //     //get the photo and walkability of the address of user
-    //     this.getPhoto(pos.lat, pos.lng);
-    //     this.getWalkability(pos.lat, pos.lng);
-
-    //     //need to get the city/state associated with the lat/lon
-    //     var geocoder = new google.maps.Geocoder;
-    //     geocoder.geocode({'location': pos }, function(results, status) {
-    //       if (status === 'OK') {
-    //         console.log('MY ADDRESS : ', results);
-    //         var result = this.getCityState(results);
-    //         var state = result[1];
-    //         var city = result[0];
-
-    //         //check if it has a city/state? if not valid, default to sf?
-    //         this.setState({
-    //           lat: position.coords.latitude,
-    //           lng: position.coords.longitude,
-    //           city: city,
-    //           state: state,
-    //           mapLoading: false
-    //         });
-    //       } else {
-    //         console.log('could not acquire user address from lat/long');
-    //       }
-    //     }.bind(this));
-    //   }.bind(this), function(err) {
-    //     console.log('User did not allow access to their location');
-    //     this.setState({
-    //       mapLoading: false
-    //     });
-    //     this.getPhoto(this.state.lat, this.state.lng);
-    //     this.getWalkability(this.state.lat, this.state.lng);
-
-    //   }.bind(this));
-    // }
-    // else {
-    //   //browser doesn't have HTML5 geolocation
-    //   this.setState({
-    //       mapLoading: false
-    //   });
-    //   this.getPhoto(this.state.lat, this.state.lng);
-    //   this.getWalkability(this.state.lat, this.state.lng);
-    // }
+    axios.get('/lalaAdmin')
+      .then((response) => {
+        this.setState({ isModerator: response.data});
+      })
+      .catch(err => console.log(err));
   }
 
   //The Map component calls this function with the updated values
@@ -367,11 +296,22 @@ class App extends React.Component {
       );
     }
     if (this.props.view === 'admin') {
-      return (
-        <div className="row">
-          <AdminPanel />
-        </div>
-      );
+      console.log('admin status ', this.state.isModerator);
+      if (this.state.isModerator) {
+        return (
+          <div className="row">
+            <AdminPanel />
+          </div>
+        );
+      } else {
+        return (
+          <div className="row">
+            <p className="center">Unauthorized.
+              <br />Please log in as an administrative user by clicking the Facebook button above.
+            </p>
+          </div>
+        );
+      }
     }
   }
 }

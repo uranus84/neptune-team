@@ -75,11 +75,12 @@ app.get('/auth/facebook/callback',
 
 app.get('/lalaAdmin', (req, res) => {
   if (req.user) {
-    console.log(req);
+    console.log(req.user);
+    res.send(req.user.admin);
   } else {
-    console.log('it is undefined?');
+    console.log('no user is logged in');
+    res.send();
   }
-  res.send();
 });
 
 app.get('/logout', function (req, res) {

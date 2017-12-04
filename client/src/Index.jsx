@@ -40,7 +40,6 @@ class Index extends React.Component {
               <button type="button" className="nav-item btn btn-primary btn-outline-success my-2 my-sm-0 nav-btn admin-btn" onClick={ () => this.logout() }>Logout</button>
             </div>
             <button type="button" className="nav-item btn btn-primary btn-outline-success my-2 my-sm-0 nav-btn admin-btn pull-right" onClick={() => { this.changeView('admin'); }}>Admin</button>
-            <button type="button" className="nav-item btn btn-primary btn-outline-success my-2 my-sm-0 nav-btn admin-btn pull-right" onClick={ () => this.admin() }>Test</button>
           </div>
         </nav>
         <div className="row">

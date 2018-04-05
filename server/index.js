@@ -4,6 +4,11 @@ if (process.env.NODE_ENV !== 'production') {
 
 var express = require('express');
 var axios = require('axios');
+// var key = require('./API.js');
+var passport = require('passport');
+var FacebookStrategy = require('passport-facebook').Strategy;
+var session = require('express-session');
+var cors = require('cors');
 var env = require('node-env-file');
 var db = require('../database/index.js');
 var bodyParser = require('body-parser');
@@ -11,11 +16,12 @@ var queryString = require('query-string');
 var indico = require('indico.io');
 var Twitter = require('twitter');
 var moment = require('moment');
+var url = require('url');
+var cache = require('memory-cache');
 
-console.log(process.env.INDICO_API);
+require('../database/passport.js')(passport);
 indico.apiKey = process.env.INDICO_API;
 var indicoHelper = require('./indicoHelper');
-
 
 var client = new Twitter({
   consumer_key: process.env.API_KEY,
@@ -24,24 +30,73 @@ var client = new Twitter({
   access_token_secret: process.env.ACCESS_TOKEN_SECRET
 });
 
-
 var app = express();
+
+var corsOption = {
+  origin: true,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  exposedHeaders: ['x-auth-token']
+};
+app.use(cors(corsOption));
+
 app.use(express.static(__dirname + '/../client/dist'));
 // app.use(bodyParser.json());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(session({
+  secret: 's3cr3t',
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// app.all('/*', function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   next();
+// });
+
+app.get('/auth/facebook', passport.authenticate('facebook'));
+
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook'), (req, res) => {
+    cache.put(req.sessionID, req.user);
+    res.redirect(url.format({
+      pathname: '/',
+      query: {
+        session: req.sessionID
+      }
+    }));
+  }
+);
+
+app.get('/moderator', (req, res) => {
+  if (req.user) {
+    res.send(req.user.admin);
+  } else {
+    console.log('no user is logged in');
+    res.send();
+  }
+});
+
+app.get('/logout', function (req, res) {
+  req.session.destroy((err) => {
+    if (err) {
+      return next(err);
+    }
+    req.logout();
+
+    res.redirect('/');
+  });
+});
+
 app.get('/GET', (req, res) => {
   //console.log('GET REQUEST');
   res.status(200);
   res.end('Hello San Francisco');
-});
-
-
-var port = process.env.PORT || 5000;
-app.listen(port, function () {
-  console.log(`listening on port ${port}`);
 });
 
 app.get('/googlepics', (req, res) => {
@@ -78,7 +133,7 @@ app.get('/googlepics', (req, res) => {
 app.get('/walkscore', (req, res) => {
   var locationData = {lat: req.query.lat, lon: req.query.lon};
   axios.get('http://api.walkscore.com/score', {params: {lat: locationData.lat, lon: locationData.lon, wsapikey: (process.env.WALKSCORE_API || key.WALKSCORE_API), address: '', format: JSON}})
-    .then ((results)=>{
+    .then ((results) => {
       //console.log(results);
       //Returned value is a weird string, splitting it to get just the walk score out
       results.data = results.data.split(',');
@@ -86,7 +141,7 @@ app.get('/walkscore', (req, res) => {
       res.status(200);
       res.end(JSON.stringify(results.data[2][1]));
     })
-    .catch((error)=>{
+    .catch((error) => {
       //console.log(error);
       res.status(200);
       res.end('No results');
@@ -98,11 +153,11 @@ app.post('/tips', (req, res)=> {
   db.addTipToDataBaseFn(req.body, (err, data) => {
     if (err) {
       console.log('Error in POST to /tips = ', err);
-    } 
-    res.send();
+    }
+    res.status(201);
+    res.end(JSON.stringify(data));
   });
 });
-
 
 app.get('/tips', (req, res) => {
   // console.log('CLIENT REQ TO SERVER GET @ /tips = ', req.query);
@@ -119,16 +174,51 @@ app.get('/tips', (req, res) => {
   });
 });
 
+<<<<<<< HEAD
+=======
+app.put('/tips', (req, res) => {
+  db.flagTip(req.body.tipId, req.body.concern, (err, results) => {
+    if (err) {
+      if (err.fatal) {
+        console.trace('fatal error: ' + err.message);
+      }
+      console.log('Error in PUT to /tips', err);
+    } else {
+      res.send(`tip ${req.body.tipId} flagged`);
+    }
+  });
+});
+
+>>>>>>> 06dd1d8ca6dfbb00a5e17f51d7ab8bb8137e34ad
 app.get('/admin', (req, res) => {
-  res.send('HIDDEN CONTENT');
+  db.getAllTips((err, tips) => {
+    if (err) {
+      if (err.fatal) {
+        console.trace('fatal error: ' + err.message);
+      }
+      console.log('Error in GET to /admin', err);
+    } else {
+      res.send(tips);
+    }
+  });
+});
 
-
+app.put('/admin', (req, res) => {
+  db.updateTipStatus(req.body.tipId, req.body.status, req.body.concern, (err, results) => {
+    if (err) {
+      if (err.fatal) {
+        console.trace('fatal error: ' + err.message);
+      }
+      console.log('Error in PUT to /admin', err);
+    } else {
+      res.send(`tip ${req.body.tipId} updated`);
+    }
+  });
 });
 
 app.post('/admin', (req, res) => {
   res.send('HIDDEN CONTENT');
 });
-
 
 app.get('/recentTweetsFrom', (req, res) => {
   var locationData = req.query.lat + ',' + req.query.lon + ',10mi';
@@ -228,5 +318,10 @@ app.get('/topTweetsFrom', (req, res) => {
     .catch(function (error) {
       throw error;
     });
+});
+
+var port = process.env.PORT || 5000;
+app.listen(port, function () {
+  console.log(`listening on port ${port}`);
 });
 

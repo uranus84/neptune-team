@@ -5,7 +5,7 @@ class Search extends React.Component {
     super(props);
     this.state = {
       input: ''
-    }
+    };
   }
 
   inputChanged(e) {
@@ -23,7 +23,7 @@ class Search extends React.Component {
           <button onClick={() => this.props.search(this.state.input)} className="btn btn-primary" type="button" >Search This Location</button>
         </span>
       </div>
-    )
+    );
   }
 }
 

@@ -174,8 +174,6 @@ app.get('/tips', (req, res) => {
   });
 });
 
-<<<<<<< HEAD
-=======
 app.put('/tips', (req, res) => {
   db.flagTip(req.body.tipId, req.body.concern, (err, results) => {
     if (err) {
@@ -189,7 +187,6 @@ app.put('/tips', (req, res) => {
   });
 });
 
->>>>>>> 06dd1d8ca6dfbb00a5e17f51d7ab8bb8137e34ad
 app.get('/admin', (req, res) => {
   db.getAllTips((err, tips) => {
     if (err) {

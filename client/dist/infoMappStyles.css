@@ -1,11 +1,16 @@
+a:hover {
+  text-decoration: none;
+  color: white;
+}
+
+button:focus {
+  outline: 0;
+}
+
 .row {
   margin: 0;
   padding-left: 0;
   padding-right: 0;
-}
-
-#application {
-  
 }
 
 body {
@@ -19,8 +24,36 @@ body {
 }
 
 .navbar {
-  height: 70px;
-  background-color: whitesmoke;
+  height: 90px;
+  background-color: black;
+}
+
+.col {
+  margin-left: 50px;
+}
+
+.navbar-button {
+  cursor: pointer;
+  height: 60px;
+  width: 100px;
+  background-color: black;
+  border: none;
+  color: whitesmoke;
+  margin-right: 15px;
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  padding: 10px;
+  line-height: 1.5;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.smallbutton {
+  height: 30px !important;
+  line-height: .75 !important;
 }
 
 .nav-btn {
@@ -35,6 +68,14 @@ body {
   height: 30px;
   text-align: center;
   line-height: 1em;
+}
+
+#titlefont {
+  text-align: start !important;
+}
+
+#subtitlefont {
+  color: white !important;
 }
 
 .content {

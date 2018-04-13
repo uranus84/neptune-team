@@ -15,7 +15,7 @@ button:focus {
 
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: #4a7bef;
+  background-color: black;
 }
 
 [class^="col-"] {
@@ -78,8 +78,26 @@ body {
   color: white !important;
 }
 
+.homepage {
+  margin: 0px;
+  background-image: url('https://images.pexels.com/photos/417054/pexels-photo-417054.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  /* background-color: black;
+  background-blend-mode: multiply; */
+  height: 640px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.homepage-contents {
+  color: white;
+}
+
 .content {
-  width: 95%;
+  width: 90%;
   margin: auto;
   border-radius: 5px;
   background-color: whitesmoke;

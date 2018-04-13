@@ -58,9 +58,6 @@ class Index extends React.Component {
             <h2 id="subtitlefont">Learn More With Just A Click</h2>
           </div>
         </nav>
-        <div className="row">
-
-        </div>
         <div className="row content">
           {this.state.view === 'compare' ? (
             <div>

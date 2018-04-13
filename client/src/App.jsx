@@ -191,37 +191,32 @@ class App extends React.Component {
     console.log('app rerendering');
     if (this.props.view === 'home') {
       return (
-        <div>
-          <div id="home-page">
+        <div id="home-page" className="homepage">
+          <div className="homepage-contents">
             <h1>Welcome!</h1>
             <h3>
               You can either log in through Facebook, or just jump right in and click on the map page to search for a city.
             </h3>
-            <img className="eggplant" src={sfBackground} height="400" width="700"></img>
-            <h3></h3>
           </div>
         </div>
       );
     }
     if (this.props.view === 'map') {
       return (
-        <div>
+        <div className="row">
 
-          <div className="row">
-
-            <div className="col-sm-8">
-              <div id="mapblock" className="vertical-center">
-                {this.mapComponent()}
-              </div>
+          <div className="col-sm-8">
+            <div id="mapblock" className="vertical-center">
+              {this.mapComponent()}
             </div>
+          </div>
 
-            <div className="col-sm-4">
-              <div id="walkabilityblock">
-                <WalkabilityInfo walkscore = {this.state.walkscore}/>
-              </div>
-              <div id="photoblock">
-                <PhotoInfo photoUrl={this.state.photoUrl} lat={this.state.lat} lng={this.state.lng}/>
-              </div>
+          <div className="col-sm-4">
+            <div id="walkabilityblock">
+              <WalkabilityInfo walkscore = {this.state.walkscore}/>
+            </div>
+            <div id="photoblock">
+              <PhotoInfo photoUrl={this.state.photoUrl} lat={this.state.lat} lng={this.state.lng}/>
             </div>
           </div>
         </div>

@@ -48,7 +48,7 @@ class Index extends React.Component {
             <button type="button" className="navbar-button" onClick={() => { this.changeView('social'); }}>Social</button>
             <button type="button" className="navbar-button" onClick={() => { this.changeView('compare'); }}>Compare</button>
             <div className="btn-group-vertical pull-right">
-              <a href="/auth/facebook" className="navbar-button smallbutton"><span className="fa fa-facebook"></span>Facebook</a>
+              <a href="/auth/facebook" className="navbar-button smallbutton">Facebook</a>
               <button type="button" className="navbar-button smallbutton" onClick={ this.logout }>Logout</button>
             </div>
             <button type="button" className="navbar-button" onClick={() => { this.changeView('moderator'); }}>Moderator</button>
@@ -70,6 +70,11 @@ class Index extends React.Component {
             </div>
           )
           }
+        </div>
+        <div className="icons">
+          <a href="https://github.com/uranus84/neptune-team">
+            <span class="fa fa-github"></span>
+          </a>
         </div>
       </div>
     );

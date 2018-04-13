@@ -188,15 +188,13 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('app rerendering');
     if (this.props.view === 'home') {
       return (
         <div id="home-page" className="homepage">
           <div className="homepage-contents">
-            <h1>Welcome!</h1>
-            <h3>
-              You can either log in through Facebook, or just jump right in and click on the map page to search for a city.
-            </h3>
+            <p>Welcome! You can either log in through Facebook, or just<br />
+              jump right in and click on the map page to search for a city.
+            </p>
           </div>
         </div>
       );

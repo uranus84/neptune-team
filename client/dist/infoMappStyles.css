@@ -3,6 +3,11 @@ a:hover {
   color: white;
 }
 
+a {
+  text-decoration: none;
+  color: white;
+}
+
 button:focus {
   outline: 0;
 }
@@ -86,6 +91,7 @@ body {
   /* background-color: black;
   background-blend-mode: multiply; */
   height: 640px;
+  width: 1300px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -94,6 +100,13 @@ body {
 
 .homepage-contents {
   color: white;
+}
+
+.homepage-contents p {
+  font-family: 'Lato-lighter', sans-serif;
+  font-size: 25px;
+  font-weight: 100 !important;
+  font-style: italic;
 }
 
 .content {
@@ -137,6 +150,15 @@ h3 {
 .eggplant {
   display: block;
   margin: auto;
+}
+
+.icons {
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 75px;
+  margin: 0px;
 }
 
 #mapblock {

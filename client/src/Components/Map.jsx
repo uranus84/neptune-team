@@ -8,7 +8,7 @@ class Map extends React.Component {
     this.state = {
       //array required for marker clustering
       markers: []
-    }
+    };
     this.map;
     this.geocoder = new google.maps.Geocoder();
     //searchedCitites format: {citystate: [position, state]}
@@ -38,7 +38,7 @@ class Map extends React.Component {
     this.state.markers.push(marker);
 
     var infoWindow = new google.maps.InfoWindow();
-    infoWindow.setContent('<div>'+ city +'</div>');
+    infoWindow.setContent('<div>' + city + '</div>');
     infoWindow.open(this.map, marker);
 
     marker.addListener('click', function(e) {
@@ -51,7 +51,7 @@ class Map extends React.Component {
   /* MAP INITIALIZATION*/
   initializeMap() {
     var myLatlng = {lat: ()=>this.props.lat, lng: ()=>this.props.lng};
-    this.searchedCities[this.props.city.toLowerCase()+this.props.state.toLowerCase()] = [myLatlng, this.props.state];
+    this.searchedCities[this.props.city.toLowerCase() + this.props.state.toLowerCase()] = [myLatlng, this.props.state];
 
     //creating an instance of map
     this.map = new google.maps.Map(this.refs.map, {
@@ -61,14 +61,14 @@ class Map extends React.Component {
     });
 
     //created a fusiontable with the shape of the US.
-     var layer = new google.maps.FusionTablesLayer({
+    var layer = new google.maps.FusionTablesLayer({
       suppressInfoWindows: true,
       map: this.map,
       heatmap: { enabled: false },
       query: {
-        select: "col0",
-        from: "1YaEiwRikHEf37z8GWISY5EpSMkX_XdSKlYVx97Mj",
-        where: ""
+        select: 'col0',
+        from: '1YaEiwRikHEf37z8GWISY5EpSMkX_XdSKlYVx97Mj',
+        where: ''
       },
       options: {
         styleId: 2,
@@ -90,7 +90,7 @@ class Map extends React.Component {
 
     //when a user clicks on the map layer, only have access to the long/lat
     google.maps.event.addListener(layer, 'click', function(event) {
-      console.log('here, searched cities: ',this.searchedCities);
+      console.log('here, searched cities: ', this.searchedCities);
       
       //get the city and state associated with the lat/lon
       this.geocoder.geocode({'location': event.latLng}, function(results, status) {
@@ -99,19 +99,19 @@ class Map extends React.Component {
         if (!citystate[0]) {
           //not a valid city? 
           //sometimes some places when clicked, didn't have a city
-          alert('please enter a valid city')
+          alert('please enter a valid city');
         }
         var city = citystate[0].toLowerCase();
         var state = citystate[1].toLowerCase();
         var cityShortName = citystate[2].toLowerCase();
 
-         //check if the city was already searched.
-        if (this.searchedCities[city+state]) {
+        //check if the city was already searched.
+        if (this.searchedCities[city + state]) {
           console.log('city was already clicked and searched');
-          this.searched(city, city+state);
+          this.searched(city, city + state);
         } else {
           //save to searchedCities
-          this.searchedCities[city+state] = [event.latLng, state];
+          this.searchedCities[city + state] = [event.latLng, state];
           this.map.setCenter(event.latLng);
           this.map.setZoom(6);
           //this.panorama.setPosition(event.latLng);
@@ -123,15 +123,15 @@ class Map extends React.Component {
     }.bind(this));
 
     //when the zoom is changed, cluster the markers 
-     google.maps.event.addListener(this.map, 'zoom_changed', function(event){
+    google.maps.event.addListener(this.map, 'zoom_changed', function(event) {
       var markerCluster = new MarkerClusterer(this.map, this.state.markers,
-      {imagePath: './markers/markers'});
+        {imagePath: './markers/markers'});
     }.bind(this));
 
     var styles = window.styles;
     //this.map.setOptions({ draggableCursor : "url(http://s3.amazonaws.com/besport.com_images/status-pin.png), auto" })
     this.map.setOptions({styles: styles, mapTypeId: google.maps.MapTypeId.ROADMAP,
-    zoomControl: true,});
+      zoomControl: true, });
   }
 
   //Helper function that gets the Lng and Lat of a given address.
@@ -146,19 +146,19 @@ class Map extends React.Component {
         var r = this.props.getCityState(results);
         if (!r[0]) {
           //not a valid city? 
-          alert('please enter a valid city')
+          alert('please enter a valid city');
         } else {
           var city = r[0].toLowerCase();
           var state = r[1].toLowerCase();
 
-          var position = this.searchedCities[city+state];
-          console.log('adding: ',city+state);
+          var position = this.searchedCities[city + state];
+          console.log('adding: ', city + state);
           console.log('pos: ', position);
           if (position) {
-            this.searched(city, city+state);
+            this.searched(city, city + state);
           } else {
             console.log(city);
-            this.searchedCities[city+state] = [results[0].geometry.location, state];
+            this.searchedCities[city + state] = [results[0].geometry.location, state];
 
             resultsMap.setCenter(results[0].geometry.location);
             //this.panorama.setPosition(results[0].geometry.location);
@@ -183,7 +183,7 @@ class Map extends React.Component {
   searched(city, key) {
     var position = this.searchedCities[key];
     console.log('searched this city already');
-    this.map.setCenter({lat: position[0].lat(), lng:position[0].lng()});
+    this.map.setCenter({lat: position[0].lat(), lng: position[0].lng()});
     //this.panorama.setPosition({lat: position[0].lat(), lng:position[0].lng()});
     this.map.setZoom(6);
     this.props.callback(position[0].lat(), position[0].lng(), city, position[1]);
@@ -191,14 +191,14 @@ class Map extends React.Component {
 
   render() {
     return (
-    <div className="row">
-      <div id="mapblock_content"> 
-        <div ref="map" style={{marginBottom: '5px', backgroundColor: 'red', float: 'left', width: '100%', height: '390px', borderRadius: '5px'}}></div>
+      <div className="row">
+        <div id="mapblock_content"> 
+          <div ref="map" style={{marginBottom: '5px', backgroundColor: 'red', float: 'left', width: '100%', height: '390px', borderRadius: '5px'}}></div>
         
-        <Search search={this.searchClicked.bind(this)}/>
+          <Search search={this.searchClicked.bind(this)}/>
+        </div>
       </div>
-    </div>
-    )
+    );
   }
 }
 

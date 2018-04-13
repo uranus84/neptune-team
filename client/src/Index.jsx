@@ -41,26 +41,23 @@ class Index extends React.Component {
   render() {
     return (
       <div className="main">
-        <nav className="navbar navbar-light">
+        <nav className="navbar">
+          <div className="col">
+            <button type="button" className="navbar-button" onClick={() => { this.changeView('home'); }}>Home</button>
+            <button type="button" className="navbar-button" onClick={() => { this.changeView('map'); }}>Map</button>
+            <button type="button" className="navbar-button" onClick={() => { this.changeView('social'); }}>Social</button>
+            <button type="button" className="navbar-button" onClick={() => { this.changeView('compare'); }}>Compare</button>
+            <div className="btn-group-vertical pull-right">
+              <a href="/auth/facebook" className="navbar-button smallbutton">Facebook</a>
+              <button type="button" className="navbar-button smallbutton" onClick={ this.logout }>Logout</button>
+            </div>
+            <button type="button" className="navbar-button" onClick={() => { this.changeView('moderator'); }}>Moderator</button>
+          </div>
           <div className="col-sm-2" id="titlebar">
             <h1 id="titlefont">infoMapp</h1>
             <h2 id="subtitlefont">Learn More With Just A Click</h2>
           </div>
-          <div className="col">
-            <button type="button" className="nav-item btn btn-primary btn-outline-success my-2 my-sm-0 nav-btn" onClick={() => { this.changeView('home'); }}>Home</button>
-            <button type="button" className="nav-item btn btn-primary btn-outline-success my-2 my-sm-0 nav-btn" onClick={() => { this.changeView('map'); }}>Map</button>
-            <button type="button" className="nav-item btn btn-primary btn-outline-success my-2 my-sm-0 nav-btn" onClick={() => { this.changeView('social'); }}>Social</button>
-            <button type="button" className="nav-item btn btn-primary btn-outline-success my-2 my-sm-0 nav-btn" onClick={() => { this.changeView('compare'); }}>Compare</button>
-            <div className="btn-group-vertical pull-right">
-              <a href="/auth/facebook" className="nav-item btn btn-primary btn-outline-success my-2 my-sm-0 nav-btn admin-btn"><span className="fa fa-facebook"></span>Facebook</a>
-              <button type="button" className="nav-item btn btn-primary btn-outline-success my-2 my-sm-0 nav-btn admin-btn" onClick={ this.logout }>Logout</button>
-            </div>
-            <button type="button" className="nav-item btn btn-primary btn-outline-success my-2 my-sm-0 nav-btn admin-btn pull-right" onClick={() => { this.changeView('moderator'); }}>Moderator</button>
-          </div>
         </nav>
-        <div className="row">
-
-        </div>
         <div className="row content">
           {this.state.view === 'compare' ? (
             <div>
@@ -73,6 +70,11 @@ class Index extends React.Component {
             </div>
           )
           }
+        </div>
+        <div className="icons">
+          <a href="https://github.com/uranus84/neptune-team">
+            <span class="fa fa-github"></span>
+          </a>
         </div>
       </div>
     );

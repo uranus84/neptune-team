@@ -107,7 +107,6 @@ class App extends React.Component {
   getPhoto(lat, lon) {
     axios.get('/googlepics', {params: {lat: lat, lon: lon}})
       .then ((result) => {
-        //TODO: CHANGE THIS BACK LATER! PHOTO IS HARDCODED
         this.setState({'photoUrl': result.data});
       })
       .catch ((error) => {
@@ -202,14 +201,14 @@ class App extends React.Component {
     if (this.props.view === 'map') {
       return (
         <div className="row">
-
-          <div className="col-sm-8">
-            <div id="mapblock" className="vertical-center">
+          
+          <div className="left-container">
+            <div id="mapblock">
               {this.mapComponent()}
             </div>
           </div>
 
-          <div className="col-sm-4">
+          <div className="right-container">
             <div id="walkabilityblock">
               <WalkabilityInfo walkscore = {this.state.walkscore}/>
             </div>

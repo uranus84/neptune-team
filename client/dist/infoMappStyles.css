@@ -16,6 +16,7 @@ button:focus {
   margin: 0;
   padding-left: 0;
   padding-right: 0;
+  background-color: black;
 }
 
 body {
@@ -191,7 +192,8 @@ h3 {
 }
 
 .search-input {
-  width: 80%;
+  width: 90%;
+  margin-bottom: 10px;
 }
 
 #twittertrends {
@@ -226,10 +228,8 @@ h3 {
   text-align: center;
   border: 1px solid rgba(0,0,0,0.2);
   padding: 10px;
-  height: 150px;
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
+  height: 185px;
+  margin: 10px;
 }
 
 .walkabilityblock_content {
@@ -237,11 +237,30 @@ h3 {
   font-weight: bold;
   font-size: 20px;
   color: #4a7bef;
+  display: flex;
+  justify-content: left;
 }
 
 .walkabilityblock_score {
   font-size: 65px;
   font-family: 'Roboto', sans-serif;
+}
+
+.walkscore {
+  width: 35%;
+}
+
+.walk-description {
+  width: 65%;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: justify;
+  color: black;
+}
+
+.walk-description p {
+  margin-left: 25;
+  margin-right: 10;
 }
 
 #toptweetsblock {
@@ -431,9 +450,10 @@ h3 {
   background-color: black;
 }
 
-#searchField {
+.searchField {
   margin: 5px;
-  width: 80%;
+  width: 100%;
+  display: flex;
   justify-content: center;
 }
 

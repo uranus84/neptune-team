@@ -206,12 +206,12 @@ class App extends React.Component {
             <div id="mapblock">
               {this.mapComponent()}
             </div>
-          </div>
-
-          <div className="right-container">
             <div id="walkabilityblock">
               <WalkabilityInfo walkscore = {this.state.walkscore}/>
             </div>
+          </div>
+
+          <div className="right-container">
             <div id="photoblock">
               <PhotoInfo photoUrl={this.state.photoUrl} lat={this.state.lat} lng={this.state.lng}/>
             </div>

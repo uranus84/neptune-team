@@ -201,7 +201,6 @@ class App extends React.Component {
     if (this.props.view === 'map') {
       return (
         <div className="row">
-          
           <div className="left-container">
             <div id="mapblock">
               {this.mapComponent()}

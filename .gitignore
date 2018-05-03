@@ -29,6 +29,7 @@ dist/
 node_modules/
 bower_components/
 config.js
+.env
 
 ## API keys ##
 server/API.js

@@ -18,8 +18,8 @@ var BarChartFrom = (props) => {
   ];
 
   return (
-    <BarChart style={{left: '25%'}} width={450} height={200} data={data}
-      margin={{top: 10, right: 15, left: 10, bottom: 3}}>
+    <BarChart width={450} height={200} data={data}
+      margin={{top: 10, right: 10, left: 10, bottom: 25}}>
       <XAxis dataKey="name"/>
       <YAxis yAxisId="left" orientation="left" stroke="#8884d8"/>
       <YAxis yAxisId="right" orientation="right" stroke="#82ca9d"/>

@@ -17,7 +17,7 @@ var TwitterTrends = (props) => {
  
   var positivityColorFrom = {fontWeight: 'bold', color: 'black'};
   var positivityComment = '';
-  if ((props.recentTweetsFrom.positivityScore * 100) >=90) {
+  if ((props.recentTweetsFrom.positivityScore * 100) >= 90) {
     positivityColorFrom = {fontWeight: 'bold', color: 'green'};
   }
   if ((props.recentTweetsFrom.positivityScore * 100) < 90 && (props.recentTweetsFrom.positivityScore * 100) >= 65) {
@@ -29,7 +29,7 @@ var TwitterTrends = (props) => {
   }
 
   var positivityColorAbout = {fontWeight: 'bold', color: 'black'};
-  if ((props.recentTweetsAbout.positivityScore * 100) >=90) {
+  if ((props.recentTweetsAbout.positivityScore * 100) >= 90) {
     positivityColorAbout = {fontWeight: 'bold', color: 'green'};
   }
   if ((props.recentTweetsAbout.positivityScore * 100) < 90 && (props.recentTweetsAbout.positivityScore * 100) >= 65) {
@@ -43,30 +43,30 @@ var TwitterTrends = (props) => {
  
 
   if (props.recentTweetsFrom === '' || props.recentTweetsAbout === '' || props.oldTweetsFrom === '' || props.oldTweetsAbout === '') {
-    return (<div className="loader"></div>)
+    return (<div className="loader"></div>);
   } else {
     return (
       <div className="row" id="tw_trends">
         <div id='chartContainer'>
           <h4>Twitter Mood Data From</h4>
           <h5>{capitalizeFirstLetterOnly(props.city)}, {capitalizeFirstLetterOnly(props.state)}</h5>
-            <p style={positivityColorFrom}>Current Positivity: {(props.recentTweetsFrom.positivityScore * 100).toFixed(1)}%
+          <p style={positivityColorFrom}>Current Positivity: {(props.recentTweetsFrom.positivityScore * 100).toFixed(1)}%
               Past Positivity: {(props.oldTweetsFrom.positivityScore * 100).toFixed(1)}% 
-              <br /> {positivityComment} 
-            </p>
+          <br /> {positivityComment} 
+          </p>
           <BarChartFrom recentTweetsAbout={props.recentTweetsAbout} recentTweetsFrom={props.recentTweetsFrom}
-                oldTweetsFrom={props.oldTweetsFrom} oldTweetsAbout={props.oldTweetsAbout} city={props.city} state={props.state}/>
+            oldTweetsFrom={props.oldTweetsFrom} oldTweetsAbout={props.oldTweetsAbout} city={props.city} state={props.state}/>
        
         </div>
-          <br />
-          <br />
+        <br />
+        <br />
         <div style={{padding: '10px'}}>
           <h4>Twitter Mood Data About</h4>
           <h5>{capitalizeFirstLetterOnly(props.city)}, {capitalizeFirstLetterOnly(props.state)}</h5>
-            <p style={positivityColorAbout}>Current Positivity: {(props.recentTweetsAbout.positivityScore * 100).toFixed(1)}%</p>
-            <p style={positivityColorAbout}>Past Positivity: {(props.oldTweetsAbout.positivityScore * 100).toFixed(1)}%</p>
-              <BarChartAbout recentTweetsAbout={props.recentTweetsAbout} recentTweetsFrom={props.recentTweetsFrom}
-                    oldTweetsFrom={props.oldTweetsFrom} oldTweetsAbout={props.oldTweetsAbout} city={props.city} state={props.state}/>
+          <p style={positivityColorAbout}>Current Positivity: {(props.recentTweetsAbout.positivityScore * 100).toFixed(1)}%</p>
+          <p style={positivityColorAbout}>Past Positivity: {(props.oldTweetsAbout.positivityScore * 100).toFixed(1)}%</p>
+          <BarChartAbout recentTweetsAbout={props.recentTweetsAbout} recentTweetsFrom={props.recentTweetsFrom}
+            oldTweetsFrom={props.oldTweetsFrom} oldTweetsAbout={props.oldTweetsAbout} city={props.city} state={props.state}/>
         </div>
       </div> 
     );
@@ -75,4 +75,3 @@ var TwitterTrends = (props) => {
 
 
 export default TwitterTrends;
-

@@ -201,7 +201,6 @@ class App extends React.Component {
     if (this.props.view === 'map') {
       return (
         <div className="row">
-          
           <div className="left-container">
             <div id="mapblock">
               {this.mapComponent()}
@@ -223,60 +222,21 @@ class App extends React.Component {
       return (
         <div className="row">
 
-          <div className="col-sm-8">
+          <div className='left-social'>
             <div id="twittertrends">
               <TwitterTrends recentTweetsAbout={this.state.recentTweetsAbout} recentTweetsFrom={this.state.recentTweetsFrom}
                 oldTweetsFrom={this.state.oldTweetsFrom} oldTweetsAbout={this.state.oldTweetsAbout} city={this.state.city} state={this.state.state}/>
             </div>
           </div>
 
-          <div className="col-sm-4">
+          <div className='right-social'>
             <div id ="tipsblock">
               <TipsBlock info={this.state}/>
             </div>
+            <hr/>
             <div id="toptweetsblock">
               <TopTweetsInfo topTweetsFrom={this.state.topTweetsFrom} topTweetsAbout={this.state.topTweetsAbout} city={this.state.city}/>
             </div>
-          </div>
-
-        </div>
-      );
-    }
-    if (this.props.view === 'compare') {
-      return (
-        <div className="col-sm-6">
-
-          <div className="col">
-            <div id="mapblock" className="vertical-center">
-              {this.mapComponent()}
-            </div>
-          </div>
-
-          <div className="col">
-            <div id="twittertrends">
-              <TwitterTrends recentTweetsAbout={this.state.recentTweetsAbout} recentTweetsFrom={this.state.recentTweetsFrom}
-                oldTweetsFrom={this.state.oldTweetsFrom} oldTweetsAbout={this.state.oldTweetsAbout} city={this.state.city} state={this.state.state}/>
-            </div>
-          </div>
-
-          <div className="row">
-          
-            <div className="col-sm-6">
-              <div id="walkabilityblock">
-                <WalkabilityInfo walkscore = {this.state.walkscore}/>
-              </div>
-            </div>
-
-            <div className="col-sm-6">
-              <div id ="tipsblock">
-                <TipsBlock info={this.state}/>
-              </div>
-            </div>
-
-          </div>
-
-          <div id="photoblock">
-            <PhotoInfo photoUrl={this.state.photoUrl} lat={this.state.lat} lng={this.state.lng}/>
           </div>
 
         </div>

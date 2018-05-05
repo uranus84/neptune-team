@@ -111,11 +111,9 @@ app.get('/googlepics', (req, res) => {
       photoArray.forEach((result) =>{
         if (Array.isArray(result.photos)) {
           imageId = result.photos[0].photo_reference;
-          imageUrlArray.push('https://maps.googleapis.com/maps/api/place/photo?maxheight=290&maxwidth=400&key=' + (process.env.GOOGLE_MAP_API || key.GOOGLE_MAP_API) + '&photoreference=' + imageId);
+          imageUrlArray.push('https://maps.googleapis.com/maps/api/place/photo?maxheight=5000&maxwidth=5000&key=' + (process.env.GOOGLE_MAP_API || key.GOOGLE_MAP_API) + '&photoreference=' + imageId);
         }
       });
-      //var imageUrl = 'https://maps.googleapis.com/maps/api/place/photo?maxheight=290&key=' + (process.env.MAP_API || key.GOOGLE_MAP_API) + '&photoreference=' + photoString;
-      //Sends back an array of direct urls, should be used as src for images. 
       if (imageUrlArray.length > 0) {
         res.end(JSON.stringify(imageUrlArray));
       } else {

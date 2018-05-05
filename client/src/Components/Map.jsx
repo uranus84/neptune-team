@@ -168,7 +168,7 @@ class Map extends React.Component {
           } 
         }
       } else {
-        alert('There is no such city in the US, please enter a valid city');
+        alert('If you can\'t find it on Google, is it really real?');
       }
     }.bind(this)
     );
